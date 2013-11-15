@@ -1,0 +1,27 @@
+body {
+	margin:0;
+	font-family:ÉÅÉCÉäÉI;
+}
+.header {
+	background-color:LightSteelBlue;
+	text-align:right;
+	padding-right:150px;
+}
+.header div {
+	display:inline-block;
+	border-radius:5px;
+}
+.header div:nth-child(1) {
+	background-color:Gold;
+}
+.header div:nth-child(2) {
+	background-color:#ff0099;
+}
+.header div:nth-child(3) {
+	background-color:YellowGreen;
+}
+.footer {
+	text-align:center;
+	font-size:small;
+}
+.report.btn {}
