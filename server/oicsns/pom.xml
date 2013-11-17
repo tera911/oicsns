@@ -149,6 +149,13 @@
                     </dependency>
                 </dependencies>
             </plugin>
+            <plugin>
+        <artifactId>maven-eclipse-plugin</artifactId>
+        <configuration>
+          <downloadSources>true</downloadSources>
+          <downloadJavadocs>true</downloadJavadocs>
+        </configuration>
+        </plugin>
         </plugins>
     </build>
 
