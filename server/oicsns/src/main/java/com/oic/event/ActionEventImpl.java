@@ -7,11 +7,12 @@
 package com.oic.event;
 
 import net.arnx.jsonic.JSON;
+import org.eclipse.jetty.websocket.api.Session;
 
 /**
  *
  * @author B2020
  */
 public interface ActionEventImpl {
-    public void ActionEvent(JSON json);
+    public void ActionEvent(JSON json, Session session);
 }

@@ -7,9 +7,11 @@
 package com.oic.net;
 
 import com.oic.connection.Connections;
-import com.sun.org.apache.xalan.internal.xsltc.runtime.BasisLibrary;
+import java.lang.String;
+import java.util.ArrayList;
 import java.util.logging.Logger;
 import net.arnx.jsonic.JSON;
+import net.arnx.jsonic.JSONException;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -31,7 +33,14 @@ public class WebSocketListener {
     }
     @OnWebSocketMessage
     public void onText(String message){
-        JSON json = JSON.decode(message);
+        
+        Method method = null;
+        try{
+        method = JSON.decode(message, Method.class);
+        }catch(JSONException je){
+            je.printStackTrace();
+        }
+        LOG.info("method" + method.getMethod());
     }
     
     @OnWebSocketClose
@@ -41,5 +50,11 @@ public class WebSocketListener {
     
     public Character getCharacter(){
         return c;
+    }
+    public class Method{
+        String method;
+        public String getMethod(){
+            return method;
+        }
     }
 }

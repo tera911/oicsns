@@ -4,11 +4,9 @@
             <actionName>CUSTOM-jetty実行</actionName>
             <displayName>jetty実行</displayName>
             <goals>
+                <goal>clean</goal>
                 <goal>package</goal>
                 <goal>jetty:run</goal>
             </goals>
-            <activatedProfiles>
-                <activatedProfile>jetty実行</activatedProfile>
-            </activatedProfiles>
         </action>
     </actions>
