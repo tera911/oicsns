@@ -17,6 +17,9 @@ import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketMessage;
 import org.eclipse.jetty.websocket.api.annotations.WebSocket;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
+import org.json.simple.parser.ParseException;
 
 /**
  *
@@ -33,14 +36,11 @@ public class WebSocketListener {
     }
     @OnWebSocketMessage
     public void onText(String message){
-        
-        Method method = null;
         try{
-        method = JSON.decode(message, Method.class);
-        }catch(JSONException je){
-            je.printStackTrace();
+        JSONObject json = (JSONObject)(new JSONParser().parse(message));
+        LOG.info("method" + json.get("method"));
+        }catch(ParseException e){   
         }
-        LOG.info("method" + method.getMethod());
     }
     
     @OnWebSocketClose
