@@ -10,15 +10,22 @@ package com.oic.client;
  *
  * @author morimoto
  */
-public class Character {
+public class OicCharacter {
     private long userId;
     private String name;
     
-    public static Character loadCharFromDB(){
-        Character ret = new Character();
+    public static OicCharacter loadCharFromDB(long userId){
+        OicCharacter ret = new OicCharacter();
         //SQLからデータをロードする
         ret.userId = 10000;
         ret.name = "まにゅ";
         return ret;
+    }
+    
+    public String getName(){
+        return this.name;
+    }
+    public long getUserId(){
+        return this.userId;
     }
 }

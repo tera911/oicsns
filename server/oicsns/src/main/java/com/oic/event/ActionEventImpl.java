@@ -6,13 +6,14 @@
 
 package com.oic.event;
 
-import net.arnx.jsonic.JSON;
+import com.oic.net.WebSocketListener;
 import org.eclipse.jetty.websocket.api.Session;
+import org.json.simple.JSONObject;
 
 /**
  *
  * @author B2020
  */
 public interface ActionEventImpl {
-    public void ActionEvent(JSON json, Session session);
+    public void ActionEvent(JSONObject json, WebSocketListener webSocket);
 }
