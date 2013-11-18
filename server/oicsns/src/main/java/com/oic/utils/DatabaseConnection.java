@@ -6,10 +6,58 @@
 
 package com.oic.utils;
 
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.SQLException;
+import java.util.Collection;
+import java.util.LinkedList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
- * @author B2020
+ * @author morimoto
+ * このクラスは一意なDBコネクションスレッドを返す
  */
 public class DatabaseConnection {
+    private static ThreadLocal<Connection> con;
+    private static final Logger LOG = Logger.getLogger(DatabaseConnection.class.getName());
+    private static class ThreadLocalConnection extends ThreadLocal<Connection>{
+        
+    public static Connection getConnection(){
+        return con.get();
+    }
     
+    public static void closeAll() throws SQLException{
+        for(Connection con : ThreadLocalConnection.allConnections){
+            con.close();
+        }
+    }
+    
+    public static Collection<Connection> allConnections = new LinkedList<>();
+
+        @Override
+        protected Connection initialValue() {
+            String driver = "";
+            String url = "";
+            String user = "";
+            String pass = "";
+            try{
+                Class.forName(driver);
+                
+            }catch(ClassNotFoundException e){
+                LOG.log(Level.WARNING, "Database Driver is not found");
+            }
+            try{
+                Connection con = DriverManager.getConnection(url, user, pass);
+                allConnections.add(con);
+                return con;
+            }catch(SQLException e){
+                LOG.log(Level.WARNING, "SQL Connection error");
+                return null;
+            }
+        }
+        
+        
+    }
 }
