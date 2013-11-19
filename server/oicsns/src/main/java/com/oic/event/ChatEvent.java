@@ -13,8 +13,8 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.json.simple.JSONObject;
 
 /**
- *
- * @author kxhtj529
+ *  method:chat でのチャット処理
+ * @author Morimoto
  */
 public class ChatEvent implements ActionEventImpl{
     private static final Logger LOG = Logger.getLogger(ChatEvent.class.getName());

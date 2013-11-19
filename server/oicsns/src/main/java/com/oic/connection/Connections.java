@@ -16,21 +16,33 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.json.simple.JSONObject;
 
 /**
- *
- * @author B2020
+ * サーバーに接続されているクライアントを管理する
+ * @author Morimoto
  */
 public class Connections {
     private static List<WebSocketListener> userConnections = new ArrayList<>();
     private static final Logger LOG = Logger.getLogger(Connections.class.getName());
     
-    public static void addConnection(WebSocketListener conn){
-        userConnections.add(conn);
+    /**
+     * クライアントを追加する
+     * @param websocketListener 
+     */
+    public static void addConnection(WebSocketListener websocketListener){
+        userConnections.add(websocketListener);
     }
     
+    /**
+     * ユーザーの正当性を確認する
+     * 定期的に実行される
+     */
     public static synchronized void checkLive(){
         //ping!
     }
     
+    /**
+     * 接続されているユーザー全体にJSONを送信する
+     * @param json 
+     */
     public static void BroadCastMessage(JSONObject json){
         Session session;
         try{

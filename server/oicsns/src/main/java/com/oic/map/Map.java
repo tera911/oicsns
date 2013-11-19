@@ -10,6 +10,6 @@ package com.oic.map;
  *
  * @author B2020
  */
-public interface MapImpl {
+public class Map {
     
 }

@@ -23,11 +23,18 @@ public class DatabaseConnection {
     private static ThreadLocal<Connection> con;
     private static final Logger LOG = Logger.getLogger(DatabaseConnection.class.getName());
     private static class ThreadLocalConnection extends ThreadLocal<Connection>{
-        
+    
+    /**
+     * SQLConnectionを取得する
+     * @return SQL connection 
+     */
     public static Connection getConnection(){
         return con.get();
     }
-    
+    /**
+     * すべての接続を閉じる
+     * @throws SQLException 
+     */
     public static void closeAll() throws SQLException{
         for(Connection con : ThreadLocalConnection.allConnections){
             con.close();

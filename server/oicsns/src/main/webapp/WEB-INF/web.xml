@@ -5,6 +5,11 @@
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
     <servlet>
+        <servlet-name>InitServer</servlet-name>
+        <servlet-class>com.oic.net.InitServer</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
         <display-name>ws</display-name>
         <servlet-name>ws</servlet-name>
         <servlet-class>com.oic.net.WebSocketServletImpl</servlet-class>

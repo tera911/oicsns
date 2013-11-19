@@ -11,8 +11,8 @@ import org.eclipse.jetty.websocket.api.Session;
 import org.json.simple.JSONObject;
 
 /**
- *
- * @author B2020
+ * イベントのインターフェース
+ * @author Morimoto
  */
 public interface ActionEventImpl {
     public void ActionEvent(JSONObject json, WebSocketListener webSocket);
