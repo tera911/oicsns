@@ -5,6 +5,7 @@
 package com.oic.event;
 
 import com.oic.client.OicCharacter;
+import com.oic.connection.Connections;
 import com.oic.net.WebSocketListener;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -21,9 +22,15 @@ public class ChatEvent implements ActionEventImpl{
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
         Session session = webSocket.getSession();
-        OicCharacter c = webSocket.getCharacter();
+     //   OicCharacter c = webSocket.getCharacter();
         
-        String name = c.getName();
+       // String name = c.getName();
+        //recive  {method:"chat",text:"aaaa"}
+        //send {method:"chat", text:"aaaa",userId:"0001"}
+        JSONObject sendJson = (JSONObject)json.clone();
+        sendJson.put("userId","0001");
+        
+        Connections.BroadCastMessage(sendJson);
         LOG.log(Level.INFO, "chat event : {0}", session.getRemoteAddress());
     }
     

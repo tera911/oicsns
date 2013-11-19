@@ -31,7 +31,7 @@ public class Connections {
         //ping!
     }
     
-    public void BroadCastMessage(JSONObject json){
+    public static void BroadCastMessage(JSONObject json){
         Session session;
         try{
         for(WebSocketListener websocket : userConnections){
