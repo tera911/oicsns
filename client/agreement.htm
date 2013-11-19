@@ -1,54 +1,122 @@
 ﻿<!DOCTYPE html>
 <html>
-	<head>
-		<meta charset="UTF-8">
-		<title>OIC SNS - RT2</title>
-		<link rel="stylesheet" href="template/base.css">
-		<script type="text/javascript"><!--
-			//JavaScript
-		//--></script>
-		<style>
-			#content{
-				width: 800px;
-				border:1px solid #cccccc;
-				margin: 0 auto;}
+<head>
+<meta charset="UTF-8">
+<title>OIC SNS - RT2</title>
+<link rel="stylesheet" href="base.css">
+<script type="text/javascript"></script>
+<style>
+#content {
+	width: 800px;
+	height: 750px;
+	border: 1px solid #cccccc;
+	margin: 0 auto;
+}
 
-			#content h2{
-				text-align:center;}
+#content h2 {
+	text-align: center;
+}
 
-			/*利用規約本文のスタイル*/
-			#agreement{
-				width: 700px;
-				border: 1px solid #cccccc;
-				margin-top: 40px;
-				margin: 0 auto;}
+/*利用規約本文のスタイル*/
+#agreement {
+	width: 700px;
+	height: 600px;
+	border: 1px solid #cccccc;
+	margin-top: 40px;
+	margin: 0 auto;
+	background-color: #dddddd;
+}
 
-			#agreement>h3{
-				margin:5px 0px 5px 20px;}
+#agreement>h3 {
+	margin: 10px 0px 10px 20px;
+}
 
-			#agreement>ul{
-				margin:0px;}
+#agreement>ul {
+	margin: 0px;
+}
 
-			#agreement>ul>li{
-				font-size: 90%;}
+#agreement>ul>li {
+	font-size: 90%;
+	width: 630px;
+	margin: 5px 0px;
+}
 
-			#agreement>ul>h3{
-				margin: 5px 0px;}
-			
-			#agreement ol>li{
-				font-size: 75%;}
+#agreement>ul>h3 {
+	margin: 5px 0px;
+}
 
+#agreement ol>li {
+	font-size: 75%;
+	margin: 5px;
+}
 
-		</style>
-	</head>
-	<body>
-		<div class="header">
-			<div class="about">当サイトについて</div><div class="contact">通報&問い合わせ</div><div class="logout">ログアウト</div>
-		</div>
-		<div id="content">
-			<h2>利用規約</h2>
+.scr {
+	overflow-y: auto; /* スクロール表示 */
+}
+.scr::-webkit-scrollbar{
+        width:16px;
+        background:#ffffff;
+}
+.scr::-webkit-scrollbar-button{	/*上下のボタン部分 */
+    width:16px;
+    height:16px;
+	border-left: 16px solid transparent;
+	border-right: 16px solid transparent;
+	border-bottom: 16px solid transparent;
+	border-top: 32px solid;
+}
+       
+.scr::-webkit-scrollbar-piece{	/*スライド部分の背景*/
+        background:#eee;
+}
 
-			<div id="agreement">	<!--利用規約本文-->
+.scr::-webkit-scrollbar-thumb{	/* スライドするぶぶん */
+        background:#fff;
+       	border:1px solid #aaaaaa;
+}
+
+.scr::-webkit-scrollbar-corner	/*スクロールバー右下（縦スクロールのみなら必要ない？）*/
+{
+        background:#000;
+}
+.send {
+	width: 700px;
+	margin: 0 auto;
+	height: 70px;
+}
+
+#agreebutton {
+	width: 150px;
+	height: 70px;
+	border: 1px;
+	margin: 10px 40px 0px 0px;
+	float: right;
+	padding: 5px 20px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #a9c4eb;
+	font-size: 115%;
+}
+.scr {
+scrollbar-arrow-color:#ffffff;
+scrollbar-face-color:#cccccc;
+scrollbar-3dlight-color:#999999;
+scrollbar-darkshadow-color:#999999;
+scrollbar-highlight-color:;
+scrollbar-shadow-color:;
+scrollbar-track-color:;
+}
+</style>
+</head>
+<body>
+	<div class="header">
+		<div class="about">当サイトについて</div><div class="contact">通報＆問い合わせ</div><div class="logout">ログアウト</div>
+	</div>
+	<div id="content">
+		<h2>利用規約</h2>
+
+		<div id="agreement" class="scr">
+			<!--利用規約本文-->
 			<h3>①はじめに</h3>
 			<ul>
 				<li>当サイト（OIC-SNS）が提供するSNSサービス（以下、当SNS）は、OICに所属する学生・教員を対象としています。</li>
@@ -73,31 +141,33 @@
 			<ul>
 				<li>利用者が当サイトを利用して通信を行う場合、通信内容は、全て利用者自らが責任を負うものとします。</li>
 				<li>利用者は、以下の行為を行ってはいけません。</li>
-				<ol>
-			　	<li>当サイト運営者及び第三者への誹謗中傷、名誉棄損、なりすまし等の迷惑行為</li>
-			　	<li>当サイトの運営妨害行為</li>
-			　	<li>当サイト及びOICに関係のない勧誘、宣伝行為</li>
-			　	<li>第三者への、当サイトのコンテンツを公開する行為</li>
-			　	<li>当サイトを構成するすべてのプログラム、ソフトウェア等に対しての侵害行為及び改造行為</li>
-			　	<li>本規約、法令、公序良俗に反する恐れのある行為</li>
+				<ol style="list-style-type: decimal">
+					<li>当サイト運営者及び第三者への誹謗中傷、名誉棄損、なりすまし等の迷惑行為</li>
+					<li>当サイトの運営妨害行為</li>
+					<li>当サイト及びOICに関係のない勧誘、宣伝行為</li>
+					<li>第三者への、当サイトのコンテンツを公開する行為</li>
+					<li>当サイトを構成するすべてのプログラム、ソフトウェア等に対しての侵害行為及び改造行為</li>
+					<li>本規約、法令、公序良俗に反する恐れのある行為</li>
 				</ol>
 				<li>本利用規約を違反した利用者に対し、利用停止措置ならびに法的措置をとらせていただく場合があります。
-				</ul>
-				<h3>⑥情報の取り扱い</h3>
-				<ul>
+			</ul>
+			<h3>⑥情報の取り扱い</h3>
+			<ul>
 				<li>利用者からのご意見、ご要望に関する著作権はすべて当サイトにあるものとします。</li>
 				<li>当サイトの利用登録のために利用者が提供した個人情報は、原則としてサービスの利用にのみ使用するものとします。</li>
 			</ul>
 			<h3>⑦免責事項</h3>
-				<ul>
+			<ul>
 				<li>本規約の内容は予告なく変更できるものとします。</li>
 				<li>当サイトは利用者同士のトラブルに対し関与する義務を負いません。</li>
 				<li>当サイトは利用者のご意見、質問等に返答する義務を負いません。</li>
 			</ul>
-			</div>		
 		</div>
-		<div class="footer">
-			Copyright &copy; 2013 OIC-SNS All Rights Reserved.
+		<div class="send">
+			<button id="agreebutton" type="submit">進捗ダメです</button>
 		</div>
-	</body>
+	</div>
+	<div class="footer">Copyright &copy; 2013 OIC-SNS All
+		RightsReserved.</div>
+</body>
 </html>

@@ -1,0 +1,104 @@
+button.first{
+	margin-left:295px;
+}
+
+button.other{
+	margin-left:90px;
+}
+
+button {
+	margin-top:44px;
+	width:170px;
+	height:70px;
+}
+
+button.two{
+	margin-left:90px;
+	background: #a9c4eb;
+    border: 1px solid #DDD;
+}
+
+table.tb_form{
+	margin-left:50px;
+}
+
+label.first{
+	margin-top:83px;
+}
+
+label.two{
+	margin-top:18px;
+}
+
+label.three{
+	margin-top: -52px;
+}
+
+label{
+	display:block;
+	text-align: left;
+	width:80px;
+	height:30px;
+}
+
+input.classification{
+	margin-top:70px;
+}
+
+input.form{
+	margin-top:6px;
+}
+
+input {
+	margin-left:18px;
+	width:200px;
+	height:30px;
+}
+
+input.mail{
+	margin-top:6px;
+	width:350px;
+}
+
+select{
+	margin-left:18px;
+	margin-top:6px;
+	width:200px;
+	height:36px;
+}
+
+textarea{
+	margin-left:18px;
+	margin-top:9px;
+	width:350px;
+	height:120px;
+}
+
+input.submit1{
+	margin-top:144px;
+	margin-left:360px;
+	width:130px;
+	height:50px;
+}
+
+input.submit2{
+	margin-top:44px;
+	margin-left:360px;
+	width:130px;
+	height:50px;
+}
+
+.fw{
+	width:570px;
+	height:570px;
+	margin-left:354px;
+	margin-top:	19px;
+	border:solid 1px #c0c0c0;
+}
+
+table{
+	margin:0,0,0,0;
+	border:0;
+	padding:0;
+	border-spacing:0;
+}
