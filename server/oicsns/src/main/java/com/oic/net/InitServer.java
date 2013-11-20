@@ -6,10 +6,6 @@
 
 package com.oic.net;
 
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.util.Properties;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
@@ -22,9 +18,7 @@ public class InitServer extends HttpServlet{
     public void init() throws ServletException {
         super.init();
         System.err.println("Init.");
-        try(InputStreamReader is = new InputStreamReader(getClass().getResourceAsStream("/map/3A.xml"))){
-          
-        }catch(IOException e){}
+        
     }
     
 }

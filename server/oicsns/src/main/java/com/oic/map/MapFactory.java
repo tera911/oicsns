@@ -13,10 +13,10 @@ import java.util.List;
  * ゲーム内のすべてのMapを管理するクラス
  * @author Morimoto
  */
-public class MapContainer {
+public class MapFactory {
     private static List<OicMap> mapContainer;
 
-    public MapContainer() {
+    public MapFactory() {
         mapContainer = new ArrayList<>();;
     }
     
