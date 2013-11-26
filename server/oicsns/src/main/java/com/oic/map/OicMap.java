@@ -17,7 +17,7 @@ public class OicMap {
     private Position pos;
     private Object[] objects;
 
-    public OicMap() {
+    private OicMap() {
     }
     
     public OicMap(int mapId, String mapName, String path, Position pos, Object[] objects) {

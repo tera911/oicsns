@@ -14,11 +14,16 @@ import java.util.List;
  * @author Morimoto
  */
 public class MapFactory {
-    private static List<OicMap> mapContainer;
-
-    public MapFactory() {
-        mapContainer = new ArrayList<>();;
+    private List<OicMap> mapContainer = new ArrayList<>();
+    private static MapFactory instance;
+    
+    public MapFactory getInstance(){
+        if(instance == null){
+            instance = new MapFactory();
+        }
+        return instance;
     }
+    private MapFactory(){}
     
     /**
      * MapIDからマップデータを取得する
