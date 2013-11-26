@@ -6,6 +6,7 @@
 
 package com.oic.net;
 
+import com.oic.map.OicMap;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 
@@ -18,7 +19,10 @@ public class InitServer extends HttpServlet{
     public void init() throws ServletException {
         super.init();
         System.err.println("Init.");
-        
+        mapInitialize();
     }
     
+    private static void mapInitialize(){
+     // OicMap oicmap = new OicMap();
+    }
 }
