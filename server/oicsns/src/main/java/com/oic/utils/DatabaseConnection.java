@@ -6,6 +6,7 @@
 
 package com.oic.utils;
 
+import com.oic.Config;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
@@ -21,7 +22,7 @@ import java.util.logging.Logger;
  */
 public class DatabaseConnection {
     private static final Logger LOG = Logger.getLogger(DatabaseConnection.class.getName());
-    private static ThreadLocal<Connection> con;
+    private static ThreadLocal<Connection> con = new ThreadLocalConnection();
     
     /**
      * SQLConnectionを取得する
@@ -46,16 +47,16 @@ public class DatabaseConnection {
 
         @Override
         protected Connection initialValue() {
-            String driver = "";
-            String url = "";
-            String user = "";
-            String pass = "";
-            try{
-                Class.forName(driver);
-                
-            }catch(ClassNotFoundException e){
-                LOG.log(Level.WARNING, "Database Driver is not found");
+           try{
+                Class.forName("com.mysql.jdbc.Driver").newInstance(); //jdbc.mysqlドライバーのインスタンスを生成
+            }catch(ClassNotFoundException ce){
+                LOG.warning("SQL Connector not found.");//見つからなかった場合
+            }catch(Exception e){
+                LOG.log(Level.WARNING, "SQL initialize faild.\n{0}",e); //なんらかのエラー
             }
+            String url = Config.DB_HOST;//接続先
+            String user = Config.DB_USER;//接続ユーザー
+            String pass = Config.DB_PASSWORD;//接続パスワード
             try{
                 Connection con = DriverManager.getConnection(url, user, pass);
                 allConnections.add(con);
