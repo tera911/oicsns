@@ -38,7 +38,7 @@ public class XmlParser {
     }
     
     public OicMap parseOicMap(URI uri) throws SAXException,IOException{
-        OicMap oicMap = new OicMap();
+        OicMap oicMap = new OicMap(null,null,null,null,null);
         File f = new File(uri);
         Document doc = builder.parse(f);
         
