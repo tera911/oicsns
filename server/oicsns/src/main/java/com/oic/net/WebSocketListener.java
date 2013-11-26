@@ -30,11 +30,15 @@ public class WebSocketListener {
     private static final Logger LOG = Logger.getLogger(WebSocketListener.class.getName());
     private Session session;
     private OicCharacter c = null;//キャラクターインスタンス,最初は未登録の可能性もあるからNULL
+   
+    
+    
     @OnWebSocketConnect
     public void onConnect(Session session){
         LOG.log(Level.INFO, "connection :{0}", session.getRemoteAddress());
         this.session = session;
         Connections.addConnection(this);
+        c = OicCharacter.loadCharFromDB(111);
     }
     @OnWebSocketMessage
     public void onText(String message){

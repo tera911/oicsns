@@ -18,19 +18,24 @@ import org.json.simple.JSONObject;
  */
 public class ChatEvent implements ActionEventImpl{
     private static final Logger LOG = Logger.getLogger(ChatEvent.class.getName());
-    
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
         Session session = webSocket.getSession();
-     //   OicCharacter c = webSocket.getCharacter();
+        OicCharacter c = webSocket.getCharacter();
+        c = OicCharacter.loadCharFromDB(111);
+        //validation
+        if(json.get("text") == null || json.get("key") == null){
+            LOG.warning("invalid Message!");
+            return;
+        }
         
-       // String name = c.getName();
-        //recive  {method:"chat",text:"aaaa"}
-        //send {method:"chat", text:"aaaa",userId:"0001"}
-        JSONObject sendJson = (JSONObject)json.clone();
-        sendJson.put("userId","0001");
+        //認証
+        LOG.log(Level.INFO, "ping key : {0}", json.get("key"));
         
-        Connections.BroadCastMessage(sendJson);
+        JSONObject sendJson = (JSONObject)json.clone(); //jsonコピー
+        sendJson.put("userId",c.getUserId());           //送信者idを付加
+        sendJson.remove("key");                         //認証用keyを削除
+        Connections.BroadCastMessage(sendJson);         //接続しているユーザーに送信
         LOG.log(Level.INFO, "chat event : {0}", session.getRemoteAddress());
     }
     
