@@ -20,9 +20,8 @@ import java.util.logging.Logger;
  * このクラスは一意なDBコネクションスレッドを返す
  */
 public class DatabaseConnection {
-    private static ThreadLocal<Connection> con;
     private static final Logger LOG = Logger.getLogger(DatabaseConnection.class.getName());
-    private static class ThreadLocalConnection extends ThreadLocal<Connection>{
+    private static ThreadLocal<Connection> con;
     
     /**
      * SQLConnectionを取得する
@@ -31,6 +30,7 @@ public class DatabaseConnection {
     public static Connection getConnection(){
         return con.get();
     }
+    
     /**
      * すべての接続を閉じる
      * @throws SQLException 
@@ -41,6 +41,7 @@ public class DatabaseConnection {
         }
     }
     
+    private static class ThreadLocalConnection extends ThreadLocal<Connection>{
     public static Collection<Connection> allConnections = new LinkedList<>();
 
         @Override
