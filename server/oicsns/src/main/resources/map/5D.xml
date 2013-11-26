@@ -1,12 +1,12 @@
 <!--
-This file has been edited by b2280@otani
+written  by b2280@otani
 -->
 <?xml version="1.0" encoding="UTF-8"?>
  
     <map>
-        <id>1A</id>
-        <name>1A教室</name>
-        <path>/img/Map1.png</path>
+        <id>5D</id>
+        <name>5D教室</name>
+        <path>/img/Map5.png</path>
         <position>
             <x>0</x>
             <y>0</y>

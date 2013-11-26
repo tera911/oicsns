@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<root>
+ 
     <map>
         <id>3D</id>
         <name>学生ホール</name>
@@ -17,4 +17,4 @@
             </position> -->
         </Object>
     </map>
-</root>
+ 
