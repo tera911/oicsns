@@ -6,12 +6,10 @@
 
 package com.oic.client;
 
-import java.util.ArrayList;
-
 /**
  *
  * @author b2020
  */
 public class CharacterFactory {
 
-    }
+}
