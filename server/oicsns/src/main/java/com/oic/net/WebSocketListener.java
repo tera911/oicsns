@@ -30,15 +30,17 @@ public class WebSocketListener {
     private static final Logger LOG = Logger.getLogger(WebSocketListener.class.getName());
     private Session session;
     private OicCharacter c = null;//キャラクターインスタンス,最初は未登録の可能性もあるからNULL
+    private int login = -1;
    
     
     
     @OnWebSocketConnect
     public void onConnect(Session session){
-        LOG.log(Level.INFO, "connection :{0}", session.getRemoteAddress());
+        login = 0;
         this.session = session;
         Connections.addConnection(this);
         c = OicCharacter.loadCharFromDB(111);
+        LOG.log(Level.INFO, "connection :{0}", session.getRemoteAddress());
     }
     @OnWebSocketMessage
     public void onText(String message){
@@ -50,13 +52,18 @@ public class WebSocketListener {
         method = json.get("method").toString();
         }catch(ParseException e){   
         }
-        //メッセージ振り分け
-        if(method.equals("login")){
-            new LoginHandler().ActionEvent(json, this);
-        }else if(method.equals("chat")){
-            new ChatEvent().ActionEvent(json, this);
-        }else{
-            
+        /* メッセージ振り分け  */
+        if(method == null){ //ぬるぽ回避のため
+            LOG.log(Level.WARNING, "Message Method is NULL : {0}", json.toString());
+            return;
+        }else if(method.equals("login")){
+            new LoginHandler().ActionEvent(json, this);//ログイン処理
+        }else switch (method) {//ログイン後の振り分け
+            case "chat":
+                new ChatEvent().ActionEvent(json, this);
+                break;
+            default:
+                break;
         }
     }
     
