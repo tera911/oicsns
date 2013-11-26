@@ -1,0 +1,36 @@
+﻿/*このファイル編集禁止*/
+body {
+	margin:0;
+}
+#header {
+	font-family:メイリオ;
+	background-color:LightSteelBlue;
+	text-align:right;
+	padding-right:150px;
+}
+#header ul {
+	margin:0;
+	/*font-size:0;*/
+}
+#header li {
+	display:inline-block;
+}
+#header a {
+	color:black;
+	text-decoration:none;
+}
+#header .about {
+	background:linear-gradient(#ffd966,#ffe599);
+}
+#header .contact {
+	background:linear-gradient(#f16a99,#f48fb3);
+}
+#logout {
+	background:linear-gradient(#97d077,#b9e0a5);
+}
+#footer {
+	text-align:center;
+	font:small "メイリオ";
+	margin: 0 auto;
+}
+#contact .btn {}
