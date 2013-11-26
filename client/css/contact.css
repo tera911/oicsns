@@ -1,4 +1,39 @@
-button.first{
+﻿#content{
+     margin-left:auto;    /* 左側マージンを自動的に空ける */
+     margin-right:auto;   /* 右側マージンを自動的に空ける */
+     text-align:left;     /* 中身を左側表示に戻す */
+}
+
+#content{
+	margin-left:354px;
+	margin-top:131px;
+}
+
+.tab1 {
+	border-bottom: 30px solid #ff99cc;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	height: 0;
+	width: 170px;
+	float:left;
+	text-align:center;
+}
+
+.tab2 {
+	border-bottom: 30px solid #ffccff;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	height: 0;
+	width: 170px;
+	float:left;
+	text-align:center;
+}
+
+.tab_txt{
+	margin-top: 8px;
+}
+
+/* button.first{
 	margin-left:295px;
 }
 
@@ -16,7 +51,7 @@ button.two{
 	margin-left:90px;
 	background: #a9c4eb;
     border: 1px solid #DDD;
-}
+} */
 
 table.tb_form{
 	margin-left:50px;
@@ -75,6 +110,8 @@ textarea{
 }
 
 input.submit1{
+	background-color:#ffccff;
+	border:none;
 	margin-top:144px;
 	margin-left:360px;
 	width:130px;
@@ -82,6 +119,8 @@ input.submit1{
 }
 
 input.submit2{
+	background-color:#ffccff;
+	border:none;
 	margin-top:44px;
 	margin-left:360px;
 	width:130px;
@@ -91,9 +130,14 @@ input.submit2{
 .fw{
 	width:570px;
 	height:570px;
-	margin-left:354px;
-	margin-top:	19px;
+	margin-top:	0;
+	clear:both;
 	border:solid 1px #c0c0c0;
+	display:none;
+}
+
+#fw_first{
+	display:block;
 }
 
 table{
