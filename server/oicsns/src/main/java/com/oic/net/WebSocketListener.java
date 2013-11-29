@@ -30,6 +30,11 @@ public class WebSocketListener {
     private static final Logger LOG = Logger.getLogger(WebSocketListener.class.getName());
     private Session session;
     private OicCharacter c = null;//キャラクターインスタンス,最初は未登録の可能性もあるからNULL
+    /**
+     * loing =<br>
+     * -1 // not login<br>
+     *  1 //login
+     */
     private int login = -1;
    
     
@@ -58,6 +63,8 @@ public class WebSocketListener {
             return;
         }else if(method.equals("login")){
             new LoginHandler().ActionEvent(json, this);//ログイン処理
+        }else if(login == 0){
+            return;
         }else switch (method) {//ログイン後の振り分け
             case "chat":
                 new ChatEvent().ActionEvent(json, this);
