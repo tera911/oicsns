@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ 
+    <map>
+        <id>3D</id>
+        <name>学生ホール</name>
+        <path>/img/3d.png</path>
+        <position>
+            <x>0</x>
+            <y>0</y>
+        </position>
+        <Object>
+<!--            <id>0</id>
+            <name>isu</name>
+            <position>
+                <x></x>
+                <y></y>
+            </position> -->
+        </Object>
+    </map>
+ 
