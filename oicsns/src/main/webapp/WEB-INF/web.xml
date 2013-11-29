@@ -1,0 +1,29 @@
+<!DOCTYPE web-app PUBLIC
+ "-//Sun Microsystems, Inc.//DTD Web Application 2.3//EN"
+ "http://java.sun.com/dtd/web-app_2_3.dtd">
+<web-app id="TaskList" version="2.4" xmlns="http://java.sun.com/xml/ns/j2ee"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://java.sun.com/xml/ns/j2ee http://java.sun.com/xml/ns/j2ee/web-app_2_4.xsd">
+    <servlet>
+        <servlet-name>InitServer</servlet-name>
+        <servlet-class>com.oic.net.InitServer</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet>
+        <display-name>ws</display-name>
+        <servlet-name>ws</servlet-name>
+        <servlet-class>com.oic.net.WebSocketServletImpl</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ws</servlet-name>
+        <url-pattern>/ws</url-pattern>
+    </servlet-mapping>
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error/404.jsp</location>
+    </error-page>
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error/405.jsp</location>
+    </error-page>
+</web-app>

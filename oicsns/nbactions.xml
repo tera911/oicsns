@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<actions>
+        <action>
+            <actionName>CUSTOM-jetty実行</actionName>
+            <displayName>jetty実行</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>package</goal>
+                <goal>jetty:run</goal>
+            </goals>
+        </action>
+        <action>
+            <actionName>CUSTOM-初期化</actionName>
+            <displayName>初期化</displayName>
+            <goals>
+                <goal>clean</goal>
+                <goal>install</goal>
+            </goals>
+        </action>
+    </actions>
