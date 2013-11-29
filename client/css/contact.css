@@ -1,12 +1,9 @@
 ﻿#content{
-     margin-left:auto;    /* 左側マージンを自動的に空ける */
-     margin-right:auto;   /* 右側マージンを自動的に空ける */
-     text-align:left;     /* 中身を左側表示に戻す */
-}
-
-#content{
-	margin-left:354px;
+	margin-left:auto;    /* 左側マージンを自動的に空ける */
+	margin-right:auto;   /* 右側マージンを自動的に空ける */
+	text-align:left;     /* 中身を左側表示に戻す */
 	margin-top:131px;
+	width:572px;
 }
 
 .tab1 {
@@ -33,43 +30,27 @@
 	margin-top: 8px;
 }
 
-/* button.first{
-	margin-left:295px;
-}
-
-button.other{
-	margin-left:90px;
-}
-
-button {
-	margin-top:44px;
-	width:170px;
-	height:70px;
-}
-
-button.two{
-	margin-left:90px;
-	background: #a9c4eb;
-    border: 1px solid #DDD;
-} */
 
 table.tb_form{
 	margin-left:50px;
 }
 
-label.first{
+p{
+	margin-bottom:0px;
+}
+p.first{
 	margin-top:83px;
 }
 
-label.two{
+p.two{
 	margin-top:18px;
 }
 
-label.three{
+p.three{
 	margin-top: -52px;
 }
 
-label{
+p{
 	display:block;
 	text-align: left;
 	width:80px;
