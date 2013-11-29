@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<map>
+    <id>3A</id>
+    <name>3A教室</name>
+    <path>/img/3a.png</path>
+    <position>
+        <x>0</x>
+        <y>0</y>
+    </position>
+    <Object>
+<!--    <id>0</id>
+        <name>isu</name>
+        <position>
+            <x></x>
+            <y></y>
+        </position> -->
+    </Object>
+</map>
