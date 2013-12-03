@@ -75,7 +75,7 @@ public class XmlParser {
             }
             switch(child.getNodeName()){
                 case "id":
-                    System.out.println(child.getNodeName() + " : " + child.getTextContent());
+                  //  System.out.println(child.getNodeName() + " : " + child.getTextContent());
                     oicMap.setMapId(Integer.parseInt(child.getTextContent()));
                 break;
                 case "name":
