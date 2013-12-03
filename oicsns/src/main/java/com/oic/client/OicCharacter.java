@@ -6,6 +6,8 @@
 
 package com.oic.client;
 
+import com.oic.map.OicMap;
+import com.oic.map.Position;
 import com.oic.utils.DatabaseConnection;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -17,6 +19,8 @@ import java.util.Date;
  * @author morimoto
  */
 public class OicCharacter {
+    private OicMap map;
+    private Position pos;
     private long userId;
     private String studentNumber;
     private long avatarId;
@@ -43,7 +47,7 @@ public class OicCharacter {
             ret.avatarId = rs.getLong("avatarid");
             ret.name = rs.getString("name");
             ret.grade = rs.getInt("grade");
-            ret.gender = OicGender.valueOf(rs.getString("sex"));
+            ret.gender = OicGender.getGender(rs.getString("sex"));
             ret.birthday = rs.getDate("birth");
             ret.comment = rs.getString("comment");
             
@@ -118,4 +122,19 @@ public class OicCharacter {
         this.comment = comment;
     }
     
+     public OicMap getMap() {
+        return map;
+    }
+
+    public void setMap(OicMap map) {
+        this.map = map;
+    }
+
+    public Position getPos() {
+        return pos;
+    }
+
+    public void setPos(Position pos) {
+        this.pos = pos;
+    }
 }

@@ -10,7 +10,7 @@ package com.oic.client;
  * 性別の列挙型
  * @author morimoto
  */
-public enum OicGender {
+public enum OicGender{
     MAN("man"),
     WOMAN("woman"),
     OTOKONOKO("otokonoko"),
@@ -24,8 +24,22 @@ public enum OicGender {
         return gender;
     }
     
-    public static OicGender valueOf(int i){
-        return OicGender.values()[i];
+    /**
+     * 文字列から性別の列挙型を返す
+     * @param gender
+     * @return 
+     */
+    public static OicGender getGender(String gender){
+        for(OicGender gen : OicGender.values()){
+            if(gen.getValue() == gender){
+                return gen;
+            }
+        }
+        return null;
     }
-   
+
+    @Override
+    public String toString() {
+        return super.toString(); 
+    }   
 }

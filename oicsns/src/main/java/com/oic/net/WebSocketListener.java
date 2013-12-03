@@ -9,10 +9,14 @@ package com.oic.net;
 import com.oic.client.OicCharacter;
 import com.oic.connection.Connections;
 import com.oic.event.ChatEvent;
+import com.oic.event.ChatlogEvent;
+import com.oic.event.CmdEvent;
 import com.oic.login.LoginHandler;
 import com.oic.login.TestLoginHandler;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.servlet.http.HttpSession;
 import org.eclipse.jetty.websocket.api.Session;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketClose;
 import org.eclipse.jetty.websocket.api.annotations.OnWebSocketConnect;
@@ -43,8 +47,9 @@ public class WebSocketListener {
     public void onConnect(Session session){
         login = 0;
         this.session = session;
-        Connections.addConnection(this);
-        LOG.log(Level.INFO, "connection :{0}", session.getRemoteAddress());
+        Connections.addConnection(this);//コネクションリストに追加
+        
+        LOG.log(Level.INFO, "connection :{0}", session.getRemoteAddress());//Logging 
     }
     @OnWebSocketMessage
     public void onText(String message){
@@ -80,12 +85,30 @@ public class WebSocketListener {
             new TestLoginHandler().ActionEvent(json, this);
             //new LoginHandler().ActionEvent(json, this);//ログイン処理
         }else if(login == 0){
+            //ユーザー登録処理
             return;
         }else switch (method) {//ログイン後の振り分け
-            case "chat":
+            case "allchat":
                 new ChatEvent().ActionEvent(json, this);
                 break;
+            case "getchatlog":
+                new ChatlogEvent().ActionEvent(json, webSocketListener);
+                break;
+            case "getprofile":
+                break;
+            case "setprofile":
+                break;
+            case "cmd":
+                new CmdEvent().ActionEvent(json, webSocketListener);
+                break;
         }
+    }
+    
+    public void sendJson(JSONObject json){
+        try{
+            session.getRemote().sendString(json.toJSONString());
+        }catch(IOException e){
+        LOG.log(Level.WARNING,"send Json error{0}",e);}
     }
     
     public OicCharacter getCharacter(){
@@ -102,9 +125,11 @@ public class WebSocketListener {
     public void userLogin(long userId){
         login = 1;
         c = OicCharacter.loadCharFromDB(userId);
+       // System.out.println(session.getUpgradeRequest().toString());
     }
     
     public void userLogout(){
         login = 0;
+        Connections.removeConnection(this);
     }
 }
