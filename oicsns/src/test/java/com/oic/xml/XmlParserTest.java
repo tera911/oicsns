@@ -35,22 +35,30 @@ public class XmlParserTest extends TestCase {
         super.tearDown();
     }
     
-
-    // TODO add test methods here. The name must begin with 'test'. For example:
-    // public void testHello() {}
-    public void testCreateInstance(){
+    public void testMaptest(){
         try {
-            XmlParser parser = new XmlParser();
-            OicMap map = parser.parseOicMap(getClass().getResource("/map/3A.xml").toURI());
-           // assertNotNull(map);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
+            new MapParser();
         } catch (IOException ex) {
             Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (URISyntaxException ex) {
+        } catch (ParserConfigurationException ex) {
             Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+    // TODO add test methods here. The name must begin with 'test'. For example:
+    // public void testHello() {}
+//    public void testCreateInstance(){
+//        try {
+//            XmlParser parser = new XmlParser();
+//            OicMap map = parser.parseOicMap(getClass().getResource("/map/3A.xml").toURI());
+//           // assertNotNull(map);
+//        } catch (ParserConfigurationException ex) {
+//            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (SAXException ex) {
+//            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (IOException ex) {
+//            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (URISyntaxException ex) {
+//            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
 }
