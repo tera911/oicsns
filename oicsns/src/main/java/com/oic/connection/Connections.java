@@ -31,6 +31,15 @@ public class Connections {
         userConnections.add(websocketListener);
     }
     
+    public static void removeConnection(WebSocketListener webSocketListener){
+        try {
+            webSocketListener.getSession().close();
+        } catch (IOException ex) {
+            Logger.getLogger(Connections.class.getName()).log(Level.WARNING, null, ex);
+        }
+        userConnections.remove(webSocketListener);
+    }
+    
     /**
      * ユーザーの正当性を確認する
      * 定期的に実行される

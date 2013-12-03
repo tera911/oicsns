@@ -16,7 +16,9 @@ public class LoginHandler implements ActionEventImpl{
 
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
-        long userId = 001;
+        long userId = Long.parseLong(json.get("userid").toString());
+        String password = json.get("password").toString();
+        
         //login true
         webSocket.setCharacter(com.oic.client.OicCharacter.loadCharFromDB(userId));
     }

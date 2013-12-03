@@ -4,6 +4,7 @@
  */
 package com.oic.login;
 
+import com.oic.connection.Connections;
 import com.oic.event.ActionEventImpl;
 import com.oic.net.WebSocketListener;
 import com.oic.utils.DatabaseConnection;
@@ -43,13 +44,17 @@ public class TestLoginHandler implements ActionEventImpl{
         }catch(SQLException e){
             LOG.log(Level.WARNING, "SQL Exception : {0}",e);
         }
-        //ログイン設定
-        if(userId > 0){
+        
+        JSONObject loginStatus = new JSONObject();
+        if(userId > 0){//ログイン成功
             webSocket.userLogin(userId);
+            loginStatus.put("status", "1");
             LOG.log(Level.INFO, "Login Success.");
-        }else{
-            LOG.log(Level.INFO, "Login Faild.");
+        }else{  //ログイン失敗
+            loginStatus.put("status", "0");
+            LOG.log(Level.INFO, "Login Faild.");  
         }
+        webSocket.sendJson(loginStatus);
     }
     
     public long login(String accesstoken, String accesstokensecret) throws SQLException{
