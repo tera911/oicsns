@@ -9,6 +9,7 @@ package com.oic.net;
 import com.oic.client.OicCharacter;
 import com.oic.connection.Connections;
 import com.oic.event.ChatEvent;
+import com.oic.event.ChatlogEvent;
 import com.oic.event.CmdEvent;
 import com.oic.login.LoginHandler;
 import com.oic.login.TestLoginHandler;
@@ -84,10 +85,18 @@ public class WebSocketListener {
             new TestLoginHandler().ActionEvent(json, this);
             //new LoginHandler().ActionEvent(json, this);//ログイン処理
         }else if(login == 0){
+            //ユーザー登録処理
             return;
         }else switch (method) {//ログイン後の振り分け
-            case "chat":
+            case "allchat":
                 new ChatEvent().ActionEvent(json, this);
+                break;
+            case "getchatlog":
+                new ChatlogEvent().ActionEvent(json, webSocketListener);
+                break;
+            case "getprofile":
+                break;
+            case "setprofile":
                 break;
             case "cmd":
                 new CmdEvent().ActionEvent(json, webSocketListener);
