@@ -10,11 +10,11 @@ import junit.framework.TestCase;
 
 /**
  *
- * @author B2020
+ * @author b2020
  */
-public class TestGetCharacterInfo extends TestCase {
+public class OicGenderTest extends TestCase {
     
-    public TestGetCharacterInfo(String testName) {
+    public OicGenderTest(String testName) {
         super(testName);
     }
     
@@ -30,9 +30,10 @@ public class TestGetCharacterInfo extends TestCase {
 
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
-    public void testGetCharaInfoToDb(){
-        OicCharacter oicChar = OicCharacter.loadCharFromDB(4);
-        System.out.println(oicChar.getName());
-        assertEquals(oicChar.getName(), "まにゅ");
+
+    public void testGenderName(){
+        assertEquals(OicGender.MAN.toString(),"man".toUpperCase());
+        assertEquals(OicGender.valueOf("man".toUpperCase()), OicGender.MAN);
+         assertEquals(OicGender.getGender("man"), OicGender.MAN);
     }
 }

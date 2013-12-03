@@ -43,7 +43,7 @@ public class OicCharacter {
             ret.avatarId = rs.getLong("avatarid");
             ret.name = rs.getString("name");
             ret.grade = rs.getInt("grade");
-            ret.gender = OicGender.valueOf(rs.getString("sex"));
+            ret.gender = OicGender.getGender(rs.getString("sex"));
             ret.birthday = rs.getDate("birth");
             ret.comment = rs.getString("comment");
             
