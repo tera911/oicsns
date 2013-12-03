@@ -24,6 +24,11 @@ public enum OicGender{
         return gender;
     }
     
+    /**
+     * 文字列から性別の列挙型を返す
+     * @param gender
+     * @return 
+     */
     public static OicGender getGender(String gender){
         for(OicGender gen : OicGender.values()){
             if(gen.getValue() == gender){
