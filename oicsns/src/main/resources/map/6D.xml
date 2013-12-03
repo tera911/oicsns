@@ -1,10 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
 <!--
 written  by b2280@otani
 -->
-<?xml version="1.0" encoding="UTF-8"?>
- 
+
     <map>
-        <id>6D</id>
+        <id>64</id>
         <name>6D教室</name>
         <path>/img/Map4.png</path>
         <position>
