@@ -3,14 +3,70 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>OIC SNS - RT2</title>
-		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<link rel="stylesheet" href="css/contact.css">
+                <link rel="stylesheet" href="css/contact.css">
 		<link rel="stylesheet" href="css/base.css">
-		<script type="text/javascript"><!--
+                <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+                <script type="text/javascript">
+              //  alert("aa");
+                $(function(){
+                      //迷惑行為の報告で送信をクリックしたときの処理
+                        $('#fm_abuse').submit(function(event) {
+                            // submitをキャンセル
+                            event.preventDefault();
+                            // POST処理
+                            $.post("/wqr",
+                            {stunum:$('#fm_abuse [name=stunum]').val() ,
+                            username:$('#fm_abuse [name=username]').val() ,
+                            content:$('#fm_abuse [name=content]').val()},
+                            function(){
+                                alert("送信しました。");
+                                $('#fm_abuse [name=stunum]').val("");
+                                $('#fm_abuse [name=username]').val("");
+                                $('#fm_abuse [name=content]').val("");});
+                        });
+                        
+                        //不具合の報告で送信をクリックしたときの処理
+                        $('#fm_bug').submit(function(event) {
+                            // submitをキャンセル
+                            event.preventDefault();
+                            // POST処理
+                            $.post("/wqr",
+                            {stunum:$('#fm_bug [name=stunum]').val() ,
+                            username:$('#fm_bug [name=username]').val() ,
+                            content:$('#fm_bug [name=content]').val()},
+                            function(){
+                                alert("送信しました。");
+                                $('#fm_bug [name=stunum]').val("");
+                                $('#fm_bug [name=username]').val("");
+                                $('#fm_bug [name=content]').val("");});
+                        });
+                        
+                        //管理者への問い合わせで送信をクリックしたときの処理
+                        $('#fm_inquiry').submit(function(event) {
+                            // submitをキャンセル
+                            event.preventDefault();
+                            // POST処理
+                            $.post("/wqr",
+                            {stunum:$('#fm_inquiry [name=stunum]').val() ,
+                            username:$('#fm_inquiry [name=username]').val() ,
+                            category:$('#fm_inquiry [name=category]').val(),
+                            email:$('#fm_inquiry [name=email]').val(),
+                            content:$('#fm_inquiry [name=content]').val()},
+                            function(){
+                                alert("送信しました。");
+                                $('#fm_inquiry [name=stunum]').val("");
+                                $('#fm_inquiry [name=username]').val("");
+                                $('#fm_inquiry [name=category]').val("0");
+                                $('#fm_inquiry [name=email]').val("");
+                                $('#fm_inquiry [name=content]').val("");});
+                        });
+                      });
 			//JavaScript
-
-			/* フォームの表示切り替え 及び タブの色を変える処理 */
-			function chenge(i) {
+</script>
+<script type="text/javascript">
+    <!--
+			/* フォームの表示切り替え 及び タブの色を変える処理 */               
+                    function change(i) {
 			if(i==0){	//迷惑行為の報告を選択したときの処理
 				document.getElementById('tab_abuse').className = 'tab1';
 				document.getElementById('tab_bug').className = 'tab2';
@@ -19,9 +75,7 @@
 				document.getElementById('fw_abuse').style.display='block';
 				document.getElementById('fw_bug').style.display='none';
 				document.getElementById('fw_inquiry').style.display='none';
-				document.getElementById('fw_first').style.display='none';
-			}
-			else if(i==1){	//不具合の報告を選択したときの処理
+			}else if(i==1){	//不具合の報告を選択したときの処理
 				document.getElementById('tab_abuse').className = 'tab2';
 				document.getElementById('tab_bug').className = 'tab1';
 				document.getElementById('tab_inquiry').className = 'tab2';
@@ -29,9 +83,7 @@
 				document.getElementById('fw_abuse').style.display='none';
 				document.getElementById('fw_bug').style.display='block';
 				document.getElementById('fw_inquiry').style.display='none';
-				document.getElementById('fw_first').style.display='none';
-			}
-			else{			//管理者への問い合わせを選択したときの処理
+			}else{			//管理者への問い合わせを選択したときの処理
 				document.getElementById('tab_abuse').className = 'tab2';
 				document.getElementById('tab_bug').className = 'tab2';
 				document.getElementById('tab_inquiry').className = 'tab1';
@@ -39,10 +91,8 @@
 				document.getElementById('fw_abuse').style.display='none';
 				document.getElementById('fw_bug').style.display='none';
 				document.getElementById('fw_inquiry').style.display='block';
-				document.getElementById('fw_first').style.display='none';
 			}
-		}
-
+                    }
 		//--></script>
 	</head>
 	<body>
@@ -54,96 +104,100 @@
 			</ul>
 		</div>
 		<div id="content">
-			<a id="tab_abuse" class="tab2" onClick="chenge(0)"><div class="tab_txt">迷惑行為の報告</div></a>
-			<a id="tab_bug" class="tab2" onClick="chenge(1)"><div class="tab_txt">不具合の報告</div></a>
-			<a id="tab_inquiry" class="tab2" onClick="chenge(2)"><div class="tab_txt">管理者への問い合わせ</div></a>
-<!-- フォームウィンドウ初期状態 -->
-				<div id="fw_first" class="fw">
-				</div>
+			<a id="tab_abuse" class="tab1" onClick="change(0)"><div class="tab_txt">迷惑行為の報告</div></a>
+			<a id="tab_bug" class="tab2" onClick="change(1)"><div class="tab_txt">不具合の報告</div></a>
+			<a id="tab_inquiry" class="tab2" onClick="change(2)"><div class="tab_txt">管理者への問い合わせ</div></a>
 <!-- 迷惑行為の報告のフォーム -->
-				<div id="fw_abuse" class="fw">
-				<table class="tb_form">
-					<tr>
-						<td><p class="first">分類</p></td>
-						<td><input type="text" class="classification" value="迷惑行為の報告" readonly="readonly"/>
-						</td>
-					</tr>
-					<tr>
-						<td><p class="two">学籍番号</p></td>
-						<td><input type="text" maxlength="5" class="form" />
-					</tr>
-					<tr>
-						<td><p class="two">ユーザ名</p></td>
-						<td><input type="text" maxlength="12" class="form" />
-					</tr>
-					<tr>
-						<td><p class="three">詳細</p></td>
-						<td><textarea name="detail" maxlength="1000" rows="4" cols="40" placeholder="通報内容について詳細を記入してください。最大1000文字ぐらいでお願いします。"></textarea></td>
-					</tr>
-					<tr>
-						<td colspan="2"><input type="submit" class="submit1"  value="送信"></td>
-					</tr>
-				</table>
+				<div id="fw_abuse" class="fw_first">
+                                <form id="fm_abuse">
+                                    <table class="tb_form">
+                                            <tr>
+                                                    <td><p class="first">分類</p></td>
+                                                    <td><input type="text" class="classification" id="classification" value="迷惑行為の報告" readonly="readonly"/>
+                                                    </td>
+                                            </tr>
+                                            <tr>
+                                                    <td><p class="two">学籍番号</p></td>
+                                                    <td><input type="text" maxlength="5" name="stunum" class="form" id="studentnumber" />
+                                            </tr>
+                                            <tr>
+                                                    <td><p class="two">ユーザ名</p></td>
+                                                    <td><input type="text" maxlength="12" name="username" class="form" id="username" />
+                                            </tr>
+                                            <tr>
+                                                    <td><p class="three">詳細</p></td>
+                                                    <td><textarea name="content" maxlength="1000" rows="4" cols="40" placeholder="通報内容について詳細を記入してください。最大1000文字ぐらいでお願いします。"></textarea></td>
+                                            </tr>
+                                            <tr>
+                                                <td colspan="2"><input type="submit" class="submit1"  value="送信"></td>
+                                            </tr>
+                                    </table>
+                                </form>
 				</div>
 <!-- 不具合の報告のフォーム -->
 				<div id="fw_bug" class="fw" >
+                                <form id="fm_bug">
 				<table class="tb_form">
-					<tr>
+                                        <tr>
 						<td><p class="first">分類</p></td>
-						<td><input type="text" class="classification" value="不具合の報告" readonly="readonly"/>
+						<td><input type="text" class="classification" id="classification" value="不具合の報告" readonly="readonly"/>
 						</td>
 					</tr>
 					<tr>
 						<td><p class="two">学籍番号</p></td>
-						<td><input type="text" maxlength="5" class="form" />
+						<td><input type="text" maxlength="5" name="stunum" class="form" id="studentnumber" />
 					</tr>
 					<tr>
 						<td><p class="two">ユーザ名</p></td>
-						<td><input type="text" maxlength="12" class="form" />
+						<td><input type="text" maxlength="12" name="username" class="form" id="username" />
 					</tr>
 					<tr>
 						<td><p class="three">詳細</p></td>
-						<td><textarea name="detail" maxlength="1000" rows="4" cols="40" placeholder="通報内容について詳細を記入してください。最大1000文字ぐらいでお願いします。"></textarea></td>
+						<td><textarea name="content" maxlength="1000" rows="4" cols="40" placeholder="通報内容について詳細を記入してください。最大1000文字ぐらいでお願いします。"></textarea></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit" class="submit1" value="送信"></td>
+                                            <td colspan="2"><input type="submit" class="submit1" value="送信"></td>
 					</tr>
 				</table>
+                                </form>
 				</div>
 <!-- 運営者への問い合わせのフォーム -->
 				<div id="fw_inquiry" class="fw" >
+                                <form id="fm_inquiry">
 				<table class="tb_form">
 					<tr>
 						<td><p class="first">分類</p></td>
-						<td><input type="text" class="classification" value="管理者への問い合わせ" readonly="readonly"/>
+						<td><input type="text" class="classification" id="classification" value="管理者への問い合わせ" readonly="readonly"/>
 						</td>
 					</tr>
 					<tr>
 						<td><p class="two">カテゴリ</p></td>
-						<td><select class="form"><option>要望</option>
-							<option>質問</option>
-							<option>その他</option></select>
+						<td><select name="category" class="form" name="category">
+                                                        <option value="0">要望</option>
+							<option value="1">質問</option>
+							<option value="2">その他</option></select>
 					</tr>
 					<tr>
 						<td><p class="two">学籍番号</p></td>
-						<td><input type="text" maxlength="5" class="form" />
+						<td><input type="text" maxlength="5" name="stunum" class="form" name="studentnumber" />
 					</tr>
 					<tr>
 						<td><p class="two">ユーザ名</p></td>
-						<td><input type="text" maxlength="12" class="form" />
+						<td><input type="text" maxlength="12" name="username" class="form" name="username" />
 					</tr>
 					<tr>
 						<td><p class="two">E-MAIL</p></td>
-						<td><input type="text" maxlength="100" class="mail" />
+						<td><input type="text" maxlength="100" name="email" class="mail" name="mail" />
 					</tr>
 					<tr>
 						<td><p class="three">詳細</p></td>
-						<td><textarea name="detail" maxlength="1000" rows="4" cols="40" placeholder="通報内容について詳細を記入してください。最大1000文字ぐらいでお願いします。"></textarea></td>
+						<td><textarea name="content" maxlength="1000" rows="4" cols="40" placeholder="通報内容について詳細を記入してください。最大1000文字ぐらいでお願いします。"></textarea></td>
 					</tr>
 					<tr>
-						<td colspan="2"><input type="submit" class="submit2"  value="送信"></td>
+                                            <td colspan="2"><input type="submit" class="submit2"  value="送信"></td>
 					</tr>
 				</table>
+                                </form>
 				</div>
 		</div>
 		<div id="footer">

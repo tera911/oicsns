@@ -117,7 +117,12 @@ input.submit2{
 	display:none;
 }
 
-#fw_first{
+.fw_first{
+	width:570px;
+	height:570px;
+	margin-top:	0;
+	clear:both;
+	border:solid 1px #c0c0c0;
 	display:block;
 }
 
