@@ -5,8 +5,15 @@
 		<title>OIC SNS - RT2</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
 		<link rel="stylesheet" href="template/base.css">
-		<script type="text/javascript"><!--
-			//-->
+		<script type="text/javascript">
+		<!--
+		function send(){
+			window.alert('進捗ダメです');
+		}
+		function check(){
+			window.alert('確認機能実装まだです');
+		}
+		//-->
 		</script>
 
 		<style>
@@ -55,7 +62,8 @@
 			height:60px;
 			margin: 30px 0px 0px 150px;
 			border-radius: 5px;
-			font-size:90%;
+			font-size:75%;
+			overflow:hidden;
 		}
 		#comment{
 			width:260px;
@@ -71,7 +79,7 @@
 			display: inline-block;
 			padding-right: 15px;
 			margin-left: 50px;
-			width: 90px;
+			width: 95px;
 		}
 
 		p{
@@ -80,8 +88,12 @@
 			margin: 0;
 			margin-top: 30px;
 		}
+		select{
+			height:25px;
+		}
 
-		/*ラジオボタンの項目のみ、labelのmargin効果消してます*/
+
+		/*ラジオボタンの項目のみ、labelのmargin効果消す*/
 		.radiolabel{
 			margin:auto;
 			width:auto;
@@ -150,7 +162,7 @@
 
 					<p><label for="screenname">ハンドルネーム</label>
 					<input type="text" id="screenname" value=""/>
-					<input type="button" id="confirm"value="進捗"></p>
+					<input type="button" id="confirm"value="進捗" onclick="check()"></p>
 
 					<textarea id="notice" readonly disabled="">ゲームで使用するハンドルネームを入力してください。全角12文字以内　重複不可。入力後、重複確認ボタンを押してください。</textarea>
 
@@ -333,23 +345,14 @@
 			<div class="right_form"> <!-- アバター選択・送信 -->
 				<div class="avatar_window">				<!-- 仮画像 -->
 					<img src="img/avatar/sample1.png" height="100px" width="60px">
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">
-					<img src="img/avatar/sample1.png" height="100px" width="60px">
+					<img src="img/avatar/sample2.png" height="100px" width="60px">	
+					<img src="img/avatar/sample3.png" height="100px" width="60px">
 				</div>
 				<div id="avatar_bg">
-					<img id="selected_avatar" src="img/avatar/sample1.png">
+					<img id="selected_avatar" onclick="avatar_select">
 				</div>
-			<button id="sendbutton" type="submit">送信</button>	
+			<button id="sendbutton" type="submit" onclick="send()">送信</button>	
 			</div>
 		</div>		
 	</body>
 </html>
-
-
