@@ -33,9 +33,13 @@ public class XmlParser {
     private DocumentBuilderFactory factory;
     private DocumentBuilder builder;
     
-    public XmlParser() throws ParserConfigurationException{
-        factory = DocumentBuilderFactory.newInstance();
-        builder = factory.newDocumentBuilder();
+    public XmlParser(){
+        try{
+            factory = DocumentBuilderFactory.newInstance();
+            builder = factory.newDocumentBuilder();
+        }catch(ParserConfigurationException ex) {
+            Logger.getLogger(XmlParser.class.getName()).log(Level.SEVERE, null, ex);
+        };
     }
     
     /**

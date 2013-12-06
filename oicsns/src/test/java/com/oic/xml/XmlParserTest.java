@@ -49,18 +49,16 @@ public class XmlParserTest extends TestCase {
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
     public void testCreateInstance(){
-        try{
-            List<OicMap> maps = new XmlParser().loadOicMap();
-            for(OicMap map : maps){
-                assertNotNull(map);
-                assertEquals(map.getPos().getX(), 0);
-                assertEquals(map.getPos().getY(), 0);
-                if(map.getMapId() == 31){
+        List<OicMap> maps = new XmlParser().loadOicMap();
+        for(OicMap map : maps){
+            assertNotNull(map);
+            assertEquals(map.getPos().getX(), 0);
+            assertEquals(map.getPos().getY(), 0);
+            if(map.getMapId() == 31){
                 //    System.out.println(map.getMapName());
-                    assertTrue(map.getMapName().equals("3A教室"));
-                }
+                assertTrue(map.getMapName().equals("3A教室"));
             }
-        }catch(ParserConfigurationException e){}
+        }
     }
     
     public void testViewMapxmlList(){
