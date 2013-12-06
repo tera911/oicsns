@@ -10,6 +10,9 @@
 		function send(){
 			window.alert('進捗ダメです');
 		}
+		function check(){
+			window.alert('確認機能実装まだです');
+		}
 		//-->
 		</script>
 
@@ -159,7 +162,7 @@
 
 					<p><label for="screenname">ハンドルネーム</label>
 					<input type="text" id="screenname" value=""/>
-					<input type="button" id="confirm"value="進捗" onclick="send()"></p>
+					<input type="button" id="confirm"value="進捗" onclick="check()"></p>
 
 					<textarea id="notice" readonly disabled="">ゲームで使用するハンドルネームを入力してください。全角12文字以内　重複不可。入力後、重複確認ボタンを押してください。</textarea>
 
@@ -342,20 +345,13 @@
 			<div class="right_form"> <!-- アバター選択・送信 -->
 				<div class="avatar_window">				<!-- 仮画像 -->
 					<img src="img/avatar/sample1.png" height="100px" width="60px">
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">	
-					<img src="img/avatar/sample1.png" height="100px" width="60px">
-					<img src="img/avatar/sample1.png" height="100px" width="60px">
+					<img src="img/avatar/sample2.png" height="100px" width="60px">	
+					<img src="img/avatar/sample3.png" height="100px" width="60px">
 				</div>
 				<div id="avatar_bg">
-					<img id="selected_avatar" src="img/avatar/sample1.png">
+					<img id="selected_avatar" onclick="avatar_select">
 				</div>
-			<button id="sendbutton" type="submit">送信</button>	
+			<button id="sendbutton" type="submit" onclick="send()">送信</button>	
 			</div>
 		</div>		
 	</body>
