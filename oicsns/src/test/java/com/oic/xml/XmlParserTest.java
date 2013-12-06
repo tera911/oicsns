@@ -8,14 +8,14 @@ package com.oic.xml;
 
 import com.oic.Config;
 import com.oic.map.OicMap;
+import com.oic.map.Position;
 import java.io.File;
-import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import junit.framework.TestCase;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -50,7 +50,16 @@ public class XmlParserTest extends TestCase {
     // public void testHello() {}
     public void testCreateInstance(){
         try{
-            assertNotNull(new XmlParser().loadOicMap());
+            List<OicMap> maps = new XmlParser().loadOicMap();
+            for(OicMap map : maps){
+                assertNotNull(map);
+                assertEquals(map.getPos().getX(), 0);
+                assertEquals(map.getPos().getY(), 0);
+                if(map.getMapId() == 31){
+                //    System.out.println(map.getMapName());
+                    assertTrue(map.getMapName().equals("3A教室"));
+                }
+            }
         }catch(ParserConfigurationException e){}
     }
     

@@ -97,7 +97,7 @@ public class XmlParser {
                                 pos.setX(Integer.parseInt(position.getTextContent()));
                             break;
                             case "y" :
-                                pos.setX(Integer.parseInt(position.getTextContent()));
+                                pos.setY(Integer.parseInt(position.getTextContent()));
                             break;
                         }
                     }
