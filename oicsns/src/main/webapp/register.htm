@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
 	<head>
 		<meta charset="UTF-8">
@@ -8,17 +8,11 @@
 		<link rel="stylesheet" href="css/hoge.css">
 		<script type="text/javascript">
 		<!--
-		function send(){
-			window.alert('進捗ダメです');
-		}
-
-		function check(){
-			window.alert('進捗ダメです');
-		}
-
-		function ScaleUp(hoge){
- 			document.getElementById("full_avatar").src = hoge.src;
-		}
+		$(function(){
+			$(".avatar_pic").click(function(){
+				document.getElementById("full_avatar").src = this.src;
+			});
+		});
 		//-->
 		</script>
 		<style>
@@ -47,9 +41,6 @@
 			height:100%;
 			float:right;
 		}
-
-		/*パーツごとのスタイルシート*/
-
 		#notice{
 			width:250px;
 			height:60px;
@@ -58,7 +49,6 @@
 			font-size:100%;				/*後で微調整*/
 			overflow:hidden;
 		}
-
 		</style>
 	</head>
 	<body>
@@ -66,17 +56,15 @@
 			<div class="left_form"><!-- プロフィール入力欄 -->
 				<form>
 					<p><label for="student_id">学籍番号</label>
-					<input type="text" id="student_id" value="Z9999" readonly="readonly"/></p>
-
+					<input type="text" id="student_id" value="Z9999" readonly="readdetaly" tabindex="1"></p>
 					<p><label for="screenname">ハンドルネーム</label>
-					<input type="text" id="screenname" value=""/>
-					<input type="button" id="confirm"value="進捗" onclick="check()"></p>
+					<input type="text" id="screenname" value="" tabindex="2">
+					<input type="button" id="confirm" value="進捗" tabindex="3"></p>
 
 					<textarea id="notice" readonly disabled="">ゲームで使用するハンドルネームを入力してください。全角12文字以内　重複不可。入力後、重複確認ボタンを押してください。</textarea>
-
 					<p><label for="class">学年</label>
-					<select>
-						<option value="0"></option>
+					<select tabindex="4">
+						<option value="0" selected>--</option>
 						<option value="1">1年</option>
 						<option value="2">2年</option>
 						<option value="3">3年</option>
@@ -84,18 +72,20 @@
 						<option value="5">留年</option>
 					</select>
 					</p>
-
-					<p><label for="sex">性別</label></p>
-					<div class="radiolist">
-						<label class="radiolabel"><input type="radio" name="sex">男</label>
-						<label class="radiolabel"><input type="radio" name="sex">女</label><br>
-						<label class="radiolabel"><input type="radio" name="sex">男の娘</label>
-						<label class="radiolabel"><input type="radio" name="sex">その他</label>
+					<p><label>性別</label></p>
+					<div id="radiolist">
+						<label class="radiolabel">
+							<input type="radio" name="sex" value="男" tabindex="5"checked>男</label>
+						<label class="radiolabel">
+							<input type="radio" name="sex" value="女">女</label><br>
+						<label class="radiolabel">
+							<input type="radio" name="sex" value="男の娘">男の娘</label>
+						<label class="radiolabel">
+							<input type="radio" name="sex" value="その他">その他</label>
 					</div>
-
 					<p><label for="class">生年月日</label>
-						<select>
-							<option value="">----年</option>
+						<select tabindex="6">
+							<option value="" selected>----年</option>
 							<option value="1930">1930年</option>
 							<option value="1931">1931年</option>
 							<option value="1932">1932年</option>
@@ -181,8 +171,8 @@
 							<option value="2012">2012年</option>
 							<option value="2013">2013年</option>
 						</select>
-						<select>
-							<option value="">-</option>
+						<select tabindex="7">
+							<option value="" selected>-</option>
 							<option value="1">1月</option>
 							<option value="2">2月</option>
 							<option value="3">3月</option>
@@ -196,7 +186,7 @@
 							<option value="11">11月</option>
 							<option value="12">12月</option>
 						</select>
-						<select>
+						<select tabindex="8">
 							<option value="">-</option>
 							<option value="1">1日</option>
 							<option value="2">2日</option>
@@ -232,24 +222,21 @@
 						</select>
 					</p>
 					<p><label for="comment">コメント</label>
-						<textarea id="comment" maxlength="128" rows="4" cols="30" 
-							placeholder="コメントを60文字前後で入力してください。"></textarea>
+						<textarea id="comment" maxlength="128" rows="4" cols="30" tabindex="9" placeholder="コメントを60文字前後で入力してください。"></textarea>
 					</p>
 				</form>
 			</div>
-
 			<div class="right_form"> <!-- アバター選択・送信 -->
 				<div id="avatar_window">				<!-- 仮画像 -->
-					<img src="img/avatar/sample1.png" onclick="ScaleUp(this)" height="100px" width="60px">
-					<img src="img/avatar/sample2.png" onclick="ScaleUp(this)" height="100px" width="60px">	
-					<img src="img/avatar/sample3.png" onclick="ScaleUp(this)" height="100px" width="60px">
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="アバター">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="アバター">	
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="アバター">
 				</div>
 				<div id="avatar_bg">
-					<img id="full_avatar" src="img/avatar/sample3.png">
+					<img id="full_avatar" alt="拡大アバター" src="img/avatar/sample3.png">
 				</div>
-			<button id="sendbutton" name="hoge" type="submit" onclick="send()">送信</button>	
+			<button id="sendbutton" name="hoge" type="submit">送信</button>	
 			</div>
-
 		</div>		
 	</body>
 </html>

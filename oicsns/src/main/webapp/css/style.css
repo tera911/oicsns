@@ -1,0 +1,13 @@
+#content {
+	width:1000px;
+	height:750px;
+	border:thin solid gray;
+	border-radius:10px;
+	margin:auto;
+	background-image:url('../img/OICicon.png');
+	background-position:center;
+	background-repeat:no-repeat;
+}
+/*
+ * eula.css
+ */

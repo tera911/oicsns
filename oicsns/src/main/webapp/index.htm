@@ -1,0 +1,88 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>OIC SNS - RT2</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-darkness/jquery-ui.css">
+		<link rel="stylesheet" href="template/base.css">
+		<link rel="stylesheet" href="css/style.css">
+		<script type="text/javascript"><!--
+			$(function(){
+				$("#content").click(function(){
+					$("#content").unbind();
+					$("#overlay").fadeIn();
+					$("#login").show();
+					console.log("clicked.");
+				});
+				$("#login").submit(function(){
+					console.log("html():"+$("#uid").html());
+					console.log("text():"+$("#uid").text());
+					if($("#uid").val()=="root"||$("#uid").val()=="user"){
+						$(this).remove();
+						$("#content").css("display","block");
+						$("#content").load("eula.htm");
+					}else{
+						alert("IDとパスワードを確認してください。");
+					}
+					return false;
+				});
+			});
+		//--></script>
+		<style>
+			#content {
+				display:-ms-flexbox;	/*IE10*/
+				display:flex;	/*IE11,Fx,Op,Ch*/
+				-ms-flex-align:center;
+				align-items:center;
+				position:relative;
+			}
+			#login {
+				background-color:#ffffff;
+				border-radius:10px;
+				display:none;
+				margin:auto;
+				padding:10px;
+				position:relative;
+			}
+			#login label {
+				display:inline-block;
+				width:80px;
+			}
+			.txt {width:150px;}
+			.ui-widget-overlay {
+				position:absolute;
+				border-radius:10px;
+			}
+			#overlay {display:none;}
+		</style>
+	</head>
+	<body>
+		<div id="header">
+			<ul>
+				<li class="about"><a href="about.htm">当サイトについて</a>
+				<li class="contact"><a href="contact.htm">通報&問い合わせ</a>
+				<li id="logout">ログアウト
+			</ul>
+		</div>
+		<div id="content">
+			<div id="overlay" class="ui-widget-overlay"></div>
+			<form id="login">
+				<p>
+					<label for="uid">ID:</label>
+					<input type="text" class="txt" id="uid">
+				</p>
+				<p>
+					<label for="pw">パスワード:</label>
+					<input type="password" class="txt" id="pw">
+				</p>
+				<p align=right>
+					<input type="submit" value="ログイン">
+				</p>
+			</form>
+		</div>
+		<div id="footer">
+			Copyright &copy; 2013 OIC-SNS All Rights Reserved.
+		</div>
+	</body>
+</html>
