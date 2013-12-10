@@ -8,19 +8,12 @@
 		<link rel="stylesheet" href="css/hoge.css">
 		<script type="text/javascript">
 		<!--
-		function send(){
-			window.alert('進捗ダメです');
-		}
-
-		function check(){
-			window.alert('進捗ダメです');
-		}
-
 		function ScaleUp(hoge){
  			document.getElementById("full_avatar").src = hoge.src;
 		}
 		//-->
 		</script>
+
 		<style>
 
 		body{
@@ -40,24 +33,28 @@
 		.left_form{
 			float:left;
 			width:440px;
-			height:100%;
+			height:510px;	
 		}
 		.right_form{
 			width:355px;
-			height:100%;
+			height:510px;
 			float:right;
 		}
-
+		.extend_button{
+			width:100%;
+			height:100px;
+			margin-top: 510px;
+			border:solid 1px #ccc;
+			margin:100px 0px 0px 250px ;
+			width: 0px;
+			height: 0px;
+			border-style: solid;
+			border-width: 60px 50px 0px 50px;
+			border-color: #aac4eb transparent transparent transparent;
+		}
 		/*パーツごとのスタイルシート*/
 
-		#notice{
-			width:250px;
-			height:60px;
-			margin: 30px 0px 0px 150px;
-			border-radius: 5px;
-			font-size:100%;				/*後で微調整*/
-			overflow:hidden;
-		}
+		/*ラジオボタンの項目のみ、labelのmargin効果消す*/
 
 		</style>
 	</head>
@@ -71,8 +68,6 @@
 					<p><label for="screenname">ハンドルネーム</label>
 					<input type="text" id="screenname" value=""/>
 					<input type="button" id="confirm"value="進捗" onclick="check()"></p>
-
-					<textarea id="notice" readonly disabled="">ゲームで使用するハンドルネームを入力してください。全角12文字以内　重複不可。入力後、重複確認ボタンを押してください。</textarea>
 
 					<p><label for="class">学年</label>
 					<select>
@@ -235,21 +230,21 @@
 						<textarea id="comment" maxlength="128" rows="4" cols="30" 
 							placeholder="コメントを60文字前後で入力してください。"></textarea>
 					</p>
+					<div class="extend_button">
+					</div>
 				</form>
 			</div>
-
 			<div class="right_form"> <!-- アバター選択・送信 -->
-				<div id="avatar_window">				<!-- 仮画像 -->
-					<img src="img/avatar/sample1.png" onclick="ScaleUp(this)" height="100px" width="60px">
-					<img src="img/avatar/sample2.png" onclick="ScaleUp(this)" height="100px" width="60px">	
-					<img src="img/avatar/sample3.png" onclick="ScaleUp(this)" height="100px" width="60px">
+				<div id="avatar_window">					<!-- 仮画像 -->
+					<img src="img/avatar/sample1.png" onclick="ScaleUp(this)">
+					<img src="img/avatar/sample2.png" onclick="ScaleUp(this)">	
+					<img src="img/avatar/sample3.png" onclick="ScaleUp(this)">
 				</div>
 				<div id="avatar_bg">
 					<img id="full_avatar" src="img/avatar/sample3.png">
 				</div>
 			<button id="sendbutton" name="hoge" type="submit" onclick="send()">送信</button>	
 			</div>
-
 		</div>		
 	</body>
 </html>
