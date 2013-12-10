@@ -6,11 +6,16 @@
 
 package com.oic.map;
 
+import com.oic.client.OicCharacter;
+import java.util.Collection;
+import java.util.LinkedHashSet;
+
 /**
  *
  * @author B2020
  */
 public class OicMap {
+    private Collection<OicCharacter> characters = new LinkedHashSet<>();
     private int mapId;
     private String mapName;
     private String path;
@@ -98,5 +103,15 @@ public class OicMap {
     public void setObjects(Object[] objects) {
         this.objects = objects;
     }
-    
+
+    public void setCharacter(OicCharacter character){
+        this.characters.add(character);
+    }
+    public void removeCharacter(long userId){
+        for(OicCharacter charcter : this.characters){
+            if(charcter.getUserId() == userId){
+                this.characters.remove(charcter);
+            }
+        }
+    }
 }

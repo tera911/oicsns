@@ -57,7 +57,11 @@ public class Connections {
         try{
         for(WebSocketListener websocket : userConnections){
             session = websocket.getSession();
-            session.getRemote().sendString(json.toJSONString());
+            if(session.isOpen()){
+                session.getRemote().sendString(json.toJSONString());
+            }else{
+                userConnections.remove(websocket);
+            }
         }
         }catch(IOException e){
            LOG.log(Level.WARNING ,"error {0}",e.toString());

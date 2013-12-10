@@ -19,7 +19,6 @@ import java.util.Date;
  * @author morimoto
  */
 public class OicCharacter {
-    private OicMap map;
     private Position pos;
     private long userId;
     private String studentNumber;
@@ -29,7 +28,7 @@ public class OicCharacter {
     private OicGender gender;
     private Date birthday;
     private String comment;
-    
+    private int mapid;
     
     public static OicCharacter loadCharFromDB(long userId){
         try{
@@ -121,15 +120,7 @@ public class OicCharacter {
     public void setComment(String comment) {
         this.comment = comment;
     }
-    
-     public OicMap getMap() {
-        return map;
-    }
-
-    public void setMap(OicMap map) {
-        this.map = map;
-    }
-
+   
     public Position getPos() {
         return pos;
     }
@@ -137,4 +128,12 @@ public class OicCharacter {
     public void setPos(Position pos) {
         this.pos = pos;
     }
+
+    public int getMapid() {
+        return mapid;
+    }
+
+    public void setMapid(int mapid) {
+        this.mapid = mapid;
+    }    
 }
