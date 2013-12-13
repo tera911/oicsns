@@ -4,29 +4,32 @@
 		<meta charset="UTF-8">
 		<title>OIC SNS - RT2</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<link rel="stylesheet" href="template/base.css">
-		<link rel="stylesheet" href="css/hoge.css">
+		<script src="./js/jquery.jscrollpane.min.js"></script>		<!-- scrollpane -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css"><!-- scrollpane -->
+		<link rel="stylesheet" type="text/css" href="template/base.css">
+		<link rel="stylesheet" type="text/css" href="css/jscrollpane.css">
+		<link rel="stylesheet" type="text/css" href="css/hoge.css">
 		<script type="text/javascript">
 		<!--
+		$(function(){
+			$('.jscrollpane').jScrollPane({
+				showArrows:true,
+				arrowScrollOnHover:true
+			});
+		});
 		$(function(){
 			$(".avatar_pic").click(function(){
 				document.getElementById("full_avatar").src = this.src;
 			});
-
-		/*	$(".detail_button").click(function(){
-				window.alert('このボタンを押すと、詳細プロフィールを入力できるようにする');
-				window.alert('・・・予定でしたがまだできていません');
-				window.alert('(｡･ ω<)ゞてへぺろ');
-			});*/
 		});
 		//-->
 		</script>
 
 		<style>
-		#profile body{
+		body{
 			background-color: #eeffff;
 		}
-		#profile #content{
+		#content{
 			width:800px;
 			height:610px;
 			border:1px solid #cccccc;
@@ -37,18 +40,18 @@
 			-moz-opacity: 0.7;
 			opacity: 0.7;
 		}
-		#profile .left_form{
+		.left_form{
 
 			float:left;
 			width:440px;
 			height:510px;	
 		}
-		#profile .right_form{
+		.right_form{
 			width:355px;
 			height:510px;
 			float:right;
 		}
-		#profile .detail_button{
+		.detail_button{
 			width:100%;
 			height:100px;
 			margin-top: 510px;
@@ -238,16 +241,24 @@
 				</form>
 			</div>
 			<div class="right_form"> <!-- アバター選択・送信 -->
-				<div id="avatar_window">				<!-- 仮画像 -->
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="アバター">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="アバター">	
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="アバター">
+				<div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="1">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="2">
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="3">
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="4">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="5">
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="6">
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="7">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="8">
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="9">
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="10">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="11">
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="12">
 				</div>
 				<div id="avatar_bg">
 					<img id="full_avatar" alt="拡大アバター" src="img/avatar/sample3.png">
 				</div>
 			<button id="sendbutton" name="hoge" type="submit">送信</button>	
-
 			</div>
 		</div>		
 	</body>
