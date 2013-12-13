@@ -22,11 +22,12 @@
 
 		//-->
 		</script>
+
 		<style>
-		body{
+		#profile body{
 			background-color: #eeffff;
 		}
-		#content{
+		#profile #content{
 			width:800px;
 			height:610px;
 			border:1px solid #cccccc;
@@ -37,17 +38,17 @@
 			-moz-opacity: 0.7;
 			opacity: 0.7;
 		}
-		.left_form{
+		#profile .left_form{
 			float:left;
 			width:440px;
 			height:510px;	
 		}
-		.right_form{
+		#profile .right_form{
 			width:355px;
 			height:510px;
 			float:right;
 		}
-		.detail_button{
+		#profile .detail_button{
 			width:100%;
 			height:100px;
 			margin-top: 510px;
@@ -69,7 +70,7 @@
 					<input type="text" id="student_id" value="Z9999" readonly="readonly" tabindex="1"></p>
 					<p><label for="screenname">ハンドルネーム</label>
 					<input type="text" id="screenname" value="" tabindex="2">
-					<input type="button" id="confirm" value="進捗" tabindex="3"></p>
+					<input type="button" id="confirm" value="重複確認" tabindex="3"></p>
 					<p><label for="class">学年</label>
 					<select tabindex="4" id="class">
 						<option value="0" selected>--</option>
