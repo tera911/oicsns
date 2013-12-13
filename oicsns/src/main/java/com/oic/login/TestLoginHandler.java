@@ -4,6 +4,7 @@
  */
 package com.oic.login;
 
+import com.oic.connection.Connections;
 import com.oic.event.ActionEventImpl;
 import com.oic.net.WebSocketListener;
 import com.oic.utils.DatabaseConnection;
@@ -25,8 +26,8 @@ public class TestLoginHandler implements ActionEventImpl{
     private static final Logger LOG = Logger.getLogger(TestLoginHandler.class.getName());
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
-        long userId;
-        String password;
+        String accesstoken;
+        String accesstokensecret;
         
         //validation
         if(json.get("userid") == null || json.get("password") == null){
@@ -34,32 +35,40 @@ public class TestLoginHandler implements ActionEventImpl{
             return;
         }
         
-        userId = Long.parseLong(json.get("userid").toString());
-        password = json.get("password").toString();
+        accesstoken = json.get("userid").toString(); //JSONからデータ取り出し
+        accesstokensecret = json.get("password").toString();
         
-        int status = -1;
+        long userId = -1;
         try{
-            status = login(userId, password);
+            userId = login(accesstoken, accesstokensecret);
         }catch(SQLException e){
             LOG.log(Level.WARNING, "SQL Exception : {0}",e);
         }
-        if(status == 1){
+        
+        JSONObject loginStatus = new JSONObject();
+        if(userId > 0){//ログイン成功
+            webSocket.userLogin(userId);
+            loginStatus.put("status", "1");
             LOG.log(Level.INFO, "Login Success.");
-        }else{
-            LOG.log(Level.INFO, "Login Faild.");
+        }else{  //ログイン失敗
+            loginStatus.put("status", "0");
+            LOG.log(Level.INFO, "Login Faild.");  
         }
+        webSocket.sendJson(loginStatus);
     }
     
-    public int login(long userid, String password) throws SQLException{
+    public long login(String accesstoken, String accesstokensecret) throws SQLException{
         Connection con = DatabaseConnection.getConnection();
-        PreparedStatement ps = con.prepareStatement("SELECT * FROM user WHERE userid = ? AND accesstokensecret = ?");
-        ps.setLong(1, userid);
-        ps.setString(2, password);
+        Long userId;
+        PreparedStatement ps = con.prepareStatement("SELECT userid FROM user WHERE accesstoken = ? AND accesstokensecret = ?");
+        ps.setString(1, accesstoken);
+        ps.setString(2, accesstokensecret);
         ResultSet rs = ps.executeQuery();
         if(!rs.next()){
             return -1;
         }
-        return 1;
+        userId = rs.getLong("userid");
+        return userId;
     }
     
 }
