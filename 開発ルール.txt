@@ -1,0 +1,66 @@
+クライアント側開発者向け開発ルール
+
+1.ファイル名
+ファイル名は、各画面ごとに以下の通りとします。
+なお、HTMLファイルの拡張子は、".htm"で統一します。
+
+・当サイトについて
+HTMLファイル	about.htm
+外部CSSファイル	about.css(使用する場合)
+外部JavaScript	about.js(使用する場合)
+
+・通報&問い合わせ
+HTMLファイル	contact.htm
+外部CSSファイル	contact.css(使用する場合)
+外部JavaScript	contact.js(使用する場合)
+
+・利用規約
+HTMLファイル	eula.htm
+外部CSSファイル	eula.css(使用する場合)
+外部JavaScript	eula.js(使用する場合)
+部品ID	eula
+
+・登録
+HTMLファイル	register.htm
+外部CSSファイル	register.css(使用する場合)
+外部JavaScript	register.js(使用する場合)
+部品ID	register
+
+・プロフィール
+HTMLファイル	.htm
+外部CSSファイル	.css(使用する場合)
+外部JavaScript	.js(使用する場合)
+部品ID
+
+・チャットウィンドウ
+HTMLファイル	chat.htm
+外部CSSファイル	chat.css(使用する場合)
+外部JavaScript	chat.js(使用する場合)
+部品ID	chat
+
+
+2.フォルダ構成
+フォルダ構成は以下の通りとします。
+
+/(ドキュメントルート)
+├─img/
+├─css/
+├─js/
+│　index.htm
+└　(各HTMLファイル)
+
+また、各ファイルは以下の通り配置してください。
+
+HTML→ドキュメントルート直下
+画像→imgフォルダ
+外部CSS→cssフォルダ
+外部JavaScript→jsフォルダ
+
+
+3.HTML
+HTMLファイルを作成する際に使用するHTMLのバージョンはHTML5に、使用するエンコードはUTF-8に統一します。
+また、各画面のHTMLファイルは、template/template.htmにあるテンプレートを基に作成します。
+なお、HTMLファイルの<!DOCTYPE>宣言や<meta>タグでのエンコード宣言はtemplate.htmの物を使用してください。
+HTMLのインデントについては特に規定しませんが、拘りがなければブラウザでのXMLファイル表示時のインデントを参考にしてください。
+このインデントはtemplate.htmでも使用されており、インデントに使用する文字はタブ文字1つ分です。
+どのようにインデントされるかは、添付のindent.xmlで確認できます。
