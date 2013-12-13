@@ -39,15 +39,23 @@ p{
 	margin-bottom:0px;
 }
 p.first{
-	margin-top:83px;
+	margin-top:73px;
 }
 
 p.two{
-	margin-top:18px;
+	margin-top:14px;
 }
 
-p.three{
-	margin-top: -52px;
+p.third{
+    margin-top:0;
+}
+
+p.p_cate{
+    margin-top:23px;
+}
+
+p.p_content{
+	margin-top: -69px;
 }
 
 p{
@@ -58,11 +66,15 @@ p{
 }
 
 input.classification{
-	margin-top:70px;
+    margin-top:60px;
 }
 
-input.form{
-	margin-top:6px;
+input.fm_stunum1{
+    margin-top:12px;
+}
+
+input.fm_stunum2{
+    margin-top:11px;
 }
 
 input {
@@ -72,20 +84,24 @@ input {
 }
 
 input.mail{
-	margin-top:6px;
 	width:350px;
+}
+
+label{
+    margin-left:10px;
+    color: red;
+    font-size: small;
 }
 
 select{
 	margin-left:18px;
-	margin-top:6px;
+	margin-top:7px;
 	width:200px;
 	height:36px;
 }
 
 textarea{
 	margin-left:18px;
-	margin-top:9px;
 	width:350px;
 	height:120px;
 }
@@ -93,7 +109,7 @@ textarea{
 input.submit1{
 	background-color:#ffccff;
 	border:none;
-	margin-top:144px;
+	margin-top:128px;
 	margin-left:360px;
 	width:130px;
 	height:50px;
@@ -102,7 +118,7 @@ input.submit1{
 input.submit2{
 	background-color:#ffccff;
 	border:none;
-	margin-top:44px;
+	margin-top:20px;
 	margin-left:360px;
 	width:130px;
 	height:50px;
