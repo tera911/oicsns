@@ -9,6 +9,7 @@ import com.oic.client.OicCharacter;
 import com.oic.connection.Connections;
 import com.oic.event.ChatEvent;
 import com.oic.event.ChatlogEvent;
+import com.oic.event.CheckDuplication;
 import com.oic.event.CmdEvent;
 import com.oic.login.TestLoginHandler;
 import java.io.IOException;
@@ -115,9 +116,11 @@ public class WebSocketListener {
                 break;
 
             /* 登録系*/
-            case "checkduplication":
+            case "duplication":
+                new CheckDuplication().ActionEvent(json, webSocketListener);
                 break;
             case "getprofile":
+                
                 break;
             case "setprofile":
                 break;
