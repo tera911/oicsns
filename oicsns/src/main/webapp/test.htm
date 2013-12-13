@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>OIC SNS - RT2</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="./js/jquery.mousewheel.js"></script>
+        <script src="./js/jquery.jscrollpane.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css">
+        
+        <link rel="stylesheet" href="css/test.css">
+		<link rel="stylesheet" href="css/base.css">
+		<script type="text/javascript"><!--
+			//JavaScript
+
+			/* フォームの表示切り替え 及び タブの色を変える処理 */
+			function change(i) {
+                if(i==0){	//allを選択したときの処理
+                    document.getElementById('tab_all').className = 'tab1';
+                    document.getElementById('tab_room').className = 'tab2';
+                    document.getElementById('tab_wis').className = 'tab2';
+                    $("#tab_all").addClass("txt_active");
+                    document.getElementById('tab_all_txt').className = 'txt_active';
+                    document.getElementById('tab_room_txt').className = 'txt_inactive';
+                    document.getElementById('tab_wis_txt').className = 'txt_inactive';
+                    document.getElementById('tab_circle_txt').className = 'txt_inactive';
+              
+                    document.getElementById('fw_all').style.display='block';
+                    document.getElementById('fw_room').style.display='none';
+                    document.getElementById('fw_wis').style.display='none';
+                    document.getElementById('fw_first').style.display='none';
+                }
+                else if(i==1){	//不具合の報告を選択したときの処理
+                    document.getElementById('tab_all').className = 'tab2';
+                    document.getElementById('tab_room').className = 'tab1';
+                    document.getElementById('tab_wis').className = 'tab2';
+
+                    document.getElementById('tab_all_txt').className = 'txt_inactive';
+                    document.getElementById('tab_room_txt').className = 'txt_active';
+                    document.getElementById('tab_wis_txt').className = 'txt_inactive';
+                    document.getElementById('tab_circle_txt').className = 'txt_inactive';
+                    
+                    document.getElementById('fw_all').style.display='none';
+                    document.getElementById('fw_room').style.display='block';
+                    document.getElementById('fw_wis').style.display='none';
+                    document.getElementById('fw_first').style.display='none';
+                }
+                else{			//管理者への問い合わせを選択したときの処理
+                    document.getElementById('tab_all').className = 'tab2';
+                    document.getElementById('tab_room').className = 'tab2';
+                    document.getElementById('tab_wis').className = 'tab1';
+
+                    document.getElementById('tab_all_txt').className = 'txt_inactive';
+                    document.getElementById('tab_room_txt').className = 'txt_inactive';
+                    document.getElementById('tab_wis_txt').className = 'txt_active';
+                    document.getElementById('tab_circle_txt').className = 'txt_inactive';
+                    
+                    document.getElementById('fw_all').style.display='none';
+                    document.getElementById('fw_room').style.display='none';
+                    document.getElementById('fw_wis').style.display='block';
+                    document.getElementById('fw_first').style.display='none';
+                }
+            }
+            
+            fuction changeClass(){
+                
+            }
+            //イニシャライズ
+            window.onload = function(){
+                change(0);
+            };
+		//--></script>
+        
+	</head>
+	<body>
+		<div id="header">
+			<ul>
+				<li class="about"><a href="about.htm">当サイトについて</a>
+				<li class="contact"><a href="contact.htm">通報&問い合わせ</a>
+				<li id="logout">ログアウト
+			</ul>
+		</div>
+        
+  
+        
+		<div id="chatwindowGroup">
+            <div id="tabGroup">
+
+			<a id="tab_all" class="tab2" onClick="change(0)"><div    id="tab_all_txt" class="txt_active">全体</div></a>
+			<a id="tab_room" class="tab2" onClick="change(1)"><div   id="tab_room_txt" class="txt_inactive">部屋</div></a>
+			<a id="tab_wis" class="tab2" onClick="change(2)"><div    id="tab_wis_txt" class="txt_inactive">ささやき</div></a>
+			<a id="tab_circle" class="tab2" onClick="change(2)"><div id="tab_circle_txt" class="txt_inactive">サークル</div></a>
+            </div>
+<!-- フォームウィンドウ初期状態 -->
+				<div id="fw_first" class="fw">
+				</div>
+<!-- 迷惑行為の報告のフォーム -->
+				<div id="fw_all" class="fw">
+
+				</div>
+<!-- 不具合の報告のフォーム -->
+				<div id="fw_room" class="fw" >
+	
+				</div>
+<!-- 運営者への問い合わせのフォーム -->
+				<div id="fw_wis" class="fw" >
+	
+				</div>
+            <div id="inputWindow">
+            
+            </div>
+		</div>
+		<div id="footer">
+			Copyright &copy; 2013 OIC-SNS All Rights Reserved.
+		</div>
+	</body>
+</html>
