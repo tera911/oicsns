@@ -14,4 +14,6 @@ public class Config {
     public static final String DB_HOST = "jdbc:mysql://127.0.0.1:3307/oicsns";
     public static final String DB_USER = "morimoto";
     public static final String DB_PASSWORD = "sqluser";
+    
+    public static final String MAPFILE_PATH = "/map/";
 }

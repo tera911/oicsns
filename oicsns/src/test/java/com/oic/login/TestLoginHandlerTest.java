@@ -15,27 +15,28 @@ import org.json.simple.JSONObject;
  * @author morimoto
  */
 public class TestLoginHandlerTest extends TestCase {
+    JSONObject json;
+    TestLoginHandler testLogin;
     
     public TestLoginHandlerTest(String testName) {
         super(testName);
     }
     
     public void testDBAccess(){
-        JSONObject json = new JSONObject();
-        
-        TestLoginHandler testLogin = new TestLoginHandler();
-        int status = -1;
+        long loginId = -1;
         try{
-            status = testLogin.login(1, "test123");
+            loginId = testLogin.login("tera09", "tera09");
         }catch(Exception e){
             e.printStackTrace();
         }
-        //assertEquals("LoginStatus", status, 1);
+        assertEquals("LoginStatus", loginId, 4);
     }
     
     @Override
     protected void setUp() throws Exception {
         super.setUp();
+        json = new JSONObject();
+        testLogin = new TestLoginHandler();
     }
     
     @Override
