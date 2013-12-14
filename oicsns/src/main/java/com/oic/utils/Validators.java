@@ -17,8 +17,8 @@ import org.json.simple.JSONObject;
  * @author b2020
  */
 public class Validators {
-    private JSONObject json;
-    private Map<String, validationType> validationRule;
+    private final JSONObject json;
+    private final Map<String, validationType> validationRule;
     private int maxLength;
     private int minLength;
     public enum validationType {REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH};

@@ -6,7 +6,6 @@
 
 package com.oic.event;
 
-import com.oic.connection.Connections;
 import com.oic.net.WebSocketListener;
 import com.oic.utils.DatabaseConnection;
 import com.oic.utils.Validators;
