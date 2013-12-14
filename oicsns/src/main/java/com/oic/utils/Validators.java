@@ -18,9 +18,10 @@ import org.json.simple.JSONObject;
  */
 public class Validators {
     private JSONObject json;
-    private Map<String, Integer> validationRule;
+    private Map<String, validationType> validationRule;
     private int maxLength;
     private int minLength;
+    public enum validationType {REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH};
 
     public Validators(JSONObject json) {
         validationRule = new HashMap<>();
@@ -30,38 +31,38 @@ public class Validators {
     /**
      * Validationルールを追加
      * @param key
-     * @param type 
+     * @param types
      */
-    public void add(String key, int... type){
-        for(Integer i : type){
-            validationRule.put(key, i);
+    public void add(String key, validationType... types){
+        for(validationType type : types){
+            validationRule.put(key, type);
         }
     }
     
     public boolean validate(){
         try{
-            for(Map.Entry<String, Integer> e : validationRule.entrySet()){
+            for(Map.Entry<String, validationType> e : validationRule.entrySet()){
                 String data = json.get(e.getKey()).toString();
                 switch(e.getValue()){
                     //空白チェック
-                    case 1:
+                    case REQUIRED:
                         if(data.equals("")){
                             throw new NullPointerException();
                         }
                     break;
-                    case 2:
+                    case STUDENTID:
                         Pattern pattern = Pattern.compile("^[a-zA-Z][0-9]{4}$");
                         Matcher matcher = pattern.matcher(data);
                         if(!matcher.find()){
                             throw new NullPointerException();
                         }
                     break;
-                    case 3:
+                    case MAXLENGTH:
                         if(data.getBytes().length > maxLength){
                             throw new NullPointerException();
                         }
                     break;
-                    case 4:
+                    case MINLENGTH:
                         if(data.getBytes().length < minLength){
                             throw new NullPointerException();
                         }
@@ -81,16 +82,16 @@ public class Validators {
      * 空白禁止
      * @return 
      */
-    public int required(){
-        return 1;
+    public validationType required(){
+        return validationType.REQUIRED;
     }
     
     /**
      * 学籍番号
      * @return 
      */
-    public int studentId(){
-        return 2;
+    public validationType studentId(){
+        return validationType.STUDENTID;
     }
     
     /**
@@ -99,9 +100,9 @@ public class Validators {
      * @param maxLength
      * @return 
      */
-    public int maxLength(int maxLength){
+    public validationType maxLength(int maxLength){
         this.maxLength = maxLength;
-        return 3;
+        return validationType.MAXLENGTH;
     }
     
     /**
@@ -110,8 +111,8 @@ public class Validators {
      * @param minLength
      * @return 
      */
-    public int minLength(int minLength){
+    public validationType minLength(int minLength){
         this.minLength = minLength;
-        return 4;
+        return validationType.MINLENGTH;
     }
 }
