@@ -35,22 +35,24 @@ public class WebSocketListener {
     private Session session;
     private OicCharacter c = null;//キャラクターインスタンス,最初は未登録の可能性もあるからNULL
     
-    public enum Status{
-        NOLOGIN, LOGIN, REGISTER, NOTHING
-    }
-    public enum Register{
-        NOREGISTER,REGISTERED
+    /**
+     * NOLOGIN  何もしていない
+     * LOGIN    ログイン済み
+     * REGISTER 登録すべきユーザ
+     */
+    public enum LoginStatus{
+        NOLOGIN, LOGIN, REGISTER
     }
     /**
      * loing =<br>
      * -1 // not login<br>
      * 0 //logout (keep cache) 1 //login (no register) 2 //login
      */
-    private Status login = Status.NOLOGIN;
+    private LoginStatus login = LoginStatus.NOLOGIN;
 
     @OnWebSocketConnect
     public void onConnect(Session session) {
-        login = Status.NOTHING;
+        login = LoginStatus.NOLOGIN;
         this.session = session;
         Connections.addConnection(this);//コネクションリストに追加
 
@@ -89,10 +91,10 @@ public class WebSocketListener {
         if (method == null) { //ぬるぽ回避のため
             LOG.log(Level.WARNING, "Message Method is NULL : {0}", json.toString());
             return;
-        } else if (login == Status.NOTHING && method.equals("login")) {
+        } else if (login == LoginStatus.NOLOGIN && method.equals("login")) {
             new TestLoginHandler().ActionEvent(json, this);
             //new LoginHandler().ActionEvent(json, this);//ログイン処理
-        } else if (login == Status.NOTHING) {
+        } else if (login == LoginStatus.NOLOGIN) {
             //ユーザー登録処理
             return;
         }
@@ -160,16 +162,16 @@ public class WebSocketListener {
     }
 
     public void userLogin(long userId) {
-        login = Status.LOGIN;
+        login = LoginStatus.LOGIN;
         c = OicCharacter.loadCharFromDB(userId);
         if (c == null) {//未登録
-            login = Status.REGISTER;
+            login = LoginStatus.REGISTER;
         }
         c.setMapid(31); //ログイン時のマップは3A教室固定
     }
 
     public void userLogout() {
-        login = Status.NOTHING;
+        login = LoginStatus.NOLOGIN;
         Connections.removeConnection(this);
     }
 }
