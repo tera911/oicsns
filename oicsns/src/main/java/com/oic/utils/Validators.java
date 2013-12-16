@@ -6,6 +6,7 @@
 
 package com.oic.utils;
 
+import com.sun.org.apache.xalan.internal.xsltc.compiler.util.IntType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -21,7 +22,7 @@ public class Validators {
     private final Map<String, validationType> validationRule;
     private int maxLength;
     private int minLength;
-    public enum validationType {REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH};
+    public enum validationType {REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH,INTEGERTYPE,};
 
     public Validators(JSONObject json) {
         validationRule = new HashMap<>();
@@ -67,6 +68,8 @@ public class Validators {
                             throw new NullPointerException();
                         }
                     break;
+                    case INTEGERTYPE:
+                        Integer.parseInt(data);
                 }
             }
             return true;
@@ -114,5 +117,9 @@ public class Validators {
     public validationType minLength(int minLength){
         this.minLength = minLength;
         return validationType.MINLENGTH;
+    }
+    
+    public validationType integerType(){
+        return validationType.INTEGERTYPE;
     }
 }
