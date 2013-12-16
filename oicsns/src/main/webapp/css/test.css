@@ -8,7 +8,7 @@
     height:228px;
     position:absolute;left:0px; top:522px;
 
-    background-color:rgb(0,100,0)
+    background-color:peru
 }
 #tabGroup{
     width:387px;
@@ -61,7 +61,8 @@
     width:67px;
     height:23px;
 	overflow:hidden;
-	background:transparent;    
+	background:transparent;
+    position:relative;
         
 }
 .tab2::before{
@@ -102,11 +103,15 @@
 	margin-top: -20px;
     text-align:center;
     color:rgb(64,64,64);
+    position:relative;
+    z-index:1;
 }
 .txt_inactive{
  	margin-top: -20px;
     text-align:center; 
     color:rgb(255,255,255);
+    position:relative;
+    z-index:1;
 }
 
 
@@ -205,6 +210,13 @@ input.submit2{
 	height:50px;
 }
 
+#logWindow{
+	width:387px;
+	height:205px;
+	
+    background-color:rgba(255,255,255,0.7);        
+}
+
 .fw{
 	width:351px;
 	height:168px;
@@ -212,15 +224,16 @@ input.submit2{
 	clear:both;
 	border:none;
 	display:none;
-    
-
-    background-color:rgba(255,255,255,0.7);      
+  
 }
 
-#fw_first{
-	display:block;
-    background-color:rgba(255,255,255,0.7);  
-}/*
+#inputWindow{
+	width:260px;
+	height:15px;
+
+    background-color:rgba(255,255,255,0.7);       
+}
+/*
 #fw_all{
 	display:block;
     background-color:rgba(255,255,255,0.7);      
