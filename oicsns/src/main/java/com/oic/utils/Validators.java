@@ -19,10 +19,11 @@ import org.json.simple.JSONObject;
  */
 public class Validators {
     private final JSONObject json;
+    private JSONObject errorJson;
     private final Map<String, validationType> validationRule;
     private int maxLength;
     private int minLength;
-    public enum validationType {REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH,INTEGERTYPE,};
+    public enum validationType {REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH,INTEGERTYPE, BIRTHDAY};
 
     public Validators(JSONObject json) {
         validationRule = new HashMap<>();
@@ -44,6 +45,9 @@ public class Validators {
         try{
             for(Map.Entry<String, validationType> e : validationRule.entrySet()){
                 String data = json.get(e.getKey()).toString();
+                errorJson.put(e.getKey(), "1");
+                Pattern pattern;
+                Matcher matcher;
                 switch(e.getValue()){
                     //空白チェック
                     case REQUIRED:
@@ -52,8 +56,8 @@ public class Validators {
                         }
                     break;
                     case STUDENTID:
-                        Pattern pattern = Pattern.compile("^[a-zA-Z][0-9]{4}$");
-                        Matcher matcher = pattern.matcher(data);
+                         pattern = Pattern.compile("^[a-zA-Z][0-9]{4}$");
+                        matcher = pattern.matcher(data);
                         if(!matcher.find()){
                             throw new NullPointerException();
                         }
@@ -70,12 +74,25 @@ public class Validators {
                     break;
                     case INTEGERTYPE:
                         Integer.parseInt(data);
+                    break;
+                    case BIRTHDAY:
+                        pattern = Pattern.compile("^([1-9][0-9]{3})-([1-9]{1}|1[0-2]{1})-([1-9]{1}|[1-2]{1}[0-9]{1}|3[0-1]{1})$");
+                        matcher = pattern.matcher(data);
+                        if(!matcher.find()){
+                            throw new NullPointerException();
+                        }
+                    break;
                 }
+                errorJson.remove(e.getKey());
             }
             return true;
         }catch(Exception e){
             return false;
         }
+    }
+    
+    public JSONObject getError(){
+        return errorJson;
     }
     
     
@@ -121,5 +138,9 @@ public class Validators {
     
     public validationType integerType(){
         return validationType.INTEGERTYPE;
+    }
+    
+    public validationType birthday(){
+        return validationType.BIRTHDAY;
     }
 }
