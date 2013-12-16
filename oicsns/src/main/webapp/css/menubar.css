@@ -1,0 +1,54 @@
+#menubar{
+    //opacity:0.7;
+    height:65px;
+    width:480px;
+    position:absolute;
+    top:685px;
+    left:477px;
+    background: -webkit-gradient(linear,left top, right bottom, color-stop(0.7, #9811ff), color-stop(0.7, #69a2f2));
+    background: -webkit-linear-gradient(#9811ff, #69a2f2);
+    background: -moz-linear-gradient(#9811ff, #69a2f2);
+    background: -o-linear-gradient(#9811ff, #69a2f2);
+    background: -ms-linear-gradient(#9811ff, #69a2f2);
+    background: linear-gradient(to right,#9811ff, #69a2f2);
+}
+
+div.icon{
+    z-index:2;
+    position:relative;
+    width:80px;
+    height:65px;
+    float:left;
+    //background-color:rgba(255,255,255,0.3);       これはマウスオーバー時の
+}
+
+div#menu1{
+    background:url("./img/menubar/1.png") no-repeat center;
+}
+
+div#menu2{
+    background:url("./img/menubar/2.png") no-repeat center;
+}
+
+div#menu3{
+    background:url("./img/menubar/3.png") no-repeat center;
+}
+
+div#menu4{
+    background:url("./img/menubar/4.png") no-repeat center;
+}
+
+div#menu5{
+    background:url("./img/menubar/5.png") no-repeat center;
+}
+
+div#menu6{
+    background:url("./img/menubar/6.png") no-repeat center;
+}
+
+img.white{
+    z-index:1;
+    position: absolute;
+    opacity:0.3;
+    display:none;
+}
