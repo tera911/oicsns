@@ -180,4 +180,11 @@ public class WebSocketListener {
         login = LoginStatus.NOLOGIN;
         Connections.removeConnection(this);
     }
+    
+    public boolean isLogin(){
+        return (login == LoginStatus.LOGIN);
+    }
+    public boolean isRegister(){
+        return (login == LoginStatus.REGISTER);
+    }
 }
