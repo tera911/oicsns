@@ -58,17 +58,26 @@ public class TestLoginHandler implements ActionEventImpl{
     }
     
     public long login(String accesstoken, String accesstokensecret) throws SQLException{
-        Connection con = DatabaseConnection.getConnection();
-        Long userId;
-        PreparedStatement ps = con.prepareStatement("SELECT userid FROM user WHERE accesstoken = ? AND accesstokensecret = ?");
-        ps.setString(1, accesstoken);
-        ps.setString(2, accesstokensecret);
-        ResultSet rs = ps.executeQuery();
-        if(!rs.next()){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
+        try{
+            con = DatabaseConnection.getConnection();
+            Long userId;
+            ps = con.prepareStatement("SELECT userid FROM user WHERE accesstoken = ? AND accesstokensecret = ?");
+            ps.setString(1, accesstoken);
+            ps.setString(2, accesstokensecret);
+            rs = ps.executeQuery();
+            if(!rs.next()){
+                return -1;
+            }
+            userId = rs.getLong("userid");
+            return userId;
+        }catch(SQLException e){
+            try{    rs.close();    }catch(Exception e1){}
+            try{    ps.close();    }catch(Exception e1){}
             return -1;
-        }
-        userId = rs.getLong("userid");
-        return userId;
+        }       
     }
     
 }
