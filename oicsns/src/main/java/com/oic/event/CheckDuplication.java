@@ -23,6 +23,7 @@ public class CheckDuplication implements ActionEventImpl{
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
         JSONObject responseJSON = new JSONObject();
+        responseJSON.put("method", "duplication");
         Validators v = new Validators(json);
         v.add("username", v.required(), v.maxLength(24));
         if(!v.validate()){
