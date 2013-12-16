@@ -41,13 +41,19 @@ public class WebSocketListener {
      * REGISTER 登録すべきユーザ
      */
     public enum LoginStatus{
-        NOLOGIN, LOGIN, REGISTER
+        /**
+         * 未ログイン状態
+         */
+        NOLOGIN, 
+        /**
+         * ログインしている
+         */
+        LOGIN, 
+        /**
+         * ログインしていないので登録する
+         */
+        REGISTER
     }
-    /**
-     * loing =<br>
-     * -1 // not login<br>
-     * 0 //logout (keep cache) 1 //login (no register) 2 //login
-     */
     private LoginStatus login = LoginStatus.NOLOGIN;
 
     @OnWebSocketConnect
