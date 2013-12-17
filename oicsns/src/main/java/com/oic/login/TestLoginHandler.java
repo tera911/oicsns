@@ -4,8 +4,6 @@
  */
 package com.oic.login;
 
-import com.oic.client.AutoRegister;
-import com.oic.connection.Connections;
 import com.oic.event.ActionEventImpl;
 import com.oic.net.WebSocketListener;
 import com.oic.utils.DatabaseConnection;
@@ -76,22 +74,14 @@ public class TestLoginHandler implements ActionEventImpl{
             ps.setString(2, accessTokenSecret);
             rs = ps.executeQuery();
             if(!rs.next()){
-                sql = "SELECT userid FROM user WHERE accesstoken = ?";
-                ps = con.prepareStatement(sql);
-                ps.setString(1, accessToken);
-                rs = ps.executeQuery();
-                if(!rs.next()){
-                    return -1;
-                }else{
-                    new AutoRegister(accessToken, accessTokenSecret).register();
-                    return 0;
-                }
+                return -1;               
             }
             userId = rs.getLong("userid");
             return userId;
         }catch(SQLException e){
             try{    rs.close();    }catch(Exception e1){}
             try{    ps.close();    }catch(Exception e1){}
+            e.printStackTrace();
             return -1;
         }       
     }
@@ -99,7 +89,7 @@ public class TestLoginHandler implements ActionEventImpl{
     public boolean validation(JSONObject json){
         Validators v = new Validators(json);
         v.add("userid" , v.required());
-        v.add("password", v.required()); 
+        v.add("password", v.required());
         return v.validate();
     }
 }

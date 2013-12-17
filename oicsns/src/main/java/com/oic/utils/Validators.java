@@ -3,10 +3,8 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.oic.utils;
 
-import com.sun.org.apache.xalan.internal.xsltc.compiler.util.IntType;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.regex.Matcher;
@@ -18,129 +16,141 @@ import org.json.simple.JSONObject;
  * @author b2020
  */
 public class Validators {
+
     private final JSONObject json;
-    private JSONObject errorJson;
+    private final JSONObject errorJson;
     private final Map<String, validationType> validationRule;
     private int maxLength;
     private int minLength;
-    public enum validationType {REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH,INTEGERTYPE, BIRTHDAY};
+
+    public enum validationType {
+
+        REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH, INTEGERTYPE, BIRTHDAY
+    };
 
     public Validators(JSONObject json) {
         validationRule = new HashMap<>();
+        errorJson = new JSONObject();
         this.json = json;
     }
-    
+
     /**
      * Validationルールを追加
+     *
      * @param key
      * @param types
      */
-    public void add(String key, validationType... types){
-        for(validationType type : types){
+    public void add(String key, validationType... types) {
+        for (validationType type : types) {
             validationRule.put(key, type);
         }
     }
-    
-    public boolean validate(){
-        try{
-            for(Map.Entry<String, validationType> e : validationRule.entrySet()){
+
+    public boolean validate() {
+        boolean error = false;
+        for (Map.Entry<String, validationType> e : validationRule.entrySet()) {
+            errorJson.put(e.getKey(), "1");
+            try {
                 String data = json.get(e.getKey()).toString();
-                errorJson.put(e.getKey(), "1");
                 Pattern pattern;
                 Matcher matcher;
-                switch(e.getValue()){
+                switch (e.getValue()) {
                     //空白チェック
                     case REQUIRED:
-                        if(data.equals("")){
+                        if (data.equals("")) {
                             throw new NullPointerException();
                         }
-                    break;
+                        break;
                     case STUDENTID:
-                         pattern = Pattern.compile("^[a-zA-Z][0-9]{4}$");
+                        pattern = Pattern.compile("^[a-zA-Z][0-9]{4}$");
                         matcher = pattern.matcher(data);
-                        if(!matcher.find()){
+                        if (!matcher.find()) {
                             throw new NullPointerException();
                         }
-                    break;
+                        break;
                     case MAXLENGTH:
-                        if(data.getBytes().length > maxLength){
+                        if (data.getBytes().length > maxLength) {
                             throw new NullPointerException();
                         }
-                    break;
+                        break;
                     case MINLENGTH:
-                        if(data.getBytes().length < minLength){
+                        if (data.getBytes().length < minLength) {
                             throw new NullPointerException();
                         }
-                    break;
+                        break;
                     case INTEGERTYPE:
                         Integer.parseInt(data);
-                    break;
+                        break;
                     case BIRTHDAY:
-                        pattern = Pattern.compile("^([1-9][0-9]{3})-([1-9]{1}|1[0-2]{1})-([1-9]{1}|[1-2]{1}[0-9]{1}|3[0-1]{1})$");
+                        pattern = Pattern.compile("^([1-9][0-9]{3})-(([1-9]{1}|1[0-2]{1})|0[1-9])-([1-9]{1}|[1-2]{1}[0-9]{1}|3[0-1]{1}|0[1-9])$");
                         matcher = pattern.matcher(data);
-                        if(!matcher.find()){
+                        if (!matcher.find()) {
                             throw new NullPointerException();
                         }
-                    break;
+                        break;
                 }
                 errorJson.remove(e.getKey());
+            } catch (NullPointerException ex) {
+                error = true;
             }
-            return true;
-        }catch(Exception e){
+        }
+        if (error == true) {
             return false;
+        } else {
+            return true;
         }
     }
-    
-    public JSONObject getError(){
+
+    public JSONObject getError() {
         return errorJson;
     }
-    
-    
+
     /* validation type */
-    
     /**
      * 空白禁止
-     * @return 
+     *
+     * @return
      */
-    public validationType required(){
+    public validationType required() {
         return validationType.REQUIRED;
     }
-    
+
     /**
      * 学籍番号
-     * @return 
+     *
+     * @return
      */
-    public validationType studentId(){
+    public validationType studentId() {
         return validationType.STUDENTID;
     }
-    
+
     /**
-     * 最大文字数を決める
-     * 全角は2文字として認識される
+     * 最大文字数を決める 全角は2文字として認識される
+     *
      * @param maxLength
-     * @return 
+     * @return
      */
-    public validationType maxLength(int maxLength){
+    public validationType maxLength(int maxLength) {
         this.maxLength = maxLength;
         return validationType.MAXLENGTH;
     }
-    
+
     /**
-     * 最低文字数を決める
-     * 全角は2文字として認識される
+     * 最低文字数を決める 全角は2文字として認識される
+     *
      * @param minLength
-     * @return 
+     * @return
      */
-    public validationType minLength(int minLength){
+    public validationType minLength(int minLength) {
         this.minLength = minLength;
         return validationType.MINLENGTH;
     }
-    
-    public validationType integerType(){
+
+    public validationType integerType() {
         return validationType.INTEGERTYPE;
     }
-    
-    public validationType birthday(){
+
+    public validationType birthday() {
         return validationType.BIRTHDAY;
     }
 }

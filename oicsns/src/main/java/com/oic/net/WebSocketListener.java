@@ -11,6 +11,8 @@ import com.oic.event.ChatEvent;
 import com.oic.event.ChatlogEvent;
 import com.oic.event.CheckDuplication;
 import com.oic.event.CmdEvent;
+import com.oic.event.RegisterProfile;
+import com.oic.event.SetProfile;
 import com.oic.login.TestLoginHandler;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -50,9 +52,9 @@ public class WebSocketListener {
          */
         LOGIN, 
         /**
-         * ログインしていないので登録する
+         * 登録する
          */
-        REGISTER
+        REGISTER,
     }
     private LoginStatus login = LoginStatus.NOLOGIN;
 
@@ -72,6 +74,7 @@ public class WebSocketListener {
         try {
             json = (JSONObject) (new JSONParser().parse(message));
             LOG.log(Level.INFO, "method : {0}", json.get("method"));
+            LOG.log(Level.INFO, "status : {0}", login);
             method = json.get("method").toString();
         } catch (ParseException e) {
             LOG.log(Level.WARNING, "{0}", e);
@@ -97,53 +100,58 @@ public class WebSocketListener {
         if (method == null) { //ぬるぽ回避のため
             LOG.log(Level.WARNING, "Message Method is NULL : {0}", json.toString());
             return;
-        } else if (login == LoginStatus.NOLOGIN && method.equals("login")) {
-            new TestLoginHandler().ActionEvent(json, this);
+        }else if (login == LoginStatus.NOLOGIN && method.equals("duplication")) {
+            /* 重複確認　通ったらStatusがREGISTERになる */
+            new CheckDuplication().ActionEvent(json, webSocketListener);
+        }else if (login == LoginStatus.NOLOGIN && method.equals("login")) {
+            /* ログイン */
+            new TestLoginHandler().ActionEvent(json, webSocketListener);
             //new LoginHandler().ActionEvent(json, this);//ログイン処理
-        } else if (login == LoginStatus.NOLOGIN) {
-            //ユーザー登録処理
+        }else if (login == LoginStatus.REGISTER && method.equals("setprofile")) {
+            /* 重複確認したら新規登録 */
+            new RegisterProfile().ActionEvent(json, webSocketListener);
+        }else{
             return;
         }
-        switch (method) {//ログイン後の振り分け
-            case "allchat":
-                new ChatEvent().ActionEvent(json, this);
+        if(login == LoginStatus.LOGIN){
+            switch (method) {//ログイン後の振り分け
+                case "allchat":
+                    new ChatEvent().ActionEvent(json, this);
+                    break;
+                case "getchatlog":
+                    new ChatlogEvent().ActionEvent(json, webSocketListener);
+                    break;
+
+                /* マップ */
+                case "getmapid":
+                    break;
+                case "transfermap":
+                    break;
+                case "getmapall":
+                    break;
+                case "getmapfloor":
+                    break;
+                case "getmapinfo":
+                    break;
+
+                /* マップでの情報 */
+                case "posupdate":
+                    break;
+                case "getuserinfo":
+                    break;
+
+                /* 登録系*/
+                case "setprofile":
+                    new SetProfile().ActionEvent(json, webSocketListener);
                 break;
-            case "getchatlog":
-                new ChatlogEvent().ActionEvent(json, webSocketListener);
+                case "getprofile":
                 break;
 
-            /* マップ */
-            case "getmapid":
-                break;
-            case "transfermap":
-                break;
-            case "getmapall":
-                break;
-            case "getmapfloor":
-                break;
-            case "getmapinfo":
-                break;
-                
-            /* マップでの情報 */
-            case "posupdate":
-                break;
-            case "getuserinfo":
-                break;
-
-            /* 登録系*/
-            case "duplication":
-                new CheckDuplication().ActionEvent(json, webSocketListener);
-                break;
-            case "getprofile":
-                
-                break;
-            case "setprofile":
-                break;
-
-            /* utils */
-            case "cmd":
-                new CmdEvent().ActionEvent(json, webSocketListener);
-                break;
+                /* utils */
+                case "cmd":
+                    new CmdEvent().ActionEvent(json, webSocketListener);
+                    break;
+            }
         }
     }
 
@@ -167,6 +175,10 @@ public class WebSocketListener {
         return this.session;
     }
 
+    /**
+     * ユーザがログイン
+     * @param userId 
+     */
     public void userLogin(long userId) {
         login = LoginStatus.LOGIN;
         c = OicCharacter.loadCharFromDB(userId);
@@ -176,14 +188,33 @@ public class WebSocketListener {
         c.setMapid(31); //ログイン時のマップは3A教室固定
     }
 
+    /**
+     * ユーザをログアウトする
+     */
     public void userLogout() {
         login = LoginStatus.NOLOGIN;
         Connections.removeConnection(this);
     }
     
+    /**
+     * ユーザ登録開始
+     */
+    public void userRegister(){
+        login = LoginStatus.REGISTER;
+    }
+    
+    /**
+     * ログインしているか確認
+     * @return 
+     */
     public boolean isLogin(){
         return (login == LoginStatus.LOGIN);
     }
+    
+    /**
+     * 登録状態か確認
+     * @return 
+     */
     public boolean isRegister(){
         return (login == LoginStatus.REGISTER);
     }

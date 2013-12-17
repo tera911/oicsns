@@ -42,6 +42,7 @@ public class CheckDuplication implements ActionEventImpl{
                 if(rs.next()){//重複
                     responseJSON.put("result", 1);
                 }else{//未登録
+                    webSocket.userRegister();//登録開始
                     responseJSON.put("result", 0);
                 }
             }catch(Exception e){

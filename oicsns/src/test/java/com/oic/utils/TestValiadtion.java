@@ -75,7 +75,13 @@ public class TestValiadtion extends TestCase {
         assertFalse(v.validate());
     }
     
- 
+    public void testBirthday(){
+        JSONObject json = new JSONObject();
+        json.put("birthday", "2001-01-01");
+        Validators v = new Validators(json);
+        v.add("birthday", v.birthday());
+        assertTrue(v.validate());
+    } 
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
 }
