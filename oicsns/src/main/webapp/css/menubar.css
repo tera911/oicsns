@@ -38,37 +38,37 @@
     display:none;
 }
 
-div.icon{
+#maxMenubar .icon , #minMenubar .icon{
     width:80px;
     height:65px;
     float:left;
     cursor:pointer;
 }
 
-div#menu1{
+#chat_btn{
     background:url("../img/menubar/1.png") no-repeat center;
 }
 
-div#menu2{
+#map_btn{
     background:url("../img/menubar/2.png") no-repeat center;
 }
 
-div#menu3{
+#profile_btn{
     background:url("../img/menubar/3.png") no-repeat center;
 }
 
-div#menu4{
+#circle_btn{
     background:url("../img/menubar/4.png") no-repeat center;
 }
 
-div#menu5{
+#config_btn{
     background:url("../img/menubar/5.png") no-repeat center;
 }
 
-div#menu6{
+#max_btn{
     background:url("../img/menubar/6.png") no-repeat center;
 }
 
-div#menu7{
+#min_btn{
     background:url("../img/menubar/7.png") no-repeat center;
 }

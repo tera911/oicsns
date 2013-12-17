@@ -16,13 +16,13 @@ $(function(){
                                 }
                             );
                             //メニューバーを最小化する処理
-                            $("#menu6").click(function(){
+                            $("#max_btn").click(function(){
                                 $("#maxMenubar").toggle('slide',{direction:'right'},function(){
                                     $("#minMenubar").toggle('slide',{direction:'right'});
                                 });
                             });
                             //メニューバーを最大化する処理
-                            $("#menu7").click(function(){
+                            $("#min_btn").click(function(){
                                 $("#minMenubar").toggle('slide',{direction:'right'});
                                 $("#maxMenubar").toggle('slide',{direction:'right'});
                             });
