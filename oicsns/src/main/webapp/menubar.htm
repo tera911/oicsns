@@ -4,33 +4,13 @@
 		<meta charset="UTF-8">
 		<title>OIC SNS - RT2</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+                <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
 		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-darkness/jquery-ui.css">
 		<link rel="stylesheet" href="template/base.css">
 		<link rel="stylesheet" href="css/style.css">
                 <link rel="stylesheet" href="css/menubar.css">
 		<link rel="stylesheet" href="css/jquery.jscrollpane.css">
-		<script type="text/javascript"><!--
-			//じゃばすくりぷとー
-                        //メニューマウスオーバーで白くする処理
-                        $(document).ready( function(){
-                            $('.icon').hover(
-                                //マウスが乗ったときのとき
-                                function(){
-                                $(this).css( 'background-color', 'rgba(255,255,255,0.3)' );
-                                },
-                                //マウスが外れたとき
-                                function(){
-                                $(this).css( 'background-color' , 'rgba(255,255,255,0)' );
-                                }
-                            );
-                        });
-		//--></script>
-		<style>
-			#content {
-                            background-image:none;
-                            position: relative;
-                        }
-		</style>
+                <script type="text/javascript" src="js/menubar.js"></script>
 	</head>
 	<body>
 		<div id="header">
@@ -41,13 +21,16 @@
 			</ul>
 		</div>
 		<div id="content">
-                    <div id="menubar">
+                    <div id="maxMenubar">
                         <div class="icon" id="menu1"></div>
                         <div class="icon" id="menu2"></div>
                         <div class="icon" id="menu3"></div>
                         <div class="icon" id="menu4"></div>
                         <div class="icon" id="menu5"></div>
                         <div class="icon" id="menu6"></div>
+                    </div>
+                    <div id="minMenubar">
+                        <div class="icon" id="menu7"></div>
                     </div>
 		</div>
 		<div id="footer">
