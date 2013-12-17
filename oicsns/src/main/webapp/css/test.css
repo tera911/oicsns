@@ -1,0 +1,258 @@
+#chatwindowGroup{
+     margin-left:auto;    /* 左側マージンを自動的に空ける */
+     margin-right:auto;   /* 右側マージンを自動的に空ける */
+     text-align:left;     /* 中身を左側表示に戻す */
+}
+#chatwindowGroup{
+    width:387px;
+    height:228px;
+    position:absolute;left:0px; top:522px;
+
+    background-color:peru
+}
+#tabGroup{
+    width:387px;
+    height:23px;
+}
+/*.tab1 {
+	border-bottom: 30px solid #ff99cc;
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+	height: 0;
+	width: auto;
+	float:left;
+	text-align:center;
+}*/
+.tab1{
+    
+    float:left;
+    width:67px;
+    height:23px;
+	overflow:hidden;
+	background:transparent;       
+}
+.tab1::before{
+    content:"";
+	display:block;
+	width:67px;
+	height:23px;
+	background:rgba(255,255,255,0.7);
+    border-top-right-radius:5px;    
+	transform-origin:0 100%;
+	transform:skewX(20deg);
+    -moz-transform-origin:0 100%;
+    -moz-transform:skewX(20deg);
+	-webkit-transform-origin:0 100%;
+	-webkit-transform:skewX(20deg);
+}
+/*
+.tab2 {
+    border-right: 23px solid transparent;
+    border-bottom:23px solid  rgba(0,200,200,0.3);
+    border-top-right-radius: 5px;
+	height: 23px;
+	width: 67px;
+	float:left;
+	text-align:center;
+}*/
+.tab2{
+    
+    float:left;
+    width:67px;
+    height:23px;
+	overflow:hidden;
+	background:transparent;
+    position:relative;
+        
+}
+.tab2::before{
+ 	content:"";
+	display:block;
+	width:67px;
+	height:23px;
+	background:rgba(64,64,64,0.7);
+    border-top-right-radius:5px;    
+	transform-origin:0 100%;
+	transform:skewX(20deg);
+    -moz-transform-origin:0 100%;
+    -moz-transform:skewX(20deg);
+	-webkit-transform-origin:0 100%;
+	-webkit-transform:skewX(20deg);   
+}
+/*.tab_txt {
+	overflow:hidden;
+	background:transparent;
+}
+.tab_txt::before {
+	content:"";
+	display:block;
+	width:67px;
+	height:23px;
+	background:rgba(64,64,64,0.7);
+    border-top-right-radius:5px;    
+	transform-origin:0 100%;
+	transform:skewX(20deg);
+    -moz-transform-origin:0 100%;
+    -moz-transform:skewX(20deg);
+	-webkit-transform-origin:0 100%;
+	-webkit-transform:skewX(20deg);
+    
+}*/
+
+.txt_active{
+	margin-top: -20px;
+    text-align:center;
+    color:rgb(64,64,64);
+    position:relative;
+    z-index:1;
+}
+.txt_inactive{
+ 	margin-top: -20px;
+    text-align:center; 
+    color:rgb(255,255,255);
+    position:relative;
+    z-index:1;
+}
+
+
+
+/* button.first{
+	margin-left:295px;
+}
+
+button.other{
+	margin-left:90px;
+}
+
+button {
+	margin-top:44px;
+	width:170px;
+	height:70px;
+}
+
+button.two{
+	margin-left:90px;
+	background: #a9c4eb;
+    border: 1px solid #DDD;
+} */
+
+table.tb_form{
+	margin-left:50px;
+}
+
+label.first{
+	margin-top:83px;
+}
+
+label.two{
+	margin-top:18px;
+}
+
+label.three{
+	margin-top: -52px;
+}
+
+label{
+	display:block;
+	text-align: left;
+	width:80px;
+	height:30px;
+}
+
+input.classification{
+	margin-top:70px;
+}
+
+input.form{
+	margin-top:6px;
+}
+
+input {
+	margin-left:18px;
+	width:200px;
+	height:30px;
+}
+
+input.mail{
+	margin-top:6px;
+	width:350px;
+}
+
+select{
+	margin-left:18px;
+	margin-top:6px;
+	width:200px;
+	height:36px;
+}
+
+textarea{
+	margin-left:18px;
+	margin-top:9px;
+	width:350px;
+	height:120px;
+}
+
+input.submit1{
+	background-color:#ffccff;
+	border:none;
+	margin-top:144px;
+	margin-left:360px;
+	width:130px;
+	height:50px;
+}
+
+input.submit2{
+	background-color:#ffccff;
+	border:none;
+	margin-top:44px;
+	margin-left:360px;
+	width:130px;
+	height:50px;
+}
+
+#logWindow{
+	width:387px;
+	height:205px;
+	
+    background-color:rgba(255,255,255,0.7);        
+}
+
+.fw{
+	width:351px;
+	height:168px;
+	margin-top:0;
+	clear:both;
+	border:none;
+	display:none;
+  
+}
+
+#inputWindow{
+	width:260px;
+	height:15px;
+
+    background-color:rgba(255,255,255,0.7);       
+}
+/*
+#fw_all{
+	display:block;
+    background-color:rgba(255,255,255,0.7);      
+}
+#fw_room{
+	display:block;
+    background-color:rgba(255,255,255,0.7);      
+}
+#fw_wis{
+	display:block;
+    background-color:rgba(255,255,255,0.7);      
+}
+#fw_circle{
+	display:block;
+    background-color:rgba(255,255,255,0.7);      
+}*/
+table{
+	margin:0,0,0,0;
+	border:0;
+	padding:0;
+	border-spacing:0;
+}

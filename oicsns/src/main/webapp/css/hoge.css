@@ -18,6 +18,7 @@
 input[type="text"]{
 	width:90px;
 }
+
 label {	
 	display: inline-block;
 	padding-right: 15px;
@@ -48,11 +49,11 @@ select{
 #avatar_window{
 	margin:20px 0px 0px 30px;
 	border:1px solid #cccccc;
-	width:300px;
+	width:320px;
 	height:200px;
 	background-color:#999999;		/*一部アバターの足などが見づらかったので、仮設定　*/
 }
-#avatar_window>img{
+#avatar_window img{
 	width:60px;
 	height:100px;
 	float:left;

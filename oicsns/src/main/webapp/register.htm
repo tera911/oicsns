@@ -4,19 +4,43 @@
 		<meta charset="UTF-8">
 		<title>OIC SNS - RT2</title>
 		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
-		<link rel="stylesheet" href="template/base.css">
-		<link rel="stylesheet" href="css/hoge.css">
+		<script src="./js/jquery.jscrollpane.min.js"></script>		<!-- scrollpane -->
+		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css"><!-- scrollpane -->
+		<link rel="stylesheet" type="text/css" href="template/base.css">
+		<link rel="stylesheet" type="text/css" href="css/jscrollpane.css">
+		<link rel="stylesheet" type="text/css" href="css/hoge.css">
 		<script type="text/javascript">
 		<!--
+		$(function(){
+			$('.jscrollpane').jScrollPane({
+				showArrows:true,
+				arrowScrollOnHover:true
+			});
+		});
 		$(function(){
 			$(".avatar_pic").click(function(){
 				document.getElementById("full_avatar").src = this.src;
 			});
 		});
+/*		$(function(){
+			$("#sendbutton").submit(function(){
+				
+				var ws = new WebSocket ("ws://localhost:8080/WebSocket");
+				ws.onopen = function () {
+				ws.send('Ping'); 
+				};
+				ws.onerror = function (error) {
+				  console.log('WebSocket Error ' + error);
+				};
+				ws.onmessage = function (e) {
+				  console.log('Server: ' + e.data);
+				};
+			};
+		});
+*/
 		//-->
 		</script>
 		<style>
-
 		body{
 			background-color: #eeffff;
 		}
@@ -59,7 +83,7 @@
 					<input type="text" id="student_id" value="Z9999" readonly="readdetaly" tabindex="1"></p>
 					<p><label for="screenname">ハンドルネーム</label>
 					<input type="text" id="screenname" value="" tabindex="2">
-					<input type="button" id="confirm" value="進捗" tabindex="3"></p>
+					<input type="button" id="confirm" value="重複確認" tabindex="3"></p>
 
 					<textarea id="notice" readonly disabled="">ゲームで使用するハンドルネームを入力してください。全角12文字以内　重複不可。入力後、重複確認ボタンを押してください。</textarea>
 					<p><label for="class">学年</label>
@@ -69,19 +93,18 @@
 						<option value="2">2年</option>
 						<option value="3">3年</option>
 						<option value="4">4年</option>
-						<option value="5">留年</option>
 					</select>
 					</p>
 					<p><label>性別</label></p>
 					<div id="radiolist">
 						<label class="radiolabel">
-							<input type="radio" name="sex" value="男" tabindex="5"checked>男</label>
+							<input type="radio" name="sex" value="1" tabindex="5"checked>男</label>
 						<label class="radiolabel">
-							<input type="radio" name="sex" value="女">女</label><br>
+							<input type="radio" name="sex" value="2">女</label><br>
 						<label class="radiolabel">
-							<input type="radio" name="sex" value="男の娘">男の娘</label>
+							<input type="radio" name="sex" value="3">男の娘</label>
 						<label class="radiolabel">
-							<input type="radio" name="sex" value="その他">その他</label>
+							<input type="radio" name="sex" value="4">その他</label>
 					</div>
 					<p><label for="class">生年月日</label>
 						<select tabindex="6">
@@ -227,10 +250,19 @@
 				</form>
 			</div>
 			<div class="right_form"> <!-- アバター選択・送信 -->
-				<div id="avatar_window">				<!-- 仮画像 -->
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="アバター">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="アバター">	
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="アバター">
+				<div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="1">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="2">
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="3">
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="4">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="5">
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="6">
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="7">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="8">
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="9">
+					<img class="avatar_pic" src="img/avatar/sample1.png" alt="10">
+					<img class="avatar_pic" src="img/avatar/sample2.png" alt="11">
+					<img class="avatar_pic" src="img/avatar/sample3.png" alt="12">
 				</div>
 				<div id="avatar_bg">
 					<img id="full_avatar" alt="拡大アバター" src="img/avatar/sample3.png">
