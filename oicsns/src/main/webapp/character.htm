@@ -1,0 +1,46 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>OIC SNS - RT2</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+                <script src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/jquery-ui.min.js"></script>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-darkness/jquery-ui.css">
+		<link rel="stylesheet" href="template/base.css">
+		<link rel="stylesheet" href="css/style.css">
+                <link rel="stylesheet" href="css/character.css">
+                <script type="text/javascript">
+                    //画像の読み込みが終わったら、canvasに貼付けを実行
+                    img.onload = (function(){
+                       //canvas(c1)のノードオブジェクト
+                       var canvas = document.getElementById('000');
+                       //2Dコンテキストをctxに格納
+                       var ctx = canvas.getContext('2d');
+                       //読み込んだimgをcanvas(c1)に貼付け
+                       ctx.drawImage(img, 0, 0);
+                    });
+                    //画像のパス指定
+                    img.src = "../img/avatar/testava.png";
+
+                </script>
+	</head>
+	<body>
+		<div id="header">
+			<ul>
+				<li class="about"><a href="about.htm">当サイトについて</a>
+				<li class="contact"><a href="contact.htm">通報&問い合わせ</a>
+				<li id="logout">ログアウト
+			</ul>
+		</div>
+		<div id="content">
+                    <div class="character" id="character_000">
+                        <div class="chat">チャット</div>
+                        <div class="avatar"><canvas id="000"></canvas></div>
+                        <div class="name">名前ちゃん</div>
+                    </div>
+		</div>
+		<div id="footer">
+			Copyright &copy; 2013 OIC-SNS All Rights Reserved.
+		</div>
+	</body>
+</html>

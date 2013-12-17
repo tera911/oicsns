@@ -1,0 +1,34 @@
+#content {
+    background-image:none;
+    position: relative;
+}
+
+#character_000{
+    position:relative;
+    top:100px;
+    left:100px;
+}
+
+.character{
+    width:100px;
+    height:210px;
+}
+
+.avatar{
+    background:url("../img/avatar/testava.png") no-repeat center;
+}
+
+.chat{
+    text-align:center;
+}
+
+.name{
+    text-align: center;
+    width:80px;
+    height:30px;
+}
+
+canvas{
+    width:80px;
+    height:150px;
+}
