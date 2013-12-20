@@ -1,0 +1,241 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <link href="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/css/bootstrap.min.css" rel="stylesheet">
+        <meta name="viewport" content="width=device-width">
+        <script src="http://netdna.bootstrapcdn.com/bootstrap/3.0.3/js/bootstrap.min.js"></script>
+        <!-- bootstrap javascript file -->
+        <style>
+            button{
+                margin:5px;
+            }
+            .status{
+                width:100%;
+                height:200px;
+                overflow:scroll;
+                overflow-x: hidden;
+            }
+        </style>
+        <script type="text/javascript">
+
+            var ws = new WebSocket('ws://127.0.0.1:8080/ws');
+            ws.onopen = function() {
+                // ws.send("ping");
+                $('.status').append("<p>Connection now</p>");
+            };
+            ws.onerror = function(error) {
+                console.log('WebSocket Error ' + error);
+            };
+            ws.onmessage = function(e) {
+                console.log('Server: ' + e.data);
+                var data = JSON.parse(e.data);
+                for (var i in data) {
+                    var value = data[i];
+                    $('.status').append("<p>" + i + ":" + value + "</p>");
+                }
+                $('.status').append("<hr>");
+                
+                var scrollHeight = document.getElementById("status").scrollHeight;
+                document.getElementById("status").scrollTop = scrollHeight;
+            };
+
+            function serializeFormToObj(form) {
+                var param = {};
+                $(form.serializeArray()).each(function(i, v) {
+                    param[v.name] = v.value;
+                });
+                return param;
+            }
+            //onload    
+            $(function() {
+                $('button[name="login"]').click(function() {
+                    obj = serializeFormToObj($('#Login'));
+                    obj.method = "login";
+                    ws.send(JSON.stringify(obj));
+                    console.log(obj);
+                });
+                $('button[name="allchat"]').click(function() {
+                    obj = serializeFormToObj($('#chat input[name="text"]'));
+                    obj.method = "allchat";
+                    obj.key = "oniipon";
+                    ws.send(JSON.stringify(obj));
+                });
+
+                $('button[name="cmd"]').click(function() {
+                    obj = {};
+                    obj.cmd = $('#chat input[name="text"]').val();
+                    obj.method = "cmd";
+                    obj.key = "oniipon";
+                    ws.send(JSON.stringify(obj));
+                });
+                $('button[name="duplication"]').click(function() {
+                    obj = {};
+                    obj.method = "duplication";
+                    obj.username = $('#userinfo input[name="username"]').val();
+                    obj.key = "oniipon";
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
+                $('button[name="setprofile"]').click(function(){
+                    obj = {};
+                    obj.method = "setprofile";
+                    obj.accesstoken = $('#Login [name="userid"]').val();
+                    obj.accesstokensecret = $('#Login [name="password"]').val();
+                    obj.studentid = $('#userinfo [name="studentid"]').val();
+                    obj.username = $('#userinfo [name="username"]').val();
+                    obj.avatarid = $('#userinfo [name="avatarid"]').val();
+                    obj.grade = $('#userinfo [name="grade"]').val();
+                    obj.gender = $('#userinfo [name="gender"]:checked').val();
+                    obj.birthday = $('#userinfo [name="date-y"]').val() + "-" + $('#userinfo [name="date-m"]').val() + "-" + $('#userinfo [name="date-d"]').val();
+                    obj.comment = $('#userinfo [name="comment"]').val();
+                    obj.vgrade = $('#userinfo [name="vgrade"]').prop('checked') ? 1 : 0;
+                    obj.vgender = $('#userinfo [name="vgender"]').prop('checked') ? 1 : 0;
+                    obj.vbirthday = $('#userinfo [name="vbirthday"]').prop('checked') ? 1 : 0;
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
+                
+            });
+        </script>
+    </head>
+    <body>
+        <div class="wrap container row">
+            <div class="col-md-8 col-md-offset-1">
+                <h1 class="text-center">Test page for OICSNS</h1>
+                <div class="row">
+                    <div class="col-md-12">
+                        <p>status</p>
+                        <p class="status" id="status"></p>
+                        <form class="form-group" id="Login">
+                            <label>name</label><input type="text" name="userid" value="tera09">
+                            <label>pw</label><input type="text" name="password" value="tera09">
+                        </form>
+                        <form class="form-group" id="chat">
+                            <label>chat</label><input type="text" name="text">
+                            <label>chatlog</label><textarea name="chatlog"></textarea>
+                        </form>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-12">
+                        <div class="actionButton">
+                            <button name="login" class="btn btn-primary">Login</button>
+                            <button name="" class="btn btn-primary">Logout</button>
+
+
+                            <button name="allchat" class="btn btn-primary">全体チャット</button>
+                            <button name="" class="btn btn-primary">プロフィール取得</button>
+                            <button name="duplication" class="btn btn-primary">重複確認</button>
+                            <button name="cmd" class="btn btn-primary">command</button>
+                            <button name="getlog" class="btn btn-default">chatlog取得//廃止</button>
+                        </div>
+                    </div>
+                     <div class="col-md-12">
+                        <div class="actionButton">
+                            <p>登録系</p>
+                            <button name="register" class="btn btn-primary">Register開始</button>
+
+                            <button name="setprofile" class="btn btn-primary">プロフィール設定</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="row">
+                    <div class="panel-group" id="accordion">
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseOne">
+                                        ユーザー登録
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseOne" class="panel-collapse collapse in">
+                                <div class="panel-body">
+                                    <div id="userinfo" class="form-group">
+                                        <form>
+                                            <div class="form-group">
+                                                <label>学籍番号</label><input class="form-control" type="text" name="studentid" value="z9999">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>ハンドルネーム</label><input class="form-control" type="text" name="username" value="まにゅ">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>アバターID</label><input class="form-control" type="text" name="avatarid" value="1">
+                                            </div>
+                                            <div class="form-group">
+                                                <label>学年</label><select class="form-control" name="grade"><option value="1">1年</option></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>性別</label>
+                                                <span class="input-group-addon">
+                                                    <input type="radio" name="gender" value="1">男性
+                                                </span>
+                                                <span class="input-group-addon">
+                                                    <input type="radio" name="gender" value="2">女性
+                                                </span>
+                                                <span class="input-group-addon">
+                                                    <input type="radio" name="gender" value="3" checked>男の娘
+                                                </span>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>年</label><select class="form-control" name="date-y"><option value="2000">2000年</option></select>
+                                                <label>月</label><select class="form-control" name="date-m"><option value="01">1月</option></select>
+                                                <label>日</label><select class="form-control" name="date-d"><option value="01">1日</option></select>
+                                            </div>
+                                            <div class="form-group">
+                                                <label>Comment</label><input class="form-control" type="text" name="comment" value="てすとです">
+                                            </div>
+                                            <div class="form-group checkbox-inline">
+                                                <label for="vgrade" class="checkbox-inline">hide grade?</label><input id="vgrade" class="" type="checkbox" name="vgrade" value="1" checked>
+                                                <label for="vgender" class="checkbox-inline">hide gender?</label><input id="vgender" class="" type="checkbox" name="vgender" value="1" checked>
+                                                <label for="vbirthday" class="checkbox-inline">hide birthday?</label><input id="vbirthday" class="" type="checkbox" name="vbirthday" value="1" checked>
+                                            </div>
+                                        </form>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
+                                        Collapsible Group Item #2
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseTwo" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                </div>
+                            </div>
+                        </div>
+                        <div class="panel panel-default">
+                            <div class="panel-heading">
+                                <h4 class="panel-title">
+                                    <a data-toggle="collapse" data-parent="#accordion" href="#collapseThree">
+                                        Collapsible Group Item #3
+                                    </a>
+                                </h4>
+                            </div>
+                            <div id="collapseThree" class="panel-collapse collapse">
+                                <div class="panel-body">
+                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </body>
+</html>
