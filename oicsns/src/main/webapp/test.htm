@@ -18,17 +18,26 @@
             /*初期化*/
             $(function(){
                 change(0);
-
             }); 
            
+            $(function(){
+            $("ul.sub_list").hide();
+                $("ul#ul_menu>li").hover(function(){
+                    $("ul:not(:animated)",this).slideDown();
+                    //ドロップアップ時、背景色を変更する処理かく予定$("#ul_menu li a").
+                },
+                function(){
+                    $("ul",this).slideUp();
+                })
+            })            
             
 			/* フォームの表示切り替え 及び タブの色を変える処理 */
 			function change(i) {
                 if(i==0){	//allを選択したときの処理
-                    document.getElementById('tab_all').className = 'tab1';
-                    document.getElementById('tab_room').className = 'tab2';
-                    document.getElementById('tab_wis').className = 'tab2';
-                    document.getElementById('tab_circle').className = 'tab2';
+                    document.getElementById('tab_all').className = 'tab_active';
+                    document.getElementById('tab_room').className = 'tab_inactive';
+                    document.getElementById('tab_wis').className = 'tab_inactive';
+                    document.getElementById('tab_circle').className = 'tab_inactive';
                     
                     document.getElementById('tab_all_txt').className = 'txt_active';
                     document.getElementById('tab_room_txt').className = 'txt_inactive';
@@ -46,10 +55,10 @@
                     });
                 }
                 else if(i==1){	//roomを選択したときの処理
-                    document.getElementById('tab_all').className = 'tab2';
-                    document.getElementById('tab_room').className = 'tab1';
-                    document.getElementById('tab_wis').className = 'tab2';
-                    document.getElementById('tab_circle').className = 'tab2';
+                    document.getElementById('tab_all').className = 'tab_inactive';
+                    document.getElementById('tab_room').className = 'tab_active';
+                    document.getElementById('tab_wis').className = 'tab_inactive';
+                    document.getElementById('tab_circle').className = 'tab_inactive';
                     
                     document.getElementById('tab_all_txt').className = 'txt_inactive';
                     document.getElementById('tab_room_txt').className = 'txt_active';
@@ -67,10 +76,10 @@
                     });                    
                 }
                 else if(i==2){			//wisを選択したときの処理
-                    document.getElementById('tab_all').className = 'tab2';
-                    document.getElementById('tab_room').className = 'tab2';
-                    document.getElementById('tab_wis').className = 'tab1';
-                    document.getElementById('tab_circle').className = 'tab2';
+                    document.getElementById('tab_all').className = 'tab_inactive';
+                    document.getElementById('tab_room').className = 'tab_inactive';
+                    document.getElementById('tab_wis').className = 'tab_active';
+                    document.getElementById('tab_circle').className = 'tab_inactive';
                     
                     document.getElementById('tab_all_txt').className = 'txt_inactive';
                     document.getElementById('tab_room_txt').className = 'txt_inactive';
@@ -88,10 +97,10 @@
                     });
                 }
                 else if(i==3){  //circle
-                    document.getElementById('tab_all').className = 'tab2';
-                    document.getElementById('tab_room').className = 'tab2';
-                    document.getElementById('tab_wis').className = 'tab2';
-                    document.getElementById('tab_circle').className = 'tab1';
+                    document.getElementById('tab_all').className = 'tab_inactive';
+                    document.getElementById('tab_room').className = 'tab_inactive';
+                    document.getElementById('tab_wis').className = 'tab_inactive';
+                    document.getElementById('tab_circle').className = 'tab_active';
 
                     document.getElementById('tab_all_txt').className =  'txt_inactive';
                     document.getElementById('tab_room_txt').className = 'txt_inactive';
@@ -105,7 +114,8 @@
                     $('#fw_circle').jScrollPane({
                     contentWidth:'366px',
                     showArrows:true,
-                    arrowScrollOnHover:true
+                    arrowScrollOnHover:true,
+                    hideFocus:false
                     });
                 }
             }
@@ -132,10 +142,10 @@
 
             <div id="tabGroup">
 
-			<a id="tab_all" class="tab1" onClick="change(0)"><div    id="tab_all_txt" class="txt_active">全体</div></a>
-			<a id="tab_room" class="tab2" onClick="change(1)"><div   id="tab_room_txt" class="txt_inactive">部屋</div></a>
-			<a id="tab_wis" class="tab2" onClick="change(2)"><div    id="tab_wis_txt" class="txt_inactive">ささやき</div></a>
-			<a id="tab_circle" class="tab2" onClick="change(3)"><div id="tab_circle_txt" class="txt_inactive">サークル</div></a>
+			<a id="tab_all" class="tab_active" onClick="change(0)"><div    id="tab_all_txt" class="txt_active">全体</div></a>
+			<a id="tab_room" class="tab_inactive" onClick="change(1)"><div   id="tab_room_txt" class="txt_inactive">部屋</div></a>
+			<a id="tab_wis" class="tab_inactive" onClick="change(2)"><div    id="tab_wis_txt" class="txt_inactive">ささやき</div></a>
+			<a id="tab_circle" class="tab_inactive" onClick="change(3)"><div id="tab_circle_txt" class="txt_inactive">サークル</div></a>
             
             </div>
             
@@ -198,9 +208,36 @@
             
             <!--発言系パーツ群-->
             <div id="inputGroup">
-                <div id="selectChannel" class="selectChannel"><div>部屋</div></div>
-                <div id="inputWindow" class="inputWindow"></div>
-                <div id="submitButton" class="submitButton"><div>送信</div></div>
+<!--                <div id="selectChannel" class="selectChannel"><div>部屋</div></div>-->
+<!--
+                <div id="positioner">
+                      <div class="holder p2">
+                        <dl class="menu">
+                          <dt><a class="sub" href="#url">部屋</a></dt>
+                          <dd class="dd4">
+                            <a href="#url">全体</a> 
+                            <a href="#url">部屋</a> 
+                            <a href="#url">ささやき</a>
+                            <a href="#url">サークル</a>
+                          </dd>
+                        </dl>
+                      </div>
+                </div>
+-->
+                <ul id="ul_menu" class="sp_list">
+                    <li><a href="#">部屋</a>
+                    <ul class="sub_list">
+                      <li><a href="#">全体</a></li>
+                      <li><a href="#">部屋</a></li>
+                      <li><a href="#">ささやき</a></li>
+                      <li><a href="#">サークル</a></li>  
+                    </ul></li>
+                </ul>   
+                
+                <input type="text" id="inputWindow" class="inputWindow" />
+<!--                <div contenteditable="true" id="inputWindow" class="inputWindow"></div>-->
+<!--                <div id="submitButton" class="submitButton"><div>送信</div></div>-->
+                <input type="submit" id="submitButton" class="submitButton" name="送信" />
                 
             </div><!--発言系パーツ群のおわり-->
             </div><!--ログウィンドウのおわり-->    
