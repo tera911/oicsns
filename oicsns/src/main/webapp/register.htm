@@ -22,22 +22,41 @@
 				document.getElementById("full_avatar").src = this.src;
 			});
 		});
-/*		$(function(){
-			$("#sendbutton").submit(function(){
-				
-				var ws = new WebSocket ("ws://localhost:8080/WebSocket");
-				ws.onopen = function () {
-				ws.send('Ping'); 
-				};
-				ws.onerror = function (error) {
-				  console.log('WebSocket Error ' + error);
-				};
-				ws.onmessage = function (e) {
-				  console.log('Server: ' + e.data);
-				};
-			};
+
+		$(function(){
+			$("#sendbutton").click(function(){
+					var studentid = document.getElementById("student_id").value;
+					var username = document.getElementById("username").value;
+					var avatarid = document.getElementById("full_avatar").value;
+					var grade = document.getElementById("grade").value;
+					var gender = $('#userdata [name=sex]:checked').val();
+					var birthday = new String;
+
+					console.log(studentid);
+					console.log(username);
+					console.log(avatarid);
+					console.log(grade);
+					console.log(gender);
+					console.log(birthday);
+
+
+				// {method:"getprofile",studentid:"z9999",username:"name", avatarid:1, grade:1, gender:1, 
+				//  birthday:"2000-01-01",comment:"", vgrade:0, vgender:0, vbirthday:0}
+
+				// var ws = new WebSocket ("ws://localhost:8080/WebSocket");
+				// ws.onopen = function () {
+
+				// 	ws.send(''); 
+				// };
+				// ws.onerror = function (error) {
+				//   console.log('WebSocket Error ' + error);
+				// };
+				// ws.onmessage = function (e) {
+				//   console.log('Server: ' + e.data);
+				// };
+			});
 		});
-*/
+
 		//-->
 		</script>
 		<style>
@@ -78,16 +97,16 @@
 	<body>
 		<div id="content">
 			<div class="left_form"><!-- プロフィール入力欄 -->
-				<form>
+				<form id="userdata">
 					<p><label for="student_id">学籍番号</label>
 					<input type="text" id="student_id" value="Z9999" readonly="readdetaly" tabindex="1"></p>
-					<p><label for="screenname">ハンドルネーム</label>
-					<input type="text" id="screenname" value="" tabindex="2">
+					<p><label for="username">ハンドルネーム</label>
+					<input type="text" id="username" value="" tabindex="2">
 					<input type="button" id="confirm" value="重複確認" tabindex="3"></p>
 
 					<textarea id="notice" readonly disabled="">ゲームで使用するハンドルネームを入力してください。全角12文字以内　重複不可。入力後、重複確認ボタンを押してください。</textarea>
 					<p><label for="class">学年</label>
-					<select tabindex="4">
+					<select id="grade" tabindex="4">
 						<option value="0" selected>--</option>
 						<option value="1">1年</option>
 						<option value="2">2年</option>
@@ -250,24 +269,24 @@
 				</form>
 			</div>
 			<div class="right_form"> <!-- アバター選択・送信 -->
-				<div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="1">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="2">
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="3">
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="4">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="5">
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="6">
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="7">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="8">
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="9">
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="10">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="11">
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="12">
-				</div>
-				<div id="avatar_bg">
-					<img id="full_avatar" alt="拡大アバター" src="img/avatar/sample3.png">
-				</div>
-			<button id="sendbutton" name="hoge" type="submit">送信</button>	
+				<form id="userdata2">
+					<div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
+						<img class="avatar_pic" src="img/avatar/001.png" alt="1">
+						<img class="avatar_pic" src="img/avatar/002.png" alt="2">
+						<img class="avatar_pic" src="img/avatar/003.png" alt="3">
+						<img class="avatar_pic" src="img/avatar/001.png" alt="4">
+						<img class="avatar_pic" src="img/avatar/002.png" alt="5">
+						<img class="avatar_pic" src="img/avatar/003.png" alt="6">
+						<img class="avatar_pic" src="img/avatar/001.png" alt="7">
+						<img class="avatar_pic" src="img/avatar/002.png" alt="8">
+						<img class="avatar_pic" src="img/avatar/003.png" alt="9">
+						<img class="avatar_pic" src="img/avatar/001.png" alt="10">
+					</div>
+					<div id="avatar_bg">
+						<img id="full_avatar" alt="拡大アバター" src="img/avatar/001.png">
+					</div>
+					<button id="sendbutton" name="hoge" type="button">送信</button>	
+				</form>
 			</div>
 		</div>		
 	</body>
