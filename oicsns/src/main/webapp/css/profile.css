@@ -7,7 +7,7 @@
 			border:1px solid #cccccc;
 			margin: 0 auto;
 			background-color:#fff;
-			/*���ߓx70%*/
+			/*“§‰ß“x70%*/
 			filter:alpha(opacity=0.7);
 			-moz-opacity: 0.7;
 			opacity: 0.7;
@@ -27,7 +27,9 @@
 		.hidebutton{
 			display: none;
 		}
-		.buttontest label{
+		#hidegradelabel,
+		#hidegenderlabel,
+		#hidebirthdaylabel{
 			float:right;
 			width:60px;
 			height:20px;
@@ -37,7 +39,9 @@
 			border:solid 1px #D3D3D3;
 			text-align: center;
 			background: linear-gradient(white, #D3D3D3);
-			float:right;
+		}
+		#hidegenderlabel{
+
 		}
 
 		.buttontest input:checked+label {
@@ -45,4 +49,6 @@
 			background: #C3C3C3;
 			text-shadow: 0px 0px 0px #fff;
 		}
-		#hidebutton
+		#hogehoge1{
+			margin-top:40px;
+		}

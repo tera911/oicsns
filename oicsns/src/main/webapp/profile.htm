@@ -59,16 +59,22 @@
 				var gender = $('#userdata [name=sex]:checked').val();
 				var birthday = $("#birthday_year").val() + "-" + $("#birthday_month").val() + "-" + $("#birthday_day").val() ;
 				var comment = document.getElementById("comment").value;
-/*
+				var vgrade = document.getElementById("hidegrade").checked;
+				var vgender = document.getElementById("hidegender").checked;
+				var vbirthday = document.getElementById("hidebirthday").checked;
+/*	
 				console.log(studentid);
 				console.log(username);
 				console.log(avatarid);
 				console.log(grade);
 				console.log(gender);
 				console.log(birthday);
-				console.log(comment);*/
-
-				console.log("method:\"getprofile\", studentid:\""  + studentid + "\", username:\""+ username + "\", avatarid:" + avatarid +", grade:" + grade + ", gender:"+ gender + ", birthday:" + birthday + ", comment:\"" + comment + "\" ");
+				console.log(comment);
+				console.log(vgrade);
+				console.log(vgender);
+				console.log(vbirthday);
+*/
+				console.log("method:\"getprofile\", studentid:\""  + studentid + "\", username:\""+ username + "\", avatarid:" + avatarid +", grade:" + grade + ", gender:"+ gender + ", birthday:" + birthday + ", comment:\"" + comment + "\", vgrade:" + vgrade + ", vgender:"  + vgender + ", vbirthday:" + vbirthday + ",");
 
 				// {method:"getprofile",studentid:"z9999",username:"name", avatarid:1, grade:1, gender:1, 
 				//  birthday:"2000-01-01",comment:"", vgrade:0, vgender:0, vbirthday:0}
@@ -98,7 +104,8 @@
 					<p><label for="screenname">ハンドルネーム</label>
 					<input type="text" id="username" value="" tabindex="2">
 					<input type="button" id="confirm" value="重複確認" tabindex="3"></p>
-					<p><label for="grade">学年</label>
+
+					<div id="hogehoge1"><label for="grade">学年</label>
 					<select tabindex="4" id="grade">
 						<option value="0" selected>--</option>
 						<option value="1">1年</option>
@@ -106,30 +113,28 @@
 						<option value="3">3年</option>
 						<option value="4">4年</option>
 					</select>
-					<div class="buttontest">
 						<input id="hidegrade" class="hidebutton" type="checkbox" name="" value="1"/>
 						<label id="hidegradelabel" for="hidegrade">OFF</label>
 					</div>
-					</p>
-					<p><label>性別</label></p>
-					<div id="radiolist">
-						<label class="radiolabel">
-							<input type="radio" name="sex" value="1" tabindex="5"checked>男</label>
-						<label class="radiolabel">
-							<input type="radio" name="sex" value="2">女</label><br>
-						<label class="radiolabel">
-							<input type="radio" name="sex" value="3">男の娘</label>
-						<label class="radiolabel">
-							<input type="radio" name="sex" value="4">その他</label>
-						<div class="buttontest">
-							<input id="hidegender" class="hidebutton" type="checkbox" name="" value="1"/>
-							<label id="hidegenderlabel" for="hidegender">OFF</label>
+					<div id="hogehoge1">
+						<label>性別</label>
+						<div id="radiolist">
+							<label class="radiolabel">
+								<input type="radio" name="sex" value="1" tabindex="5"checked>男</label>
+							<label class="radiolabel">
+								<input type="radio" name="sex" value="2">女</label><br>
+							<label class="radiolabel">
+								<input type="radio" name="sex" value="3">男の娘</label>
+							<label class="radiolabel">
+								<input type="radio" name="sex" value="4">その他</label>
 						</div>
+						<input id="hidegender" class="hidebutton" type="checkbox" name="" value="1"/>
+						<label id="hidegenderlabel" for="hidegender">OFF</label>
 					</div>
-
-					<p><label for="year">生年月日</label>
+					<div id="hogehoge1">
+					<label for="year">生年月日</label>
 						<select id="birthday_year" tabindex="6">
-							<option value="" selected>----年</option>
+							<option value="0000" selected>----年</option>
 							<option value="1930">1930年</option>
 							<option value="1931">1931年</option>
 							<option value="1932">1932年</option>
@@ -216,31 +221,31 @@
 							<option value="2013">2013年</option>
 						</select>
 						<select id="birthday_month" tabindex="7">
-							<option value="" selected>-</option>
-							<option value="1">01月</option>
-							<option value="2">02月</option>
-							<option value="3">03月</option>
-							<option value="4">04月</option>
-							<option value="5">05月</option>
-							<option value="6">06月</option>
-							<option value="7">07月</option>
-							<option value="8">08月</option>
-							<option value="9">09月</option>
+							<option value="00" selected>--</option>
+							<option value="01">1月</option>
+							<option value="02">2月</option>
+							<option value="03">3月</option>
+							<option value="04">4月</option>
+							<option value="05">5月</option>
+							<option value="06">6月</option>
+							<option value="07">7月</option>
+							<option value="08">8月</option>
+							<option value="09">9月</option>
 							<option value="10">10月</option>
 							<option value="11">11月</option>
 							<option value="12">12月</option>
 						</select>
 						<select id="birthday_day" tabindex="8">
-							<option value="">-</option>
-							<option value="1">01日</option>
-							<option value="2">02日</option>
-							<option value="3">03日</option>
-							<option value="4">04日</option>
-							<option value="5">05日</option>
-							<option value="6">06日</option>
-							<option value="7">07日</option>
-							<option value="8">08日</option>
-							<option value="9">09日</option>
+							<option value="00">--</option>
+							<option value="01">1日</option>
+							<option value="02">2日</option>
+							<option value="03">3日</option>
+							<option value="04">4日</option>
+							<option value="05">5日</option>
+							<option value="06">6日</option>
+							<option value="07">7日</option>
+							<option value="08">8日</option>
+							<option value="09">9日</option>
 							<option value="10">10日</option>
 							<option value="11">11日</option>
 							<option value="12">12日</option>
@@ -264,11 +269,10 @@
 							<option value="30">30日</option>
 							<option value="31">31日</option>
 						</select>
-						<div class="buttontest">
-							<input id="hidebirthday" class="hidebutton" type="checkbox" name="" value="1"/>
-							<label id="hidebirthdaylabel" for="hidebirthday">OFF</label>
-						</div>
-					</p>
+						<input id="hidebirthday" class="hidebutton" type="checkbox" name="" value="1"/>
+						<label id="hidebirthdaylabel" for="hidebirthday">OFF</label>
+					</div>
+
 					<p><label for="comment">コメント</label>
 						<textarea id="comment" maxlength="128" rows="4" cols="30" tabindex="9" placeholder="コメントを60文字前後で入力してください。"></textarea>
 					</p>
