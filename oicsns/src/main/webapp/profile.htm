@@ -7,7 +7,6 @@
 		<script src="./js/jquery.jscrollpane.min.js"></script>		<!-- scrollpane -->
 		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css"><!-- scrollpane -->
 		<link rel="stylesheet" type="text/css" href="template/base.css">
-		<link rel="stylesheet" type="text/css" href="css/profile.css">
 		<link rel="stylesheet" type="text/css" href="css/jscrollpane.css">
 		<link rel="stylesheet" type="text/css" href="css/hoge.css">
 		<script type="text/javascript">
@@ -99,11 +98,11 @@
 		<div id="content">
 			<div class="left_form"><!-- プロフィール入力欄 -->
 				<form id="userdata">
-					<p><label for="student_id">学籍番号</label>
-					<input type="text" id="student_id" value="Z9999" disabled="disabled" tabindex="1"></p>
-					<p><label for="screenname">ハンドルネーム</label>
+					<div id="hogehoge1"><label for="student_id">学籍番号</label>
+					<input type="text" id="student_id" value="Z9999" disabled="disabled" tabindex="1"></div>
+					<div id="hogehoge1"><label for="screenname">ハンドルネーム</label>
 					<input type="text" id="username" value="" tabindex="2">
-					<input type="button" id="confirm" value="重複確認" tabindex="3"></p>
+					<input type="button" id="confirm" value="重複確認" tabindex="3"></div>
 
 					<div id="hogehoge1"><label for="grade">学年</label>
 					<select tabindex="4" id="grade">
@@ -273,9 +272,9 @@
 						<label id="hidebirthdaylabel" for="hidebirthday">OFF</label>
 					</div>
 
-					<p><label for="comment">コメント</label>
+					<div id="hogehoge1"><label for="comment">コメント</label>
 						<textarea id="comment" maxlength="128" rows="4" cols="30" tabindex="9" placeholder="コメントを60文字前後で入力してください。"></textarea>
-					</p>
+					</div>
 				</form>
 			</div>
 			<div class="right_form"> <!-- アバター選択・送信 -->
