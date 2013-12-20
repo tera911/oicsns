@@ -10,7 +10,6 @@ body {
 }
 #header ul {
 	margin:0;
-	/*font-size:0;*/
 }
 #header li {
 	display:inline-block;
@@ -31,6 +30,5 @@ body {
 #footer {
 	text-align:center;
 	font:small "メイリオ";
-	margin: 0 auto;
 }
 #contact .btn {}
