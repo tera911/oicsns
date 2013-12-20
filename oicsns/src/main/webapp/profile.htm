@@ -7,6 +7,7 @@
 		<script src="./js/jquery.jscrollpane.min.js"></script>		<!-- scrollpane -->
 		<link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css"><!-- scrollpane -->
 		<link rel="stylesheet" type="text/css" href="template/base.css">
+		<link rel="stylesheet" type="text/css" href="css/profile.css">
 		<link rel="stylesheet" type="text/css" href="css/jscrollpane.css">
 		<link rel="stylesheet" type="text/css" href="css/hoge.css">
 		<script type="text/javascript">
@@ -22,83 +23,118 @@
 				document.getElementById("full_avatar").src = this.src;
 			});
 		});
+		$(function(){
+			$('#hidegrade').click(function(){		/*学年ON/OFF*/
+				if(this.checked){
+					document.getElementById("hidegradelabel").innerText = "ON";
+				}
+				else {
+					document.getElementById("hidegradelabel").innerText = "OFF";
+				};
+			});
+			$('#hidegender').click(function(){		/*性別ON/OFF*/
+				if(this.checked){
+					document.getElementById("hidegenderlabel").innerText = "ON";
+				}
+				else {
+					document.getElementById("hidegenderlabel").innerText = "OFF";
+				};
+			});
+			$('#hidebirthday').click(function(){	/*生年月日ON/OFF*/
+				if(this.checked){
+					document.getElementById("hidebirthdaylabel").innerText = "ON";
+				}
+				else {
+					document.getElementById("hidebirthdaylabel").innerText = "OFF";
+				};
+			});
+		});
+
+		$(function(){
+			$("#sendbutton").click(function(){
+				var studentid = document.getElementById("student_id").value;
+				var username = document.getElementById("username").value;
+				var avatarid = document.getElementById("full_avatar").alt;
+				var grade = document.getElementById("grade").value;
+				var gender = $('#userdata [name=sex]:checked').val();
+				var birthday = $("#birthday_year").val() + "-" + $("#birthday_month").val() + "-" + $("#birthday_day").val() ;
+				var comment = document.getElementById("comment").value;
+				var vgrade = document.getElementById("hidegrade").checked;
+				var vgender = document.getElementById("hidegender").checked;
+				var vbirthday = document.getElementById("hidebirthday").checked;
+/*	
+				console.log(studentid);
+				console.log(username);
+				console.log(avatarid);
+				console.log(grade);
+				console.log(gender);
+				console.log(birthday);
+				console.log(comment);
+				console.log(vgrade);
+				console.log(vgender);
+				console.log(vbirthday);
+*/
+				console.log("method:\"getprofile\", studentid:\""  + studentid + "\", username:\""+ username + "\", avatarid:" + avatarid +", grade:" + grade + ", gender:"+ gender + ", birthday:" + birthday + ", comment:\"" + comment + "\", vgrade:" + vgrade + ", vgender:"  + vgender + ", vbirthday:" + vbirthday + ",");
+
+				// {method:"getprofile",studentid:"z9999",username:"name", avatarid:1, grade:1, gender:1, 
+				//  birthday:"2000-01-01",comment:"", vgrade:0, vgender:0, vbirthday:0}
+
+				// var ws = new WebSocket ("ws://localhost:8080/WebSocket");
+				// ws.onopen = function () {
+
+				// 	ws.send(''); 
+				// };
+				// ws.onerror = function (error) {
+				//   console.log('WebSocket Error ' + error);
+				// };
+				// ws.onmessage = function (e) {
+				//   console.log('Server: ' + e.data);
+				// };
+			});
+		});
 		//-->
 		</script>
-
-		<style>
-		body{
-			background-color: #eeffff;
-		}
-		#content{
-			width:800px;
-			height:610px;
-			border:1px solid #cccccc;
-			margin: 0 auto;
-			background-color:#fff;
-			/*透過度70%*/
-			filter:alpha(opacity=0.7);
-			-moz-opacity: 0.7;
-			opacity: 0.7;
-		}
-		.left_form{
-
-			float:left;
-			width:440px;
-			height:510px;	
-		}
-		.right_form{
-			width:355px;
-			height:510px;
-			float:right;
-		}
-		.detail_button{
-			width:100%;
-			height:100px;
-			margin-top: 510px;
-			border:solid 1px #ccc;
-			margin:150px 0px 0px 250px ;
-			width: 0px;
-			height: 0px;
-			border-style: solid;
-			border-width: 60px 50px 0px 50px;
-			border-color: #aac4eb transparent transparent transparent;
-		}
-		</style>
 	</head>
 	<body>
 		<div id="content">
 			<div class="left_form"><!-- プロフィール入力欄 -->
-				<form>
+				<form id="userdata">
 					<p><label for="student_id">学籍番号</label>
-					<input type="text" id="student_id" value="Z9999" readonly="readonly" tabindex="1"></p>
+					<input type="text" id="student_id" value="Z9999" disabled="disabled" tabindex="1"></p>
 					<p><label for="screenname">ハンドルネーム</label>
-					<input type="text" id="screenname" value="" tabindex="2">
+					<input type="text" id="username" value="" tabindex="2">
 					<input type="button" id="confirm" value="重複確認" tabindex="3"></p>
-					<p><label for="class">学年</label>
-					<select tabindex="4" id="class">
+
+					<div id="hogehoge1"><label for="grade">学年</label>
+					<select tabindex="4" id="grade">
 						<option value="0" selected>--</option>
 						<option value="1">1年</option>
 						<option value="2">2年</option>
 						<option value="3">3年</option>
 						<option value="4">4年</option>
-						<option value="5">留年</option>
 					</select>
-					</p>
-
-					<p><label>性別</label></p>
-					<div id="radiolist">
-						<label class="radiolabel">
-							<input type="radio" name="sex" value="男" tabindex="5"checked>男</label>
-						<label class="radiolabel">
-							<input type="radio" name="sex" value="女">女</label><br>
-						<label class="radiolabel">
-							<input type="radio" name="sex" value="男の娘">男の娘</label>
-						<label class="radiolabel">
-							<input type="radio" name="sex" value="その他">その他</label>
+						<input id="hidegrade" class="hidebutton" type="checkbox" name="" value="1"/>
+						<label id="hidegradelabel" for="hidegrade">OFF</label>
 					</div>
-					<p><label for="year">生年月日</label>
-						<select id="year"tabindex="6">
-							<option value="" selected>----年</option>
+					<div id="hogehoge1">
+						<label>性別</label>
+						<div id="radiolist">
+							<label class="radiolabel">
+								<input type="radio" name="sex" value="1" tabindex="5"checked>男</label>
+							<label class="radiolabel">
+								<input type="radio" name="sex" value="2">女</label><br>
+							<label class="radiolabel">
+								<input type="radio" name="sex" value="3">男の娘</label>
+							<label class="radiolabel">
+								<input type="radio" name="sex" value="4">その他</label>
+						</div>
+						<input id="hidegender" class="hidebutton" type="checkbox" name="" value="1"/>
+						<label id="hidegenderlabel" for="hidegender">OFF</label>
+					</div>
+					<div id="hogehoge1">
+					<label for="year">生年月日</label>
+						<select id="birthday_year" tabindex="6">
+							<option value="0000" selected>----年</option>
 							<option value="1930">1930年</option>
 							<option value="1931">1931年</option>
 							<option value="1932">1932年</option>
@@ -184,32 +220,32 @@
 							<option value="2012">2012年</option>
 							<option value="2013">2013年</option>
 						</select>
-						<select tabindex="7">
-							<option value="" selected>-</option>
-							<option value="1">1月</option>
-							<option value="2">2月</option>
-							<option value="3">3月</option>
-							<option value="4">4月</option>
-							<option value="5">5月</option>
-							<option value="6">6月</option>
-							<option value="7">7月</option>
-							<option value="8">8月</option>
-							<option value="9">9月</option>
+						<select id="birthday_month" tabindex="7">
+							<option value="00" selected>--</option>
+							<option value="01">1月</option>
+							<option value="02">2月</option>
+							<option value="03">3月</option>
+							<option value="04">4月</option>
+							<option value="05">5月</option>
+							<option value="06">6月</option>
+							<option value="07">7月</option>
+							<option value="08">8月</option>
+							<option value="09">9月</option>
 							<option value="10">10月</option>
 							<option value="11">11月</option>
 							<option value="12">12月</option>
 						</select>
-						<select tabindex="8">
-							<option value="">-</option>
-							<option value="1">1日</option>
-							<option value="2">2日</option>
-							<option value="3">3日</option>
-							<option value="4">4日</option>
-							<option value="5">5日</option>
-							<option value="6">6日</option>
-							<option value="7">7日</option>
-							<option value="8">8日</option>
-							<option value="9">9日</option>
+						<select id="birthday_day" tabindex="8">
+							<option value="00">--</option>
+							<option value="01">1日</option>
+							<option value="02">2日</option>
+							<option value="03">3日</option>
+							<option value="04">4日</option>
+							<option value="05">5日</option>
+							<option value="06">6日</option>
+							<option value="07">7日</option>
+							<option value="08">8日</option>
+							<option value="09">9日</option>
 							<option value="10">10日</option>
 							<option value="11">11日</option>
 							<option value="12">12日</option>
@@ -233,30 +269,32 @@
 							<option value="30">30日</option>
 							<option value="31">31日</option>
 						</select>
-					</p>
+						<input id="hidebirthday" class="hidebutton" type="checkbox" name="" value="1"/>
+						<label id="hidebirthdaylabel" for="hidebirthday">OFF</label>
+					</div>
+
 					<p><label for="comment">コメント</label>
 						<textarea id="comment" maxlength="128" rows="4" cols="30" tabindex="9" placeholder="コメントを60文字前後で入力してください。"></textarea>
 					</p>
-					<div class="detail_button"></div>
 				</form>
 			</div>
 			<div class="right_form"> <!-- アバター選択・送信 -->
 				<div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="1">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="2">
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="3">
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="4">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="5">
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="6">
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="7">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="8">
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="9">
-					<img class="avatar_pic" src="img/avatar/sample1.png" alt="10">
-					<img class="avatar_pic" src="img/avatar/sample2.png" alt="11">
-					<img class="avatar_pic" src="img/avatar/sample3.png" alt="12">
+					<img class="avatar_pic" src="img/avatar/001.png" alt="1">
+					<img class="avatar_pic" src="img/avatar/002.png" alt="2">
+					<img class="avatar_pic" src="img/avatar/003.png" alt="3">
+					<img class="avatar_pic" src="img/avatar/001.png" alt="4">
+					<img class="avatar_pic" src="img/avatar/002.png" alt="5">
+					<img class="avatar_pic" src="img/avatar/003.png" alt="6">
+					<img class="avatar_pic" src="img/avatar/001.png" alt="7">
+					<img class="avatar_pic" src="img/avatar/002.png" alt="8">
+					<img class="avatar_pic" src="img/avatar/003.png" alt="9">
+					<img class="avatar_pic" src="img/avatar/001.png" alt="10">
+					<img class="avatar_pic" src="img/avatar/002.png" alt="11">
+					<img class="avatar_pic" src="img/avatar/003.png" alt="12">
 				</div>
 				<div id="avatar_bg">
-					<img id="full_avatar" alt="拡大アバター" src="img/avatar/sample3.png">
+					<img id="full_avatar" alt="1" src="img/avatar/001.png">
 				</div>
 			<button id="sendbutton" name="hoge" type="submit">送信</button>	
 			</div>

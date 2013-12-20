@@ -64,3 +64,11 @@ HTMLƒtƒ@ƒCƒ‹‚ðì¬‚·‚éÛ‚ÉŽg—p‚·‚éHTML‚Ìƒo[ƒWƒ‡ƒ“‚ÍHTML5‚ÉAŽg—p‚·‚éƒGƒ“ƒR[ƒh‚
 HTML‚ÌƒCƒ“ƒfƒ“ƒg‚É‚Â‚¢‚Ä‚Í“Á‚É‹K’è‚µ‚Ü‚¹‚ñ‚ªAS‚è‚ª‚È‚¯‚ê‚Îƒuƒ‰ƒEƒU‚Å‚ÌXMLƒtƒ@ƒCƒ‹•\Ž¦Žž‚ÌƒCƒ“ƒfƒ“ƒg‚ðŽQl‚É‚µ‚Ä‚­‚¾‚³‚¢B
 ‚±‚ÌƒCƒ“ƒfƒ“ƒg‚Ítemplate.htm‚Å‚àŽg—p‚³‚ê‚Ä‚¨‚èAƒCƒ“ƒfƒ“ƒg‚ÉŽg—p‚·‚é•¶Žš‚Íƒ^ƒu•¶Žš1‚Â•ª‚Å‚·B
 ‚Ç‚Ì‚æ‚¤‚ÉƒCƒ“ƒfƒ“ƒg‚³‚ê‚é‚©‚ÍA“Y•t‚Ìindent.xml‚ÅŠm”F‚Å‚«‚Ü‚·B
+
+
+4.CSS
+–¢e
+
+
+5.JavaScript
+–¢e
