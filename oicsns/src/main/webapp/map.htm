@@ -1,0 +1,146 @@
+﻿<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>OIC SNS - RT2</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<link rel="stylesheet" href="http://ajax.googleapis.com/ajax/libs/jqueryui/1.10.3/themes/ui-darkness/jquery-ui.css">
+		<style>
+			@font-face {
+				font-family:'Lerotica';
+				src:url('font/lerotica-semilight.woff');
+			}
+			#map {
+				width:390px;
+				height:340px;
+				/*
+				 * Debug
+				 */
+				/*background-image:url(img/Map3.png);*/
+				background-repeat:no-repeat;
+			}
+			.floor {
+				width:300px;
+				height:95px;
+				padding:2px 5px;
+				box-sizing:border-box;
+				-moz-box-sizing:padding-box;
+				transform:skew(-36deg);
+				-webkit-transform:skew(-36deg);
+				cursor:default;
+				/*
+				 * Debug
+				 */
+				margin:0 34px;
+				background-color:rgba(0,255,0,0.2);
+			}
+			.floor div {
+				height:47px;
+			}
+			.floor div div {
+				display:inline-block;
+				text-align:center;
+				font:20pt 'Lerotica';
+				/*
+				 * Debug
+				 */
+				background-color:Yellow;
+				opacity:0.5;
+			}
+			#room_a {
+				width:83px;
+				height:45px;
+				line-height:45px;
+			}
+			#room_b {
+				width:84px;
+				height:34px;
+				margin-left:35px;
+				vertical-align:top;
+			}
+			#room_c {
+				width:84px;
+				height:34px;
+				margin-left:3px;
+				vertical-align:top;
+			}
+			#room_d {
+				width:205px;
+				height:44px;
+				text-align:center;
+				font:20pt 'Lerotica';
+				line-height:44px;
+				/*
+				 * Debug
+				 */
+				background-color:Yellow;
+				opacity:0.5;
+			}
+			.title {
+				font:italic 60px 'Lerotica';
+				text-align:right;
+			}
+			.label {
+				font:50px 'Lerotica';
+				text-align:right;
+			}
+			/*.floors div {
+				width:180px;
+				height:32px;
+				color:white;
+				text-align:center;
+				font:x-large "メイリオ";
+			}
+			#map_9 {
+				background-color:#1e21ae;
+			}
+			#map_8 {
+				background-color:#10253f;
+			}
+			#map_7 {
+				background-color:#984807;
+			}
+			#map_6 {
+				background-color:#8064a2;
+			}
+			#map_5 {
+				background-color:#f1c41f;
+			}
+			#map_4 {
+				background-color:#9bbb59;
+			}
+			#map_3 {
+				background-color:#558ed5;
+			}
+			#map_2 {
+				background-color:#1f497d;
+			}
+			#map_1 {
+				background-color:#fd5555;
+			}*/
+		</style>
+	</head>
+	<body>
+		<div id="map">
+			<img src="img/batu.png" align="left"><div class="title">Map</div>
+			<div class="floor">
+				<div>
+					<div id="room_a">3-A</div><div id="room_b">3-B</div><div id="room_c">3-C</div>
+				</div>
+				<div id="room_d">students' hall</div>
+			</div>
+			<div style="position:absolute;bottom:0;"><img src="" align="left"><div class="label">3F</div></div>
+			<!--<div class="floors">
+				<div id="map_9">9F</div>
+				<div id="map_8">8F</div>
+				<div id="map_7">7F</div>
+				<div id="map_6">6F</div>
+				<div id="map_5">5F</div>
+				<div id="map_4">4F</div>
+				<div id="map_3">3F</div>
+				<div id="map_2">2F</div>
+				<div id="map_1">1F</div>
+			</div>-->
+		</div>
+	</body>
+</html>
