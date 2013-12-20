@@ -22,7 +22,6 @@ public class ChatEvent implements ActionEventImpl{
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
         Session session = webSocket.getSession();
         OicCharacter c = webSocket.getCharacter();
-        c = OicCharacter.loadCharFromDB(111);
         //validation
         if(json.get("text") == null || json.get("key") == null){
             LOG.warning("invalid Message!");

@@ -18,12 +18,21 @@
         <servlet-name>ws</servlet-name>
         <url-pattern>/ws</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <display-name>wqr</display-name>
+        <servlet-name>wqr</servlet-name>
+        <servlet-class>com.oic.net.WebQueryResult</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>wqr</servlet-name>
+        <url-pattern>/wqr</url-pattern>
+    </servlet-mapping>
     <error-page>
         <error-code>404</error-code>
         <location>/error/404.jsp</location>
     </error-page>
-    <error-page>
+ <!--   <error-page>
         <error-code>405</error-code>
         <location>/error/405.jsp</location>
-    </error-page>
+    </error-page>-->
 </web-app>

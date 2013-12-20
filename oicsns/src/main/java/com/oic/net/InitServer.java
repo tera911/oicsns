@@ -6,13 +6,19 @@
 
 package com.oic.net;
 
+import com.oic.map.MapFactory;
 import com.oic.map.OicMap;
+import com.oic.xml.XmlParser;
+import java.lang.reflect.Array;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
+import java.util.List;
+import java.util.ArrayList;
 
 /**
  * サーバー起動時に実行されるクラス
  * @author Morimoto
+ * @author b2280@otani
  */
 public class InitServer extends HttpServlet{
     @Override
@@ -23,6 +29,12 @@ public class InitServer extends HttpServlet{
     }
     
     private static void mapInitialize(){
-     // OicMap oicmap = new OicMap();
+        List<OicMap> oicmap = new ArrayList<>();//格納用変数
+        MapFactory mapFactory = MapFactory.getInstance();
+        XmlParser parser = new XmlParser();
+        oicmap = parser.loadOicMap();//mapデータのリストを読み込む
+        mapFactory.addMap(oicmap);   //mapデータを格納
+        System.out.println("mapinitialize:::::"+oicmap.get(1).getMapName());
+        
     }
 }

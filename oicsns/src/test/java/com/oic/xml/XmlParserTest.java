@@ -6,14 +6,16 @@
 
 package com.oic.xml;
 
+import com.oic.Config;
 import com.oic.map.OicMap;
-import java.io.IOException;
+import com.oic.map.Position;
+import java.io.File;
 import java.net.URISyntaxException;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.xml.parsers.ParserConfigurationException;
 import junit.framework.TestCase;
-import org.xml.sax.SAXException;
 
 /**
  *
@@ -35,20 +37,37 @@ public class XmlParserTest extends TestCase {
         super.tearDown();
     }
     
-
+//    public void testMaptest(){
+//        try {
+//            new MapParser();
+//        } catch (IOException ex) {
+//            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
+//        } catch (ParserConfigurationException ex) {
+//            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//    }
     // TODO add test methods here. The name must begin with 'test'. For example:
     // public void testHello() {}
     public void testCreateInstance(){
+        List<OicMap> maps = new XmlParser().loadOicMap();
+        for(OicMap map : maps){
+            assertNotNull(map);
+            assertEquals(map.getPos().getX(), 0);
+            assertEquals(map.getPos().getY(), 0);
+            if(map.getMapId() == 31){
+                //    System.out.println(map.getMapName());
+                assertTrue(map.getMapName().equals("3A教室"));
+            }
+        }
+    }
+    
+    public void testViewMapxmlList(){
         try {
-            XmlParser parser = new XmlParser();
-            OicMap map = parser.parseOicMap(getClass().getResource("/map/3A.xml").toURI());
-           // assertNotNull(map);
-        } catch (ParserConfigurationException ex) {
-            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (SAXException ex) {
-            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
+            File file = new File(getClass().getResource(Config.MAPFILE_PATH).toURI());
+            for(File f : file.listFiles()){
+               System.out.println(f.getPath());
+            }
+          //  System.out.println(file.listFiles());
         } catch (URISyntaxException ex) {
             Logger.getLogger(XmlParserTest.class.getName()).log(Level.SEVERE, null, ex);
         }

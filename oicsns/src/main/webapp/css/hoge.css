@@ -1,0 +1,85 @@
+#confirm{
+	width: 80px;
+	height: 30px;
+	border: 1px;
+	margin-left: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #a9c4eb;
+	border-radius:4px;
+}
+#comment{
+	width:260px;
+	height:80px;
+	float:right;
+	margin-right:50px;
+	margin-top:-20px;
+}
+input[type="text"]{
+	width:90px;
+}
+
+label {	
+	display: inline-block;
+	padding-right: 15px;
+	margin-left: 50px;
+	width: 95px;
+}
+p{
+	font-size: 80%;
+	height:100%;
+	margin: 0;
+	margin-top: 30px;
+}
+select{
+	height:22px;
+}
+	/*ラジオボタンの項目のみ、labelのmargin効果消す*/
+.radiolabel{
+	margin:auto;
+	width:auto;
+	width:70px;
+}
+
+.radiolist{
+	width:190px;
+	height:50px;
+	float:right;
+	margin:-25px 85px 10px 10px ;
+}
+#avatar_window{
+	margin:20px 0px 0px 30px;
+	border:1px solid #cccccc;
+	width:300px;
+	height:200px;
+	background-color:#999999;		/*一部アバターの足などが見づらかったので、仮設定　*/
+}
+#avatar_window>img{
+	width:60px;
+	height:100px;
+	float:left;
+}
+#avatar_bg{
+	width:280px;
+	height:200px;
+	background-image:url("../img/avatar/avatarbg.jpg");	/*仮画像*/
+	background-size:cover;
+	margin:50px 0px 0px 40px;
+}
+#full_avatar{
+	width:120px;
+	height:200px;
+	margin-left:80px;
+}	
+#sendbutton {
+	width: 150px;
+	height: 70px;
+	border: 1px;
+	margin: 30px 40px 0px 0px;
+	float: right;
+	padding: 5px 20px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #a9c4eb;
+	font-size: 115%;
+}
