@@ -25,7 +25,32 @@
 
 			});
 		});
-
+		$(function(){
+			$('#hidegrade').click(function(){		/*学年ON/OFF*/
+				if(this.checked){
+					document.getElementById("hidegradelabel").innerText = "ON";
+				}
+				else {
+					document.getElementById("hidegradelabel").innerText = "OFF";
+				};
+			});
+			$('#hidegender').click(function(){		/*性別ON/OFF*/
+				if(this.checked){
+					document.getElementById("hidegenderlabel").innerText = "ON";
+				}
+				else {
+					document.getElementById("hidegenderlabel").innerText = "OFF";
+				};
+			});
+			$('#hidebirthday').click(function(){	/*生年月日ON/OFF*/
+				if(this.checked){
+					document.getElementById("hidebirthdaylabel").innerText = "ON";
+				}
+				else {
+					document.getElementById("hidebirthdaylabel").innerText = "OFF";
+				};
+			});
+		});	
 		$(function(){
 			$("#sendbutton").click(function(){
 					var studentid = document.getElementById("student_id").value;
@@ -35,7 +60,7 @@
 					var gender = $('#userdata [name=sex]:checked').val();
 					var birthday = $("#birthday_year").val() + "-" + $("#birthday_month").val() + "-" + $("#birthday_day").val() ;
 					var comment = document.getElementById("comment").value;
-
+					var 
 					console.log(studentid);
 					console.log(username);
 					console.log(avatarid);
@@ -43,7 +68,6 @@
 					console.log(gender);
 					console.log(birthday);
 					console.log(comment);
-					console.log()
 				// {method:"getprofile",studentid:"z9999",username:"name", avatarid:1, grade:1, gender:1, 
 				//  birthday:"2000-01-01",comment:"", vgrade:0, vgender:0, vbirthday:0}
 
@@ -60,7 +84,6 @@
 				// };
 			});
 		});
-
 		//-->
 		</script>
 	</head>
@@ -69,11 +92,10 @@
 			<div class="left_form"><!-- プロフィール入力欄 -->
 				<form id="userdata">
 					<p><label for="student_id">学籍番号</label>
-					<input type="text" id="student_id" value="Z9999" readonly="readdetaly" tabindex="1"></p>
+					<input type="text" id="student_id" value="Z9999" disabled="disabled" tabindex="1"></p>
 					<p><label for="username">ハンドルネーム</label>
 					<input type="text" id="username" value="" tabindex="2">
 					<input type="button" id="confirm" value="重複確認" tabindex="3"></p>
-
 					<textarea id="notice" readonly disabled="">ゲームで使用するハンドルネームを入力してください。全角12文字以内　重複不可。入力後、重複確認ボタンを押してください。</textarea>
 					<p><label for="class">学年</label>
 					<select id="grade" tabindex="4">

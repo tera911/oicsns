@@ -23,18 +23,6 @@
 			height:510px;
 			float:right;
 		}
-		.detail_button{
-			width:100%;
-			height:100px;
-			margin-top: 510px;
-			border:solid 1px #ccc;
-			margin:150px 0px 0px 250px ;
-			width: 0px;
-			height: 0px;
-			border-style: solid;
-			border-width: 60px 50px 0px 50px;
-			border-color: #aac4eb transparent transparent transparent;
-		}
 
 		.hidebutton{
 			display: none;
@@ -49,6 +37,7 @@
 			border:solid 1px #D3D3D3;
 			text-align: center;
 			background: linear-gradient(white, #D3D3D3);
+			float:right;
 		}
 
 		.buttontest input:checked+label {
@@ -56,3 +45,4 @@
 			background: #C3C3C3;
 			text-shadow: 0px 0px 0px #fff;
 		}
+		#hidebutton
