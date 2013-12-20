@@ -1,0 +1,40 @@
+/*スクロールバーのデザイン*/
+.jspVerticalBar {
+	background-color: #dddddd;
+}
+/* スクロールバー本体 */
+.jspDrag{
+	border:1px solid #dddddd;
+	background-color: #ffffff;
+}
+/* スクロールバーの背景 */
+.jspVerticalBar .jspTrack {
+	background-color: #dddddd;
+}
+
+.jspArrow
+{
+	background: #dddddd;
+}
+
+.jspArrow.jspDisabled
+{
+	cursor: default;
+	background: #dddddd;
+}
+/*スクロールパネル 上矢印*/
+.jspArrowUp,
+.jspArrowUp.jspDisabled{
+	background-image: url("../img/scroll/jspArrowUp.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;
+}
+/*スクロールパネル 下矢印*/
+.jspArrowDown,
+.jspArrowDown.jspDisabled{
+	background-image: url("../img/scroll/jspArrowDown.svg");
+	background-repeat: no-repeat;
+	background-size: contain;
+	background-position: center center;		
+}

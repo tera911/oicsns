@@ -40,8 +40,7 @@ select{
 	width:auto;
 	width:70px;
 }
-
-.radiolist{
+#radiolist{
 	width:190px;
 	height:50px;
 	float:right;
@@ -50,11 +49,11 @@ select{
 #avatar_window{
 	margin:20px 0px 0px 30px;
 	border:1px solid #cccccc;
-	width:300px;
+	width:320px;
 	height:200px;
 	background-color:#999999;		/*一部アバターの足などが見づらかったので、仮設定　*/
 }
-#avatar_window>img{
+#avatar_window img{
 	width:60px;
 	height:100px;
 	float:left;

@@ -1,0 +1,214 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>OIC SNS - RT2</title>
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+        <script src="js/jquery.mousewheel.js"></script>
+        <script src="js/jquery.jscrollpane.min.js"></script>
+        <link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css">
+        <link rel="stylesheet" type="text/css" href="css/jscrollpane.css">
+        
+        <link rel="stylesheet" href="css/test.css">
+		<link rel="stylesheet" href="css/base.css">
+
+		<script type="text/javascript"><!--
+			//JavaScript
+            /*初期化*/
+            $(function(){
+                change(0);
+
+            }); 
+           
+            
+			/* フォームの表示切り替え 及び タブの色を変える処理 */
+			function change(i) {
+                if(i==0){	//allを選択したときの処理
+                    document.getElementById('tab_all').className = 'tab1';
+                    document.getElementById('tab_room').className = 'tab2';
+                    document.getElementById('tab_wis').className = 'tab2';
+                    document.getElementById('tab_circle').className = 'tab2';
+                    
+                    document.getElementById('tab_all_txt').className = 'txt_active';
+                    document.getElementById('tab_room_txt').className = 'txt_inactive';
+                    document.getElementById('tab_wis_txt').className = 'txt_inactive';
+                    document.getElementById('tab_circle_txt').className = 'txt_inactive';
+              
+                    document.getElementById('fw_all').style.display='block';
+                    document.getElementById('fw_room').style.display='none';
+                    document.getElementById('fw_wis').style.display='none';
+                    document.getElementById('fw_circle').style.display='none';
+                    $('#fw_all').jScrollPane({
+                    contentWidth:'366px',
+                    showArrows:true,
+                    arrowScrollOnHover:true
+                    });
+                }
+                else if(i==1){	//roomを選択したときの処理
+                    document.getElementById('tab_all').className = 'tab2';
+                    document.getElementById('tab_room').className = 'tab1';
+                    document.getElementById('tab_wis').className = 'tab2';
+                    document.getElementById('tab_circle').className = 'tab2';
+                    
+                    document.getElementById('tab_all_txt').className = 'txt_inactive';
+                    document.getElementById('tab_room_txt').className = 'txt_active';
+                    document.getElementById('tab_wis_txt').className = 'txt_inactive';
+                    document.getElementById('tab_circle_txt').className = 'txt_inactive';
+                    
+                    document.getElementById('fw_all').style.display='none';
+                    document.getElementById('fw_room').style.display='block';
+                    document.getElementById('fw_wis').style.display='none';
+                    document.getElementById('fw_circle').style.display='none';
+                    $('#fw_room').jScrollPane({
+                    contentWidth:'366px',
+                    showArrows:true,
+                    arrowScrollOnHover:true
+                    });                    
+                }
+                else if(i==2){			//wisを選択したときの処理
+                    document.getElementById('tab_all').className = 'tab2';
+                    document.getElementById('tab_room').className = 'tab2';
+                    document.getElementById('tab_wis').className = 'tab1';
+                    document.getElementById('tab_circle').className = 'tab2';
+                    
+                    document.getElementById('tab_all_txt').className = 'txt_inactive';
+                    document.getElementById('tab_room_txt').className = 'txt_inactive';
+                    document.getElementById('tab_wis_txt').className = 'txt_active';
+                    document.getElementById('tab_circle_txt').className = 'txt_inactive';
+                    
+                    document.getElementById('fw_all').style.display='none';
+                    document.getElementById('fw_room').style.display='none';
+                    document.getElementById('fw_wis').style.display='block';
+                    document.getElementById('fw_circle').style.display='none';
+                    $('#fw_wis').jScrollPane({
+                    contentWidth:'366px',
+                    showArrows:true,
+                    arrowScrollOnHover:true
+                    });
+                }
+                else if(i==3){  //circle
+                    document.getElementById('tab_all').className = 'tab2';
+                    document.getElementById('tab_room').className = 'tab2';
+                    document.getElementById('tab_wis').className = 'tab2';
+                    document.getElementById('tab_circle').className = 'tab1';
+
+                    document.getElementById('tab_all_txt').className =  'txt_inactive';
+                    document.getElementById('tab_room_txt').className = 'txt_inactive';
+                    document.getElementById('tab_wis_txt').className =  'txt_inactive';
+                    document.getElementById('tab_circle_txt').className = 'txt_active';
+                    
+                    document.getElementById('fw_all').style.display='none';
+                    document.getElementById('fw_room').style.display='none';
+                    document.getElementById('fw_wis').style.display='none';
+                    document.getElementById('fw_circle').style.display='block'; 
+                    $('#fw_circle').jScrollPane({
+                    contentWidth:'366px',
+                    showArrows:true,
+                    arrowScrollOnHover:true
+                    });
+                }
+            }
+
+            //イニシャライズ
+            /*window.onload = function(){
+                change(0);
+            };*/
+		//--></script>
+        
+	</head>
+	<body>
+		<div id="header">
+			<ul>
+				<li class="about"><a href="about.htm">当サイトについて</a>
+				<li class="contact"><a href="contact.htm">通報&問い合わせ</a>
+				<li id="logout">ログアウト
+			</ul>
+		</div>
+        
+  
+        
+		<div id="chatwindowGroup">
+
+            <div id="tabGroup">
+
+			<a id="tab_all" class="tab1" onClick="change(0)"><div    id="tab_all_txt" class="txt_active">全体</div></a>
+			<a id="tab_room" class="tab2" onClick="change(1)"><div   id="tab_room_txt" class="txt_inactive">部屋</div></a>
+			<a id="tab_wis" class="tab2" onClick="change(2)"><div    id="tab_wis_txt" class="txt_inactive">ささやき</div></a>
+			<a id="tab_circle" class="tab2" onClick="change(3)"><div id="tab_circle_txt" class="txt_inactive">サークル</div></a>
+            
+            </div>
+            
+            
+            <div id="logWindow"><!--ログウィンドウ-->
+                
+            
+            <div id="fw_all" class="fw">
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+                <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+            </div>
+            <div id="fw_room" class="fw" >
+                <p>[部屋][まーくん]:狂乱の角鹿 http://www5.atwiki.jp/sekaiju_maze2/pages/187.html#id_ae1c1284</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+            </div>
+            <div id="fw_wis" class="fw" >
+                <p>[From][ninja]>> 勝ったと思うなよ・・</p>
+                <p>[To][ninja]<< もう勝負ついてるから</p>
+            </div>
+            <div id="fw_circle" class="fw">
+                <p>サークル機能未実装ですごめんね</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+                <p>[部屋][まーくん]:困惑のステップ</p>
+            </div>
+            
+            
+            
+            <!--発言系パーツ群-->
+            <div id="inputGroup">
+                <div id="selectChannel" class="selectChannel"><div>部屋</div></div>
+                <div id="inputWindow" class="inputWindow"></div>
+                <div id="submitButton" class="submitButton"><div>送信</div></div>
+                
+            </div><!--発言系パーツ群のおわり-->
+            </div><!--ログウィンドウのおわり-->    
+            
+            
+
+		</div>
+		<div id="footer">
+			Copyright &copy; 2013 OIC-SNS All Rights Reserved.
+		</div>
+	</body>
+</html>
