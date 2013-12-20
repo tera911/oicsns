@@ -103,6 +103,14 @@ and open the template in the editor.
                     ws.send(JSON.stringify(obj));
                 });
                 
+                $('button[name="getprofile"]').click(function(){
+                    obj = {};
+                    obj.method = "getprofile";
+                    obj.userid = $('#getinfo [name="userid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
+                
             });
         </script>
     </head>
@@ -132,7 +140,7 @@ and open the template in the editor.
 
 
                             <button name="allchat" class="btn btn-primary">全体チャット</button>
-                            <button name="" class="btn btn-primary">プロフィール取得</button>
+                            <button name="getprofile" class="btn btn-primary">プロフィール取得</button>
                             <button name="duplication" class="btn btn-primary">重複確認</button>
                             <button name="cmd" class="btn btn-primary">command</button>
                             <button name="getlog" class="btn btn-default">chatlog取得//廃止</button>
@@ -196,9 +204,9 @@ and open the template in the editor.
                                                 <label>Comment</label><input class="form-control" type="text" name="comment" value="てすとです">
                                             </div>
                                             <div class="form-group checkbox-inline">
-                                                <label for="vgrade" class="checkbox-inline">hide grade?</label><input id="vgrade" class="" type="checkbox" name="vgrade" value="1" checked>
-                                                <label for="vgender" class="checkbox-inline">hide gender?</label><input id="vgender" class="" type="checkbox" name="vgender" value="1" checked>
-                                                <label for="vbirthday" class="checkbox-inline">hide birthday?</label><input id="vbirthday" class="" type="checkbox" name="vbirthday" value="1" checked>
+                                                <label for="vgrade" class="checkbox-inline">show grade?</label><input id="vgrade" class="" type="checkbox" name="vgrade" value="1" checked>
+                                                <label for="vgender" class="checkbox-inline">show gender?</label><input id="vgender" class="" type="checkbox" name="vgender" value="1" checked>
+                                                <label for="vbirthday" class="checkbox-inline">show birthday?</label><input id="vbirthday" class="" type="checkbox" name="vbirthday" value="1" checked>
                                             </div>
                                         </form>
                                     </div>
@@ -209,13 +217,17 @@ and open the template in the editor.
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                        Collapsible Group Item #2
+                                        ユーザデータ取得
                                     </a>
                                 </h4>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <form id="getinfo">
+                                        <div class="form-group">
+                                            <label>ユーザID</label><input name="userid" type="text" class="form-control">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

@@ -11,6 +11,7 @@ import com.oic.event.ChatEvent;
 import com.oic.event.ChatlogEvent;
 import com.oic.event.CheckDuplication;
 import com.oic.event.CmdEvent;
+import com.oic.event.GetProfile;
 import com.oic.event.RegisterProfile;
 import com.oic.event.SetProfile;
 import com.oic.login.TestLoginHandler;
@@ -114,44 +115,7 @@ public class WebSocketListener {
             return;
         }
         if(login == LoginStatus.LOGIN){
-            switch (method) {//ログイン後の振り分け
-                case "allchat":
-                    new ChatEvent().ActionEvent(json, this);
-                    break;
-                case "getchatlog":
-                    new ChatlogEvent().ActionEvent(json, webSocketListener);
-                    break;
-
-                /* マップ */
-                case "getmapid":
-                    break;
-                case "transfermap":
-                    break;
-                case "getmapall":
-                    break;
-                case "getmapfloor":
-                    break;
-                case "getmapinfo":
-                    break;
-
-                /* マップでの情報 */
-                case "posupdate":
-                    break;
-                case "getuserinfo":
-                    break;
-
-                /* 登録系*/
-                case "setprofile":
-                    new SetProfile().ActionEvent(json, webSocketListener);
-                break;
-                case "getprofile":
-                break;
-
-                /* utils */
-                case "cmd":
-                    new CmdEvent().ActionEvent(json, webSocketListener);
-                    break;
-            }
+           LoginEvent.execEvent(method, json, webSocketListener);
         }
     }
 
