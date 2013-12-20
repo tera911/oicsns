@@ -20,6 +20,7 @@
 		$(function(){
 			$(".avatar_pic").click(function(){
 				document.getElementById("full_avatar").src = this.src;
+				document.getElementById("full_avatar").alt = this.alt;
 			});
 		});
 		$(function(){
@@ -48,7 +49,6 @@
 				};
 			});
 		});
-
 		$(function(){
 			$("#sendbutton").click(function(){
 				var studentid = document.getElementById("student_id").value;

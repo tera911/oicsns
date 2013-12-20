@@ -58,6 +58,11 @@ p{
 select{
 	height:22px;
 }
+#notice{
+	width:250px;
+	height:60px;
+	margin:25px 0px 0px 200px;
+}
 	/*ラジオボタンの項目のみ、labelのmargin効果消す*/
 .radiolabel{
 	margin:auto;
@@ -104,7 +109,10 @@ select{
 	font-size: 115%;
 }
 #hogehoge1{
-	margin-top:40px;
+	margin-top:30px;
+}
+#hogehoge1>label{
+	font-size:13px;
 }
 .hidebutton{
 	display: none;
