@@ -2,6 +2,7 @@
 <script src="./js/jquery.jscrollpane.min.js"></script>
 <link rel="stylesheet" type="text/css" href="css/jquery.jscrollpane.css">
 <link rel="stylesheet" type="text/css" href="css/jscrollpane.css">
+<link rel="stylesheet" type="text/css" href="css/eula.css">
 <script type="text/javascript">
 <!--
 	$(function(){
@@ -12,123 +13,6 @@
 	});
 //-->
 </script>
-<style>
-	#eula {
-		box-sizing:border-box;
-		width: 800px;
-		height: 750px;
-		border: 1px solid #cccccc;
-		margin: 0 auto;
-	}
-
-	#eula h2 {
-		text-align: center;
-		margin:10px 0px;
-	}
-
-	/*利用規約本文のスタイル*/
-	#eula .agreement {
-		width: 700px;
-		height: 600px;
-		border: 1px solid #cccccc;
-		margin-top: 40px;
-		margin: 0 auto;
-		background-color: #dddddd;
-		overflow-y: auto; 
-	}
-
-	#eula .agreement>h3 {
-		margin: 10px 0px 10px 20px;
-	}
-
-	#eula .agreement>ul {
-		margin: 0px;
-	}
-
-	#eula .agreement>ul>li {
-		font-size: 90%;
-		width: 630px;
-		margin: 5px 0px;
-	}
-
-	#eula .agreement>ul>h3 {
-		margin: 5px 0px;
-	}
-
-	#eula .agreement ol>li {
-		font-size: 75%;
-		margin: 5px;
-	}
-
-	#eula .send {
-		width: 700px;
-		margin: 0 auto;
-		height: 80px;
-	}
-
-	#eula #sendbutton {
-		width: 150px;
-		height: 70px;
-		border: 1px;
-		margin: 10px 40px 0px 0px;
-		float: right;
-		padding: 5px 20px;
-		font-weight: bold;
-		cursor: pointer;
-		background-color: #a9c4eb;
-		font-size: 115%;
-	}
-
-	#eula .send form{
-		width:400px;
-		float:left;
-		margin-left: 100px;
-	}
-
-	/*スクロールバーのデザイン*/
-	#eula .jspVerticalBar {
-		background-color: #dddddd;
-	}
-	/* スクロールバー本体 */
-	#eula .jspDrag{
-		border:1px solid #dddddd	;
-		background-color: #ffffff;
-	}
-	/* スクロールバーの背景 */
-	#eula .jspVerticalBar .jspTrack {
-		background-color: #dddddd;
-	}
-
-	#eula .jspArrowUp{		/*上矢印*/
-		background-color: #dddddd;
-	}
-	#eula .jspArrowDown{		/*下矢印*/
-		background-color: #dddddd;
-	}
-
-	#eula .jspArrowUp.jspDisabled{	/*上に接してる時の背景色*/
-		background-color: #dddddd;
-	}
-
-	#eula .jspArrowDown.jspDisabled{	/*下に接してる時の背景色*/
-		background-color: #dddddd;
-	}
-	/*=========================*/
-	/*スクロールパネル 上矢印*/
-	#eula .agreement .jspArrowUp{
-		background-image: url("./img/scroll/jspArrowUp.svg");
-		background-repeat: no-repeat;
-		background-size: contain;
-		background-position: center center;
-	}
-	/*スクロールパネル 下矢印*/
-	#eula .agreement .jspArrowDown{
-		background-image: url("./img/scroll/jspArrowDown.svg");
-		background-repeat: no-repeat;
-		background-size: contain;
-		background-position: center center;		
-	}
-</style>
 <div id="eula">
 	<h2>利用規約</h2>
 	<div class="jscrollpane agreement">

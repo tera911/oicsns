@@ -9,6 +9,7 @@
 		<link rel="stylesheet" type="text/css" href="template/base.css">
 		<link rel="stylesheet" type="text/css" href="css/jscrollpane.css">
 		<link rel="stylesheet" type="text/css" href="css/hoge.css">
+		<link rel="stylesheet" type="text/css" href="css/register.css">
 		<script type="text/javascript">
 		<!--
 		$(function(){
@@ -62,40 +63,6 @@
 
 		//-->
 		</script>
-		<style>
-		body{
-			background-color: #eeffff;
-		}
-		#content{
-			width:800px;
-			height:610px;
-			border:1px solid #cccccc;
-			margin: 0 auto;
-			background-color:#fff;
-			/*透過度70%*/
-			filter:alpha(opacity=0.7);
-			-moz-opacity: 0.7;
-			opacity: 0.7;
-		}
-		.left_form{
-			float:left;
-			width:440px;
-			height:100%;
-		}
-		.right_form{
-			width:355px;
-			height:100%;
-			float:right;
-		}
-		#notice{
-			width:250px;
-			height:60px;
-			margin: 30px 0px 0px 150px;
-			border-radius: 5px;
-			font-size:100%;				/*後で微調整*/
-			overflow:hidden;
-		}
-		</style>
 	</head>
 	<body>
 		<div id="content">
@@ -272,24 +239,22 @@
 				</form>
 			</div>
 			<div class="right_form"> <!-- アバター選択・送信 -->
-				<form id="userdata2">
-					<div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
-						<img class="avatar_pic" src="img/avatar/001.png" alt="1">
-						<img class="avatar_pic" src="img/avatar/002.png" alt="2">
-						<img class="avatar_pic" src="img/avatar/003.png" alt="3">
-						<img class="avatar_pic" src="img/avatar/001.png" alt="4">
-						<img class="avatar_pic" src="img/avatar/002.png" alt="5">
-						<img class="avatar_pic" src="img/avatar/003.png" alt="6">
-						<img class="avatar_pic" src="img/avatar/001.png" alt="7">
-						<img class="avatar_pic" src="img/avatar/002.png" alt="8">
-						<img class="avatar_pic" src="img/avatar/003.png" alt="9">
-						<img class="avatar_pic" src="img/avatar/001.png" alt="10">
-					</div>
-					<div id="avatar_bg">
-						<img id="full_avatar" alt="1" src="img/avatar/001.png">
-					</div>
-					<button id="sendbutton" name="hoge" type="button">送信</button>	
-				</form>
+				<div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
+					<img class="avatar_pic" src="img/avatar/001.png" alt="1">
+					<img class="avatar_pic" src="img/avatar/002.png" alt="2">
+					<img class="avatar_pic" src="img/avatar/003.png" alt="3">
+					<img class="avatar_pic" src="img/avatar/001.png" alt="4">
+					<img class="avatar_pic" src="img/avatar/002.png" alt="5">
+					<img class="avatar_pic" src="img/avatar/003.png" alt="6">
+					<img class="avatar_pic" src="img/avatar/001.png" alt="7">
+					<img class="avatar_pic" src="img/avatar/002.png" alt="8">
+					<img class="avatar_pic" src="img/avatar/003.png" alt="9">
+					<img class="avatar_pic" src="img/avatar/001.png" alt="10">
+				</div>
+				<div id="avatar_bg">
+					<img id="full_avatar" alt="1" src="img/avatar/001.png">
+				</div>
+				<button id="sendbutton" name="hoge" type="button">送信</button>	
 			</div>
 		</div>		
 	</body>
