@@ -9,9 +9,11 @@ package com.oic.client;
 import com.oic.map.OicMap;
 import com.oic.map.Position;
 import com.oic.utils.DatabaseConnection;
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.Date;
 
 /**
@@ -31,13 +33,16 @@ public class OicCharacter {
     private int mapid;
     
     public static OicCharacter loadCharFromDB(long userId){
+        Connection con = null;
+        PreparedStatement ps = null;
+        ResultSet rs = null;
         try{
             OicCharacter ret = new OicCharacter();
             String sql = "SELECT * FROM user WHERE userid = ? ";
-            Connection con = DatabaseConnection.getConnection();
-            PreparedStatement ps = con.prepareStatement(sql);
+            con = DatabaseConnection.getConnection();
+            ps = con.prepareStatement(sql);
             ps.setLong(1, userId);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             if(!rs.next()){
                 throw new RuntimeException("Loading the Information Filed.");
             }
@@ -49,9 +54,11 @@ public class OicCharacter {
             ret.gender = OicGender.getGender(rs.getString("sex"));
             ret.birthday = rs.getDate("birth");
             ret.comment = rs.getString("comment");
-            
             return ret;
         }catch(Exception e){
+            try{    rs.close();    }catch(Exception e1){}
+            try{    ps.close();    }catch(Exception e1){}
+ 
             e.printStackTrace();
             return null;
         }
