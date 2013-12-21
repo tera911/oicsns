@@ -96,9 +96,9 @@ and open the template in the editor.
                     obj.gender = $('#userinfo [name="gender"]:checked').val();
                     obj.birthday = $('#userinfo [name="date-y"]').val() + "-" + $('#userinfo [name="date-m"]').val() + "-" + $('#userinfo [name="date-d"]').val();
                     obj.comment = $('#userinfo [name="comment"]').val();
-                    obj.vgrade = $('#userinfo [name="vgrade"]').prop('checked') ? 1 : 0;
-                    obj.vgender = $('#userinfo [name="vgender"]').prop('checked') ? 1 : 0;
-                    obj.vbirthday = $('#userinfo [name="vbirthday"]').prop('checked') ? 1 : 0;
+                    obj.vgrade = $('#userinfo [name="vgrade"]').prop('checked') ? 2 : 1;
+                    obj.vgender = $('#userinfo [name="vgender"]').prop('checked') ? 2 : 1;
+                    obj.vbirthday = $('#userinfo [name="vbirthday"]').prop('checked') ? 2 : 1;
                     console.log(obj);
                     ws.send(JSON.stringify(obj));
                 });

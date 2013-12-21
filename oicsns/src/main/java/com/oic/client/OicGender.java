@@ -31,7 +31,7 @@ public enum OicGender{
      */
     public static OicGender getGender(String gender){
         for(OicGender gen : OicGender.values()){
-            if(gen.getValue() == gender){
+            if(gen.getValue().equals(gender)){
                 return gen;
             }
         }

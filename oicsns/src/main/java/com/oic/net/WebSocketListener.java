@@ -111,10 +111,7 @@ public class WebSocketListener {
         }else if (login == LoginStatus.REGISTER && method.equals("setprofile")) {
             /* 重複確認したら新規登録 */
             new RegisterProfile().ActionEvent(json, webSocketListener);
-        }else{
-            return;
-        }
-        if(login == LoginStatus.LOGIN){
+        }else if(login == LoginStatus.LOGIN){
            LoginEvent.execEvent(method, json, webSocketListener);
         }
     }

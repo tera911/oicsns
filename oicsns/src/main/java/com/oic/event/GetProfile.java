@@ -25,9 +25,7 @@ public class GetProfile implements ActionEventImpl{
 
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
-        System.out.println("json.");
         if(!validation(json)){
-            System.out.println("invalid json.");
             return;
         }
         JSONObject responseJSON = new JSONObject();
@@ -35,7 +33,7 @@ public class GetProfile implements ActionEventImpl{
         PreparedStatement ps = null;
         ResultSet rs = null;
         try{
-            String sql = "SELECT userid, name, avatarid, grade, gender, birthday, comment, privategrade, privatesex, privatebirth FROM user JOIN setting ON (user.userid = setting.userid) WHERE user.userid = ?;";
+            String sql = "SELECT user.userid, name, avatarid, grade, sex, birth, comment, privategrade, privatesex, privatebirth FROM user JOIN setting ON (user.userid = setting.userid) WHERE user.userid = ?;";
             con = DatabaseConnection.getConnection();
             ps = con.prepareStatement(sql);
             ps.setLong(1, Long.parseLong(json.get("userid").toString()));
@@ -45,13 +43,13 @@ public class GetProfile implements ActionEventImpl{
                 responseJSON.put("userid", rs.getLong("userid"));
                 responseJSON.put("username", rs.getString("name"));
                 responseJSON.put("avatarid", rs.getInt("avatarid"));
-                if(rs.getInt("privategrade") == 1){
+                if(rs.getString("privategrade").equals("public")){
                     responseJSON.put("grade", rs.getInt("grade"));
                 }
-                if(rs.getInt("privatesex") == 1){
-                    responseJSON.put("gender", OicGender.getGender(rs.getString("sex")));
+                if(rs.getString("privatesex").equals("public")){
+                    responseJSON.put("gender", OicGender.getGender(rs.getString("sex")).toString());
                 }
-                if(rs.getInt("privatebirth") == 1){
+                if(rs.getString("privatebirth").equals("public")){
                     responseJSON.put("birthday", Tools.convertData(rs.getDate("birth")));
                 }
                 responseJSON.put("comment", rs.getString("comment"));
