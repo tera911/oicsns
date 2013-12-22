@@ -11,6 +11,7 @@ import com.oic.event.ChatEvent;
 import com.oic.event.CmdEvent;
 import com.oic.event.GetProfile;
 import com.oic.event.SetProfile;
+import com.oic.event.map.GetMapList;
 import org.json.simple.JSONObject;
 
 /**
@@ -29,13 +30,11 @@ import org.json.simple.JSONObject;
         /**
          * マップデータを取得
          */
-        GETMAPID("getmapid", null),
+        GETMAPID("getmaplist", new GetMapList()),
         /**
          * 
          */
         TRANSFERMAP("transfermap", null),
-        GETMAPALL("getmapall", null),
-        GETMAPFLOOR("getmapfloor", null),
         GETMAPINFO("getmapinfo", null),
         POSUPDATE("posupdate", null),
         GETUSERINFO("getuserinfo", null),

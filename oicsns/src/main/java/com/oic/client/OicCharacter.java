@@ -6,6 +6,7 @@
 
 package com.oic.client;
 
+import com.oic.map.MapFactory;
 import com.oic.map.OicMap;
 import com.oic.map.Position;
 import com.oic.utils.DatabaseConnection;
@@ -31,6 +32,7 @@ public class OicCharacter {
     private Date birthday;
     private String comment;
     private int mapid;
+    private OicMap map;
     
     public static OicCharacter loadCharFromDB(long userId){
         Connection con = null;
@@ -140,7 +142,12 @@ public class OicCharacter {
         return mapid;
     }
 
-    public void setMapid(int mapid) {
-        this.mapid = mapid;
+    public void changeMap(int mapid) {
+        map.removeCharacter(userId);
+        enterMap(mapid);
     }    
+    public void enterMap(int mapid){
+        MapFactory factory = MapFactory.getInstance();
+        map = factory.getMap(mapid);
+    }
 }

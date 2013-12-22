@@ -34,9 +34,10 @@ and open the template in the editor.
             ws.onerror = function(error) {
                 console.log('WebSocket Error ' + error);
             };
-            ws.onmessage = function(e) {
-                console.log('Server: ' + e.data);
+            ws.onmessage = function(e) {                
                 var data = JSON.parse(e.data);
+                console.log("server : ")
+                console.log(data);
                 for (var i in data) {
                     var value = data[i];
                     $('.status').append("<p>" + i + ":" + value + "</p>");
@@ -110,6 +111,11 @@ and open the template in the editor.
                     console.log(obj);
                     ws.send(JSON.stringify(obj));
                 });
+                $('button[name="getmaplist"]').click(function(){
+                    obj = {};
+                    obj.method = "getmaplist";
+                    ws.send(JSON.stringify(obj));
+                });
                 
             });
         </script>
@@ -144,6 +150,14 @@ and open the template in the editor.
                             <button name="duplication" class="btn btn-primary">重複確認</button>
                             <button name="cmd" class="btn btn-primary">command</button>
                             <button name="getlog" class="btn btn-default">chatlog取得//廃止</button>
+                        </div>
+                    </div>
+                    <div class="col-md-12">
+                        <div class="actionButton">
+                            <p>Maps</p>
+                            <button name="getmaplist" class="btn btn-primary">mapリスト取得</button>
+
+                            <button name="" class="btn btn-primary">プロフィール設定</button>
                         </div>
                     </div>
                      <div class="col-md-12">

@@ -146,7 +146,7 @@ public class WebSocketListener {
         if (c == null) {//未登録
             login = LoginStatus.REGISTER;
         }
-        c.setMapid(31); //ログイン時のマップは3A教室固定
+        c.enterMap(31); //ログイン時のマップは3A教室固定
     }
 
     /**
