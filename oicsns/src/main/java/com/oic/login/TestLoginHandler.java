@@ -26,12 +26,12 @@ public class TestLoginHandler implements ActionEventImpl{
     private static final Logger LOG = Logger.getLogger(TestLoginHandler.class.getName());
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
-        JSONObject loginStatus = new JSONObject();
-        loginStatus.put("method", "loginstatus");
+        JSONObject responseJSON = new JSONObject();
+        responseJSON.put("method", "loginstatus");
         //validation
         if(!validation(json)){
-            loginStatus.put("status", "1");
-            webSocket.sendJson(loginStatus);
+            responseJSON.put("status", "1");
+            webSocket.sendJson(responseJSON);
             return;
         }
         String accesstoken;
@@ -44,13 +44,13 @@ public class TestLoginHandler implements ActionEventImpl{
         
         if(userId  > 0){//ログイン成功
             webSocket.userLogin(userId);
-            loginStatus.put("status", "0");
+            responseJSON.put("status", "0");
             LOG.log(Level.INFO, "Login Success.");
         }else{  //ログイン失敗
-            loginStatus.put("status", "1");
+            responseJSON.put("status", "1");
             LOG.log(Level.INFO, "Login Faild.");  
         }
-        webSocket.sendJson(loginStatus);
+        webSocket.sendJson(responseJSON);
     }
     
     /**
