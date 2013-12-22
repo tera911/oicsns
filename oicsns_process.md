@@ -96,5 +96,5 @@ method:duplicationを送ると新規登録ユーザ
 
 
 ###memo
-- すべてのアクションに対してstatusを付けるべきか？
+- すべてのアクションに対してstatusを付ける
 - securityをどうしよう
