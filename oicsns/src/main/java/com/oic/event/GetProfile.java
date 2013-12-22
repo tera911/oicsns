@@ -25,10 +25,12 @@ public class GetProfile implements ActionEventImpl{
 
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
+        JSONObject responseJSON = new JSONObject();
         if(!validation(json)){
+            responseJSON.put("status", "1");
+            webSocket.sendJson(responseJSON);
             return;
         }
-        JSONObject responseJSON = new JSONObject();
         Connection con = null;
         PreparedStatement ps = null;
         ResultSet rs = null;

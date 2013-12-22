@@ -33,7 +33,8 @@ public class RegisterProfile implements ActionEventImpl{
         JSONObject responseJSON = new JSONObject();
         responseJSON.put("method", "setprofile");
         if(!validation(json,webSocket)){
-            System.out.println("invalid json.");
+            responseJSON.put("status", "1");
+            webSocket.sendJson(responseJSON);
             return;
         }
         Connection con = DatabaseConnection.getConnection();

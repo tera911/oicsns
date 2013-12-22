@@ -32,6 +32,8 @@ public class SetProfile implements ActionEventImpl{
         JSONObject responseJSON = new JSONObject();
         responseJSON.put("method", "setprofile");
         if(!validation(json,webSocket)){
+            responseJSON.put("status", "1");
+            webSocket.sendJson(responseJSON);
             return;
         }
         Connection con = DatabaseConnection.getConnection();
