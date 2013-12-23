@@ -116,6 +116,13 @@ and open the template in the editor.
                     obj.method = "getmaplist";
                     ws.send(JSON.stringify(obj));
                 });
+                $('button[name="transfermap"]').click(function(){
+                    obj = {};
+                    obj.method = "transfermap";
+                    obj.userid = $('#getinfo [name="mapid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
                 
             });
         </script>
@@ -156,8 +163,8 @@ and open the template in the editor.
                         <div class="actionButton">
                             <p>Maps</p>
                             <button name="getmaplist" class="btn btn-primary">mapリスト取得</button>
-
-                            <button name="" class="btn btn-primary">プロフィール設定</button>
+                            <button name="getmapinfo" class="btn btn-primary">Map情報取得</button>
+                            <button name="transfermap" class="btn btn-primary">Map変更</button>
                         </div>
                     </div>
                      <div class="col-md-12">
@@ -240,6 +247,9 @@ and open the template in the editor.
                                     <form id="getinfo">
                                         <div class="form-group">
                                             <label>ユーザID</label><input name="userid" type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>MAPID</label><input name="mapid" type="text" class="form-control">
                                         </div>
                                     </form>
                                 </div>

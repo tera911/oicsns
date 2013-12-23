@@ -30,6 +30,7 @@ public class CmdEvent implements ActionEventImpl{
                 json1.put("studentId",c.getStudentNumber().toString());
                 json1.put("avaterId", c.getAvatarId());
                 json1.put("birthday", c.getBirthday().toString());
+                json1.put("mapid", c.getMapid());
                 webSocket.sendJson(json1);
                 break;
             case "username":

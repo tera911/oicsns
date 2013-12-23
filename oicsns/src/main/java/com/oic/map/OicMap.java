@@ -21,6 +21,7 @@ public class OicMap {
     private String path;
     private Position pos;
     private Object[] objects;
+    private long[][] charspace = {{0,0,0,0,0,0,0,0},{0,0,0,0,0,0,0,0}};
 
     private OicMap() {
     }
@@ -104,12 +105,36 @@ public class OicMap {
         this.objects = objects;
     }
 
-    public void setCharacter(OicCharacter character){
+    public boolean setCharacter(OicCharacter character){
         this.characters.add(character);
+        
+        for(int i = 0; i < charspace.length; i++){
+            for(int j =  charspace[i].length /2; j > 0; j--){
+                for(int k = 0; k < 2; k++){
+                    if(charspace[i][j+k] == 0){
+                        charspace[i][j+k] = character.getUserId();
+                        Position pos = character.getPos();
+                        pos.setX((j + k)* pos.getWidth());
+                        pos.setY(600 - (i * pos.getHeight()));
+                        character.setPos(pos);
+                        return true;
+                    }
+                }
+            }
+        }
+        return false;
+        
     }
     public void removeCharacter(long userId){
         for(OicCharacter charcter : this.characters){
             if(charcter.getUserId() == userId){
+                for(long[] i : charspace){
+                    for(long j : i){
+                        if(j == userId){
+                            j = 0;
+                        }
+                    }
+                }
                 this.characters.remove(charcter);
             }
         }

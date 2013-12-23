@@ -6,6 +6,7 @@
 
 package com.oic.event.map;
 
+import com.oic.client.OicCharacter;
 import com.oic.event.ActionEventImpl;
 import com.oic.net.WebSocketListener;
 import com.oic.utils.Validators;
@@ -22,9 +23,16 @@ public class TransferMap implements ActionEventImpl{
         JSONObject responseJSON = new JSONObject();
         responseJSON.put("method", "transfermap");
         if(!validation(json)){
-        responseJSON.put("status", "1");
+            responseJSON.put("status", "1");
             webSocket.sendJson(responseJSON);
         }
+        
+        int mapid = Integer.parseInt(json.get("mapid").toString());
+        OicCharacter c = webSocket.getCharacter();
+        c.changeMap(mapid);
+        responseJSON.put("mapid", mapid);
+        responseJSON.put("status", 0);
+        webSocket.sendJson(responseJSON);
     }
     
     private boolean validation(JSONObject json){
