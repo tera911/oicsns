@@ -11,6 +11,7 @@ import com.oic.event.ChatEvent;
 import com.oic.event.CmdEvent;
 import com.oic.event.GetProfile;
 import com.oic.event.SetProfile;
+import com.oic.event.GetUserInfo;
 import com.oic.event.map.GetMapInfo;
 import com.oic.event.map.GetMapList;
 import com.oic.event.map.TransferMap;
@@ -39,7 +40,7 @@ import org.json.simple.JSONObject;
         TRANSFERMAP("transfermap", new TransferMap()),
         GETMAPINFO("getmapinfo", new GetMapInfo()),
         POSUPDATE("posupdate", null),
-        GETUSERINFO("getuserinfo", null),
+        GETUSERINFO("getuserinfo", new GetUserInfo()),
         /**
          * プロフィール設定
          */

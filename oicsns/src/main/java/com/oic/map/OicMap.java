@@ -140,4 +140,25 @@ public class OicMap {
             }
         }
     }
+    
+    public int getUserCont(){
+        return characters.size();
+    }
+    
+    public OicCharacter getUser(long userId){
+        for(OicCharacter c : characters){
+            if(c.getUserId() == userId){
+                return c;
+            }
+        }
+        return null;
+    }
+    public Position getUserPosition(long userId){
+        OicCharacter c = getUser(userId);
+        if(c != null){
+            return c.getPos();
+        }else{
+            return null;
+        }
+    }
 }

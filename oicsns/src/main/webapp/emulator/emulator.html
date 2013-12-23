@@ -34,7 +34,7 @@ and open the template in the editor.
             ws.onerror = function(error) {
                 console.log('WebSocket Error ' + error);
             };
-            ws.onmessage = function(e) {                
+            ws.onmessage = function(e) {
                 var data = JSON.parse(e.data);
                 console.log("server : ")
                 console.log(data);
@@ -130,6 +130,14 @@ and open the template in the editor.
                     console.log(obj);
                     ws.send(JSON.stringify(obj));
                 });
+                $('button[name="getuserinfo"]').click(function(){
+                    obj = {};
+                    obj.method = "getuserinfo";
+                    obj.mapid = $('#getinfo [name="mapid"]').val();
+                    obj.userid = $('#getinfo [name="userid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
                 
             });
         </script>
@@ -143,8 +151,8 @@ and open the template in the editor.
                         <p>status</p>
                         <p class="status" id="status"></p>
                         <form class="form-group" id="Login">
-                            <label>name</label><input type="text" name="userid" value="tera09">
-                            <label>pw</label><input type="text" name="password" value="tera09">
+                            <label>name</label><input type="text" name="userid" value="tera0912">
+                            <label>pw</label><input type="text" name="password" value="tera0912">
                         </form>
                         <form class="form-group" id="chat">
                             <label>chat</label><input type="text" name="text">
@@ -172,6 +180,8 @@ and open the template in the editor.
                             <button name="getmaplist" class="btn btn-primary">mapリスト取得</button>
                             <button name="getmapinfo" class="btn btn-primary">Map情報取得</button>
                             <button name="transfermap" class="btn btn-primary">Map変更</button>
+                            <button name="getuserinfo" class="btn btn-primary">User情報取得</button>
+                            
                         </div>
                     </div>
                      <div class="col-md-12">
