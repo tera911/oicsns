@@ -25,6 +25,7 @@ public class TransferMap implements ActionEventImpl{
         if(!validation(json)){
             responseJSON.put("status", "1");
             webSocket.sendJson(responseJSON);
+            return;
         }
         
         int mapid = Integer.parseInt(json.get("mapid").toString());

@@ -8,6 +8,7 @@ package com.oic.map;
 
 import com.oic.client.OicCharacter;
 import java.util.Collection;
+import java.util.Collections;
 import java.util.LinkedHashSet;
 
 /**
@@ -15,7 +16,7 @@ import java.util.LinkedHashSet;
  * @author B2020
  */
 public class OicMap {
-    private Collection<OicCharacter> characters = new LinkedHashSet<>();
+    private Collection<OicCharacter> characters = Collections.synchronizedCollection(new LinkedHashSet<OicCharacter>());
     private int mapId;
     private String mapName;
     private String path;

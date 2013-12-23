@@ -11,7 +11,9 @@ import com.oic.event.ChatEvent;
 import com.oic.event.CmdEvent;
 import com.oic.event.GetProfile;
 import com.oic.event.SetProfile;
+import com.oic.event.map.GetMapInfo;
 import com.oic.event.map.GetMapList;
+import com.oic.event.map.TransferMap;
 import org.json.simple.JSONObject;
 
 /**
@@ -34,8 +36,8 @@ import org.json.simple.JSONObject;
         /**
          * 
          */
-        TRANSFERMAP("transfermap", null),
-        GETMAPINFO("getmapinfo", null),
+        TRANSFERMAP("transfermap", new TransferMap()),
+        GETMAPINFO("getmapinfo", new GetMapInfo()),
         POSUPDATE("posupdate", null),
         GETUSERINFO("getuserinfo", null),
         /**

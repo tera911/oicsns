@@ -116,10 +116,17 @@ and open the template in the editor.
                     obj.method = "getmaplist";
                     ws.send(JSON.stringify(obj));
                 });
+                $('button[name="getmapinfo"]').click(function(){
+                    obj = {};
+                    obj.method = "getmapinfo";
+                    obj.mapid = $('#getinfo [name="mapid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
                 $('button[name="transfermap"]').click(function(){
                     obj = {};
                     obj.method = "transfermap";
-                    obj.userid = $('#getinfo [name="mapid"]').val();
+                    obj.mapid = $('#getinfo [name="mapid"]').val();
                     console.log(obj);
                     ws.send(JSON.stringify(obj));
                 });
