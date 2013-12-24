@@ -18,8 +18,8 @@ import java.sql.SQLException;
 import org.json.simple.JSONObject;
 
 /**
- *
- * @author b2020
+ * プロフィール情報を取得する
+ * @author morimoto
  */
 public class GetProfile implements ActionEventImpl{
 

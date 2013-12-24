@@ -130,6 +130,13 @@ and open the template in the editor.
                     console.log(obj);
                     ws.send(JSON.stringify(obj));
                 });
+                $('button[name="getmapuserlist"]').click(function(){
+                    obj = {};
+                    obj.method = "getmapuserlist";
+                    obj.mapid = $('#getinfo [name="mapid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
                 $('button[name="getuserinfo"]').click(function(){
                     obj = {};
                     obj.method = "getuserinfo";
@@ -180,6 +187,7 @@ and open the template in the editor.
                             <button name="getmaplist" class="btn btn-primary">mapリスト取得</button>
                             <button name="getmapinfo" class="btn btn-primary">Map情報取得</button>
                             <button name="transfermap" class="btn btn-primary">Map変更</button>
+                            <button name="getmapuserlist" class="btn btn-primary">Mapユーザリスト取得</button>
                             <button name="getuserinfo" class="btn btn-primary">User情報取得</button>
                             
                         </div>

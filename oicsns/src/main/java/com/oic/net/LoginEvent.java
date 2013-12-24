@@ -14,6 +14,7 @@ import com.oic.event.SetProfile;
 import com.oic.event.GetUserInfo;
 import com.oic.event.map.GetMapInfo;
 import com.oic.event.map.GetMapList;
+import com.oic.event.map.GetMapUserList;
 import com.oic.event.map.TransferMap;
 import org.json.simple.JSONObject;
 
@@ -34,6 +35,7 @@ import org.json.simple.JSONObject;
          * マップデータを取得
          */
         GETMAPID("getmaplist", new GetMapList()),
+        GETMAPUSERLIST("getmapuserlist", new GetMapUserList()),
         /**
          * 
          */

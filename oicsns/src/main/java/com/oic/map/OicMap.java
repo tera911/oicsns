@@ -10,6 +10,7 @@ import com.oic.client.OicCharacter;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.LinkedHashSet;
+import java.util.List;
 
 /**
  *
@@ -124,7 +125,10 @@ public class OicMap {
             }
         }
         return false;
-        
+    }
+    
+    public Collection<OicCharacter> getCharacters(){
+        return characters;
     }
     public void removeCharacter(long userId){
         for(OicCharacter charcter : this.characters){

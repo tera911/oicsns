@@ -15,7 +15,7 @@ import java.sql.ResultSet;
 import org.json.simple.JSONObject;
 
 /**
- *
+ * 重複確認
  * @author morimoto
  */
 public class CheckDuplication implements ActionEventImpl{

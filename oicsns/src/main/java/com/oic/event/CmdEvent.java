@@ -14,8 +14,8 @@ import java.io.IOException;
 import org.json.simple.JSONObject;
 
 /**
- *
- * @author b2020
+ * debug用コマンド
+ * @author morimoto
  */
 public class CmdEvent implements ActionEventImpl{
 

@@ -7,8 +7,8 @@
 package com.oic.event;
 
 /**
- *
- * @author kxhtj529
+ * ユーザの座標を更新する
+ * @author morimoto
  */
 public class PosUpdate {
     
