@@ -1,0 +1,256 @@
+#chatwindowGroup:root{
+    /*    選択を無効にする*/
+    user-select: none; /* CSS3 */
+    -moz-user-select: none; /* Firefox */
+    -webkit-user-select: none; /* Safari、Chromeなど */
+    -ms-user-select: none; /* IE10かららしい */  
+}
+/*ちょろめのくそ仕様(フォーカスのオレンジ枠)を無効にする*/
+#chatwindowGroup div:focus{
+    outline:none;
+}
+#chatwindowGroup input:focus{
+    outline:none;
+}
+
+body{
+    background-color:burlywood
+}
+
+#chatwindowGroup{
+    margin-left:auto;    /* 左側マージンを自動的に空ける */
+    margin-right:auto;   /* 右側マージンを自動的に空ける */
+    text-align:left;     /* 中身を左側表示に戻す */
+}
+#chatwindowGroup{
+    width:387px;
+    height:228px;
+    position:absolute;left:0px; top:522px;
+}
+#chatwindowGroup #tabGroup{
+    width:387px;
+    height:23px;
+}
+
+#chatwindowGroup .tab_active{
+
+    float:left;
+    width:67px;
+    height:23px;
+    overflow:hidden;
+    background:transparent;       
+}
+#chatwindowGroup .tab_active::before{
+    content:"";
+    display:block;
+    width:67px;
+    height:23px;
+    background:rgba(255,255,255,0.7);
+    border-top-right-radius:5px;    
+    transform-origin:0 100%;
+    transform:skewX(20deg);
+    -moz-transform-origin:0 100%;
+    -moz-transform:skewX(20deg);
+    -webkit-transform-origin:0 100%;
+    -webkit-transform:skewX(20deg);
+}
+
+#chatwindowGroup .tab_inactive{
+
+    float:left;
+    width:67px;
+    height:23px;
+    overflow:hidden;
+    background:transparent;
+    position:relative;
+
+}
+#chatwindowGroup .tab_inactive::before{
+    content:"";
+    display:block;
+    width:67px;
+    height:23px;
+    background:rgba(64,64,64,0.7);
+    border-top-right-radius:5px;    
+    transform-origin:0 100%;
+    transform:skewX(20deg);
+    -moz-transform-origin:0 100%;
+    -moz-transform:skewX(20deg);
+    -webkit-transform-origin:0 100%;
+    -webkit-transform:skewX(20deg);   
+}
+
+#chatwindowGroup .txt_active{
+    margin-top: -20px;
+    text-align:center;
+    color:rgb(64,64,64);
+    position:relative;
+    z-index:1;
+}
+#chatwindowGroup .txt_inactive{
+    margin-top: -20px;
+    text-align:center; 
+    color:rgb(255,255,255);
+    position:relative;
+    z-index:1;
+}
+
+#chatwindowGroup #logWindow{
+    width:387px;
+    height:205px;
+
+    background-color:rgba(255,255,255,0.7); 
+    z-index:1;
+}
+
+#chatwindowGroup .fw{
+    /*	width:366px;*/
+    width:387px;
+    height:168px;
+
+    clear:both;
+    border:none;
+    display:none;
+
+    position:relative;
+    top:5px;
+    left:8px;
+    z-index:2;  
+}
+#chatwindowGroup .fw p{
+    display:block;
+    width:351px;
+    height:auto;
+    word-wrap:break-word;
+    margin-bottom:0em;
+    margin-top:0em;
+}
+
+#chatwindowGroup #inputGroup{
+    position:relative;
+    z-index:99999;
+}
+#chatwindowGroup .selectChannel{
+    width:50px;
+    height:15px;
+
+    border: 1px solid gray;
+    float:left;
+    position:relative; left:5px; top:12px;
+    text-align:center;
+}
+
+
+#chatwindowGroup #ul_menu{
+    position:relative;
+    width:50px;
+    list-style:none;
+    text-align:center;
+    left:5px; top:12px;
+    padding:0px 0px 0px 0px;
+    margin:0px 0px 0px 0px;
+}
+#chatwindowGroup #ul_menu li{
+    width:50px;
+    float:left;
+    position:relative;
+}
+#chatwindowGroup #ul_menu li a{
+    width:48px;
+    background-color:transparent;
+    float:none;
+    height:15px;
+    display:block;
+    border: 1px solid gray;
+    color:black;
+    text-decoration: none;
+    text-indent: 0px;
+
+}
+#chatwindowGroup #ul_menu li > a{
+    font: normal 13px/15px 'ＭＳ Ｐゴシック', sans-serif;
+}
+#chatwindowGroup #ul_menu ul > li > a{
+    background-color: white;
+    font-size:.7em;
+}
+.sub_list {
+    bottom: 15px;
+    left: 0;
+    position: absolute;
+    text-align: center;
+    list-style:none;
+    padding-left:0;
+}
+
+#chatwindowGroup .inputWindow{
+    width:260px;
+    height:15px;
+
+    /*    border:1px solid rgb(0,0,0);*/
+    border: 1px solid gray;
+    background-color:transparent;
+    float:left;
+    position:relative; left:10px; top:12px;
+    padding:0px 0px 0px 0px;
+}
+#chatwindowGroup .submitButton{
+    /*
+            width:50px;
+            height:15px;
+    */
+    width:52px;
+    height:17px; 
+    border: 1px solid gray;  
+    background-color:transparent;
+    float:left;
+    position:relative; left:15px; top:12px;
+    text-align:center;
+    padding:0px 0px 0px 0px;
+}
+
+
+/*スクロールバーのデザイン*/
+#chatwindowGroup .jspVerticalBar {
+    background-color: transparent;
+    z-index:9999;
+}
+/* スクロールバー本体 */
+#chatwindowGroup .jspDrag{
+    border:1px solid gray;
+    background-color: transparent
+}
+/* スクロールバーの背景 */
+#chatwindowGroup .jspVerticalBar .jspTrack {
+    background-color: transparent;
+}
+
+#chatwindowGroup .jspArrowUp{		/*上矢印*/
+    background-color: transparent;
+}
+#chatwindowGroup .jspArrowDown{		/*下矢印*/
+    background-color: transparent;
+}
+
+#chatwindowGroup .jspArrowUp.jspDisabled{	/*上に接してる時の背景色*/
+    background-color: transparent;
+}
+
+#chatwindowGroup .jspArrowDown.jspDisabled{	/*下に接してる時の背景色*/
+    background-color: transparent;
+}
+/*=========================*/
+/*スクロールパネル 上矢印*/
+#chatwindowGroup .jspArrowUp{
+    background-image: url("../img/scroll/jspArrowUp.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;
+}
+/*スクロールパネル 下矢印*/
+#chatwindowGroup .jspArrowDown{
+    background-image: url("../img/scroll/jspArrowDown.svg");
+    background-repeat: no-repeat;
+    background-size: contain;
+    background-position: center center;		
+}
