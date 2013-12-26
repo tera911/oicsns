@@ -42,7 +42,7 @@ and open the template in the editor.
                     $('.status').append("<p>" + i + ":" + value + "</p>");
                 }
                 $('.status').append("<hr>");
-                
+
                 var scrollHeight = document.getElementById("status").scrollHeight;
                 document.getElementById("status").scrollTop = scrollHeight;
             };
@@ -84,7 +84,7 @@ and open the template in the editor.
                     console.log(obj);
                     ws.send(JSON.stringify(obj));
                 });
-                $('button[name="setprofile"]').click(function(){
+                $('button[name="setprofile"]').click(function() {
                     obj = {};
                     obj.method = "setprofile";
                     obj.accesstoken = $('#Login [name="userid"]').val();
@@ -102,7 +102,7 @@ and open the template in the editor.
                     console.log(obj);
                     ws.send(JSON.stringify(obj));
                 });
-                
+
             });
         </script>
     </head>
@@ -138,7 +138,7 @@ and open the template in the editor.
                             <button name="getlog" class="btn btn-default">chatlog取得//廃止</button>
                         </div>
                     </div>
-                     <div class="col-md-12">
+                    <div class="col-md-12">
                         <div class="actionButton">
                             <p>登録系</p>
                             <button name="register" class="btn btn-primary">Register開始</button>
