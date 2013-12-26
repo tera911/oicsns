@@ -13,10 +13,6 @@
     outline:none;
 }
 
-body{
-    background-color:burlywood
-}
-
 #chatwindowGroup{
     margin-left:auto;    /* 左側マージンを自動的に空ける */
     margin-right:auto;   /* 右側マージンを自動的に空ける */
@@ -26,8 +22,8 @@ body{
     width:387px;
     height:228px;
     position:absolute;
-    left:50px; 
-    top:200px;
+    left:0; 
+    top:522px;
 }
 #chatwindowGroup #tabGroup{
     width:387px;

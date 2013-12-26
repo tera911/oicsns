@@ -1,0 +1,129 @@
+#profile {
+	width:800px;
+	height:610px;
+	border:1px solid #cccccc;
+	margin: 0 auto;
+	background-color:#fff;
+	filter:alpha(opacity=0.7);
+	-moz-opacity: 0.7;
+	opacity: 0.7;
+    }
+#profile #confirm{
+	width: 80px;
+	height: 30px;
+	border: 1px;
+	margin-left: 20px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #a9c4eb;
+	border-radius:4px;
+}
+#profile .left_form{
+
+	float:left;
+	width:440px;
+	height:510px;	
+}
+#profile .right_form{
+	width:355px;
+	height:510px;
+	float:right;
+}
+
+#profile #comment{
+	width:260px;
+	height:80px;
+	float:right;
+	margin-right:50px;
+	margin-top:-20px;
+}
+#profile input[type="text"]{
+	width:90px;
+}
+
+#profile label {	
+	display: inline-block;
+	margin-left: 50px;
+	width: 95px;
+}
+#profile p{
+	font-size: 80%;
+	height:100%;
+	margin: 0;
+	margin-top: 30px;
+}
+#profile select{
+	height:22px;
+}
+#profile #notice{
+	width:250px;
+	height:60px;
+	margin:25px 0px 0px 200px;
+}
+	/*ラジオボタンの項目のみ、labelのmargin効果消す*/
+#profile .radiolabel{
+	margin:auto;
+	width:auto;
+	width:70px;
+}
+#profile #radiolist{
+	display: inline-block;
+}
+#profile #avatar_window{
+	margin:20px 0px 0px 30px;
+	border:1px solid #cccccc;
+	width:320px;
+	height:200px;
+	background-color:#999999;		/*一部アバターの足などが見づらかったので、仮設定　*/
+}
+#profile #avatar_window img{
+	width:60px;
+	height:90px;
+	float:left;
+}
+#profile #avatar_bg{
+	width:280px;
+	height:210px;
+	background-image:url("../img/avatar/avatarbg.jpg");	/*仮画像*/
+	background-size:cover;
+	margin:50px 0px 0px 40px;
+}
+#profile #full_avatar{
+	width:130px;
+	height:205px;
+	margin-left:80px;
+}	
+#profile #sendbutton {
+	width: 150px;
+	height: 70px;
+	border: 1px;
+	margin: 30px 40px 0px 0px;
+	float: right;
+	padding: 5px 20px;
+	font-weight: bold;
+	cursor: pointer;
+	background-color: #a9c4eb;
+	font-size: 115%;
+}
+#profile #hogehoge1{
+	margin-top:30px;
+}
+#profile #hogehoge1>label{
+	font-size:13px;
+}
+#profile .hidebutton{
+	display: none;
+}
+#profile #hidegradelabel,
+#profile #hidegenderlabel,
+#profile #hidebirthdaylabel{
+	float:right;
+	width:60px;
+	height:20px;
+	margin:0px;
+	padding:5px;
+	background-color: #a9c4eb;
+	border:solid 1px #D3D3D3;
+	text-align: center;
+	background: linear-gradient(white, #D3D3D3);
+}

@@ -1,0 +1,51 @@
+<%@ page pageEncoding="UTF-8" %>
+<div id="chatwindowGroup">
+
+    <div id="tabGroup">
+
+        <a id="tab_all" class="tab_active" onClick="change(0)"><div    id="tab_all_txt" class="txt_active">全体</div></a>
+        <a id="tab_room" class="tab_inactive" onClick="change(1)"><div   id="tab_room_txt" class="txt_inactive">部屋</div></a>
+        <a id="tab_wis" class="tab_inactive" onClick="change(2)"><div    id="tab_wis_txt" class="txt_inactive">ささやき</div></a>
+        <a id="tab_circle" class="tab_inactive" onClick="change(3)"><div id="tab_circle_txt" class="txt_inactive">サークル</div></a>
+
+    </div>
+
+
+    <div id="logWindow"><!--ログウィンドウ-->
+
+
+        <div id="fw_all" class="fw">
+            <p>[全体][みーくん]:愛媛みかんは氏ね</p>
+        </div>
+        <div id="fw_room" class="fw" >
+
+        </div>
+        <div id="fw_wis" class="fw" >
+
+        </div>
+        <div id="fw_circle" class="fw">
+
+        </div>
+
+
+
+        <!--発言系パーツ群-->
+        <div id="inputGroup">
+            <ul id="ul_menu" class="sp_list">
+                <li><a href="#">全体</a>
+                    <ul class="sub_list">
+                        <li><a href="#all">全体</a></li>
+                        <li><a href="#room">部屋</a></li>
+                        <li><a href="#wis">ささやき</a></li>
+                        <li><a href="#circle">サークル</a></li>  
+                    </ul></li>
+            </ul>   
+
+            <input type="text" id="inputWindow" class="inputWindow" />
+            <!--                <div contenteditable="true" id="inputWindow" class="inputWindow"></div>-->
+            <!--                <div id="submitButton" class="submitButton"><div>送信</div></div>-->
+            <input type="submit" id="submitButton" class="submitButton" name="送信" />
+
+        </div><!--発言系パーツ群のおわり-->
+    </div><!--ログウィンドウのおわり-->    
+</div>

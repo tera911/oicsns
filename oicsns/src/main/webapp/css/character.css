@@ -1,22 +1,21 @@
 #content {
     background-image:none;
     position: relative;
-    background-color:activecaption; //あとで消す。
+    background-color: rgb(230,230,230);
 }
 
 #character_000{
-    position:relative;
     top:100px;
     left:100px;
 }
 
 #character_001{
-    position:relative;
     top:200px;
     left:200px;
 }
 
 .character{
+    position:absolute;
     width:193px;
 }
 
