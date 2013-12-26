@@ -43,6 +43,18 @@ public class MapFactory {
         return ret;
     }
     
+    public List<Integer> getMapIdList(){
+        List<Integer> mapIdList = new ArrayList<>();
+        for(OicMap map : mapContainer){
+            mapIdList.add(map.getMapId());
+        }
+        return mapIdList;
+    }
+    
+    public List<OicMap> getMapList(){
+        return mapContainer;
+    }
+    
     /**
      * マップを登録
      * @param map 

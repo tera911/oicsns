@@ -90,7 +90,7 @@ public class Validators {
                         break;
                 }
                 errorJson.remove(e.getKey());
-            } catch (NullPointerException ex) {
+            } catch (Exception ex) {
                 error = true;
             }
         }

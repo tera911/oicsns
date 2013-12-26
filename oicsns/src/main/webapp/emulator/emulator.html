@@ -35,8 +35,9 @@ and open the template in the editor.
                 console.log('WebSocket Error ' + error);
             };
             ws.onmessage = function(e) {
-                console.log('Server: ' + e.data);
                 var data = JSON.parse(e.data);
+                console.log("server : ")
+                console.log(data);
                 for (var i in data) {
                     var value = data[i];
                     $('.status').append("<p>" + i + ":" + value + "</p>");
@@ -96,9 +97,51 @@ and open the template in the editor.
                     obj.gender = $('#userinfo [name="gender"]:checked').val();
                     obj.birthday = $('#userinfo [name="date-y"]').val() + "-" + $('#userinfo [name="date-m"]').val() + "-" + $('#userinfo [name="date-d"]').val();
                     obj.comment = $('#userinfo [name="comment"]').val();
-                    obj.vgrade = $('#userinfo [name="vgrade"]').prop('checked') ? 1 : 0;
-                    obj.vgender = $('#userinfo [name="vgender"]').prop('checked') ? 1 : 0;
-                    obj.vbirthday = $('#userinfo [name="vbirthday"]').prop('checked') ? 1 : 0;
+                    obj.vgrade = $('#userinfo [name="vgrade"]').prop('checked') ? 2 : 1;
+                    obj.vgender = $('#userinfo [name="vgender"]').prop('checked') ? 2 : 1;
+                    obj.vbirthday = $('#userinfo [name="vbirthday"]').prop('checked') ? 2 : 1;
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
+                
+                $('button[name="getprofile"]').click(function(){
+                    obj = {};
+                    obj.method = "getprofile";
+                    obj.userid = $('#getinfo [name="userid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
+                $('button[name="getmaplist"]').click(function(){
+                    obj = {};
+                    obj.method = "getmaplist";
+                    ws.send(JSON.stringify(obj));
+                });
+                $('button[name="getmapinfo"]').click(function(){
+                    obj = {};
+                    obj.method = "getmapinfo";
+                    obj.mapid = $('#getinfo [name="mapid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
+                $('button[name="transfermap"]').click(function(){
+                    obj = {};
+                    obj.method = "transfermap";
+                    obj.mapid = $('#getinfo [name="mapid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
+                $('button[name="getmapuserlist"]').click(function(){
+                    obj = {};
+                    obj.method = "getmapuserlist";
+                    obj.mapid = $('#getinfo [name="mapid"]').val();
+                    console.log(obj);
+                    ws.send(JSON.stringify(obj));
+                });
+                $('button[name="getuserinfo"]').click(function(){
+                    obj = {};
+                    obj.method = "getuserinfo";
+                    obj.mapid = $('#getinfo [name="mapid"]').val();
+                    obj.userid = $('#getinfo [name="userid"]').val();
                     console.log(obj);
                     ws.send(JSON.stringify(obj));
                 });
@@ -115,8 +158,8 @@ and open the template in the editor.
                         <p>status</p>
                         <p class="status" id="status"></p>
                         <form class="form-group" id="Login">
-                            <label>name</label><input type="text" name="userid" value="tera09">
-                            <label>pw</label><input type="text" name="password" value="tera09">
+                            <label>name</label><input type="text" name="userid" value="tera0912">
+                            <label>pw</label><input type="text" name="password" value="tera0912">
                         </form>
                         <form class="form-group" id="chat">
                             <label>chat</label><input type="text" name="text">
@@ -132,13 +175,24 @@ and open the template in the editor.
 
 
                             <button name="allchat" class="btn btn-primary">全体チャット</button>
-                            <button name="" class="btn btn-primary">プロフィール取得</button>
+                            <button name="getprofile" class="btn btn-primary">プロフィール取得</button>
                             <button name="duplication" class="btn btn-primary">重複確認</button>
                             <button name="cmd" class="btn btn-primary">command</button>
                             <button name="getlog" class="btn btn-default">chatlog取得//廃止</button>
                         </div>
                     </div>
                     <div class="col-md-12">
+                        <div class="actionButton">
+                            <p>Maps</p>
+                            <button name="getmaplist" class="btn btn-primary">mapリスト取得</button>
+                            <button name="getmapinfo" class="btn btn-primary">Map情報取得</button>
+                            <button name="transfermap" class="btn btn-primary">Map変更</button>
+                            <button name="getmapuserlist" class="btn btn-primary">Mapユーザリスト取得</button>
+                            <button name="getuserinfo" class="btn btn-primary">User情報取得</button>
+                            
+                        </div>
+                    </div>
+                     <div class="col-md-12">
                         <div class="actionButton">
                             <p>登録系</p>
                             <button name="register" class="btn btn-primary">Register開始</button>
@@ -196,9 +250,9 @@ and open the template in the editor.
                                                 <label>Comment</label><input class="form-control" type="text" name="comment" value="てすとです">
                                             </div>
                                             <div class="form-group checkbox-inline">
-                                                <label for="vgrade" class="checkbox-inline">hide grade?</label><input id="vgrade" class="" type="checkbox" name="vgrade" value="1" checked>
-                                                <label for="vgender" class="checkbox-inline">hide gender?</label><input id="vgender" class="" type="checkbox" name="vgender" value="1" checked>
-                                                <label for="vbirthday" class="checkbox-inline">hide birthday?</label><input id="vbirthday" class="" type="checkbox" name="vbirthday" value="1" checked>
+                                                <label for="vgrade" class="checkbox-inline">show grade?</label><input id="vgrade" class="" type="checkbox" name="vgrade" value="1" checked>
+                                                <label for="vgender" class="checkbox-inline">show gender?</label><input id="vgender" class="" type="checkbox" name="vgender" value="1" checked>
+                                                <label for="vbirthday" class="checkbox-inline">show birthday?</label><input id="vbirthday" class="" type="checkbox" name="vbirthday" value="1" checked>
                                             </div>
                                         </form>
                                     </div>
@@ -209,13 +263,20 @@ and open the template in the editor.
                             <div class="panel-heading">
                                 <h4 class="panel-title">
                                     <a data-toggle="collapse" data-parent="#accordion" href="#collapseTwo">
-                                        Collapsible Group Item #2
+                                        ユーザデータ取得
                                     </a>
                                 </h4>
                             </div>
                             <div id="collapseTwo" class="panel-collapse collapse">
                                 <div class="panel-body">
-                                    Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. 3 wolf moon officia aute, non cupidatat skateboard dolor brunch. Food truck quinoa nesciunt laborum eiusmod. Brunch 3 wolf moon tempor, sunt aliqua put a bird on it squid single-origin coffee nulla assumenda shoreditch et. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident. Ad vegan excepteur butcher vice lomo. Leggings occaecat craft beer farm-to-table, raw denim aesthetic synth nesciunt you probably haven't heard of them accusamus labore sustainable VHS.
+                                    <form id="getinfo">
+                                        <div class="form-group">
+                                            <label>ユーザID</label><input name="userid" type="text" class="form-control">
+                                        </div>
+                                        <div class="form-group">
+                                            <label>MAPID</label><input name="mapid" type="text" class="form-control">
+                                        </div>
+                                    </form>
                                 </div>
                             </div>
                         </div>

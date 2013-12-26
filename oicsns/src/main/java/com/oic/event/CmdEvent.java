@@ -7,13 +7,15 @@
 package com.oic.event;
 
 import com.oic.client.OicCharacter;
+import com.oic.map.MapFactory;
+import com.oic.map.OicMap;
 import com.oic.net.WebSocketListener;
 import java.io.IOException;
 import org.json.simple.JSONObject;
 
 /**
- *
- * @author b2020
+ * debug用コマンド
+ * @author morimoto
  */
 public class CmdEvent implements ActionEventImpl{
 
@@ -30,13 +32,23 @@ public class CmdEvent implements ActionEventImpl{
                 json1.put("studentId",c.getStudentNumber().toString());
                 json1.put("avaterId", c.getAvatarId());
                 json1.put("birthday", c.getBirthday().toString());
-                webSocket.sendJson(json1);
+                json1.put("mapid", c.getMapid());
                 break;
             case "username":
                 json1.put("name", webSocket.getCharacter().getName());
-                webSocket.sendJson(json1);
                 break;
+            case "online":
+               // JSONObject maps = new JSONObject();
+                MapFactory factory = MapFactory.getInstance();
+                for(OicMap map : factory.getMapList()){
+                    String mapName = map.getMapName();
+                    int count = map.getUserCont();
+                    json1.put(mapName,  count);
+                }
+               // json1.put("user", maps);
+            break;
         }
+        webSocket.sendJson(json1);
     }
     
 }

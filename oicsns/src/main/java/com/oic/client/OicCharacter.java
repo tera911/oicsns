@@ -6,6 +6,7 @@
 
 package com.oic.client;
 
+import com.oic.map.MapFactory;
 import com.oic.map.OicMap;
 import com.oic.map.Position;
 import com.oic.utils.DatabaseConnection;
@@ -31,6 +32,10 @@ public class OicCharacter {
     private Date birthday;
     private String comment;
     private int mapid;
+    private OicMap map;
+    
+    private static final int CHAR_WIDTH = 100;
+    private static final int CHAR_HEIGHT = 150;
     
     public static OicCharacter loadCharFromDB(long userId){
         Connection con = null;
@@ -54,6 +59,9 @@ public class OicCharacter {
             ret.gender = OicGender.getGender(rs.getString("sex"));
             ret.birthday = rs.getDate("birth");
             ret.comment = rs.getString("comment");
+            
+            Position pos = new Position(0, 0, CHAR_WIDTH, CHAR_HEIGHT);
+            ret.setPos(pos);
             return ret;
         }catch(Exception e){
             try{    rs.close();    }catch(Exception e1){}
@@ -139,8 +147,25 @@ public class OicCharacter {
     public int getMapid() {
         return mapid;
     }
+    
+    public OicMap getMap(){
+        return map;
+    }
 
-    public void setMapid(int mapid) {
-        this.mapid = mapid;
-    }    
+    //TODO 整合性チェック
+    public void changeMap(int mapid) {
+        map.removeCharacter(userId);
+        enterMap(mapid);
+    }
+    public void loginMap(int mapid){
+        MapFactory factory = MapFactory.getInstance();
+        map = factory.getMap(mapid);
+        map.setCharacter(this);
+    }
+    private void enterMap(int mapid){
+        MapFactory factory = MapFactory.getInstance();
+        map = factory.getMap(mapid);
+        if(!map.setCharacter(this))
+            System.err.println("changeMap error.");
+    }
 }
