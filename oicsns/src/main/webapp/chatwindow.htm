@@ -14,22 +14,25 @@
 
 		<script type="text/javascript">
         <!--
-			//JavaScript
-            /*初期化*/
-            $(function(){
-                change(0);
-            }); 
+
            
             $(function(){
-            $("ul.sub_list").hide();
-                $("ul#ul_menu>li").hover(function(){
+                $("ul.sub_list").hide();
+                $("ul#ul_menu>li").click(function(){
                     $("ul:not(:animated)",this).slideDown();
                     //ドロップアップ時、背景色を変更する処理かく予定$("#ul_menu li a").
-                },
-                function(){
-                    $("ul",this).slideUp();
-                })
-            })            
+                });
+                $('#ul_menu .sub_list a').click(function(){
+                    
+                    $('#ul_menu > li > a').text($(this).text());
+                    //$(this).attr('href').substr(1,5); 
+                    $("ul#ul_menu>li ul").slideUp();
+                    return false;
+                });
+                change(0);
+            });
+            //チャット受信時にIndexを探る方法　これで要素番号を取得できる
+            //$('#tabGroup a').index($('#tabGroup a.tab_active'));
             
 			/* フォームの表示切り替え 及び タブの色を変える処理 */
 			function change(i) {
@@ -111,6 +114,7 @@
                     document.getElementById('fw_room').style.display='none';
                     document.getElementById('fw_wis').style.display='none';
                     document.getElementById('fw_circle').style.display='block'; 
+                    
                     $('#fw_circle').jScrollPane({
                     contentWidth:'366px',
                     showArrows:true,
@@ -170,29 +174,13 @@
             
             <!--発言系パーツ群-->
             <div id="inputGroup">
-<!--                <div id="selectChannel" class="selectChannel"><div>部屋</div></div>-->
-<!--
-                <div id="positioner">
-                      <div class="holder p2">
-                        <dl class="menu">
-                          <dt><a class="sub" href="#url">部屋</a></dt>
-                          <dd class="dd4">
-                            <a href="#url">全体</a> 
-                            <a href="#url">部屋</a> 
-                            <a href="#url">ささやき</a>
-                            <a href="#url">サークル</a>
-                          </dd>
-                        </dl>
-                      </div>
-                </div>
--->
                 <ul id="ul_menu" class="sp_list">
-                    <li><a href="#">部屋</a>
+                    <li><a href="#">全体</a>
                     <ul class="sub_list">
-                      <li><a href="#">全体</a></li>
-                      <li><a href="#">部屋</a></li>
-                      <li><a href="#">ささやき</a></li>
-                      <li><a href="#">サークル</a></li>  
+                      <li><a href="#all">全体</a></li>
+                      <li><a href="#room">部屋</a></li>
+                      <li><a href="#wis">ささやき</a></li>
+                      <li><a href="#circle">サークル</a></li>  
                     </ul></li>
                 </ul>   
                 

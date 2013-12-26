@@ -25,11 +25,16 @@ body{
 #chatwindowGroup{
     width:387px;
     height:228px;
-    position:absolute;left:0px; top:522px;
+    position:absolute;
+    left:50px; 
+    top:200px;
 }
 #chatwindowGroup #tabGroup{
     width:387px;
     height:23px;
+}
+#chatwindowGroup #tabGroup a{
+    cursor:pointer;
 }
 
 #chatwindowGroup .tab_active{
@@ -207,6 +212,7 @@ body{
     position:relative; left:15px; top:12px;
     text-align:center;
     padding:0px 0px 0px 0px;
+    cursor:pointer;
 }
 
 
