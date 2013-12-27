@@ -106,3 +106,9 @@ function change(i) {
         });
     }
 }
+function chat_all(text){
+    $('#fw_all .jspPane').append('<p>'+text+'</p>');
+    var jsp = $('#fw_all').data('jsp');
+    jsp.reinitialise();
+    jsp.scrollToBottom();
+}

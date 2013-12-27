@@ -9,7 +9,9 @@ package com.oic.event;
 import com.oic.client.OicCharacter;
 import com.oic.map.MapFactory;
 import com.oic.map.OicMap;
+import com.oic.map.Position;
 import com.oic.net.WebSocketListener;
+import com.oic.utils.Tools;
 import java.io.IOException;
 import org.json.simple.JSONObject;
 
@@ -37,6 +39,34 @@ public class CmdEvent implements ActionEventImpl{
             case "username":
                 json1.put("name", webSocket.getCharacter().getName());
                 break;
+            case "getchar" :
+                json1.put("method", "getchar");
+                json1.put("userid", 1);
+                json1.put("username", "みーくん");
+                json1.put("mapid", 31);
+                Position pos = new Position(300, 200, 100, 230);
+                json1.put("pos", Tools.convertPosToJSON(pos));
+                json1.put("avatar", 1);
+                webSocket.sendJson(json1);
+                
+                json1.put("method", "getchar");
+                json1.put("userid", 2);
+                json1.put("username", "みかん");
+                json1.put("mapid", 31);
+                pos = new Position(150, 250, 100, 230);
+                json1.put("pos", Tools.convertPosToJSON(pos));
+                json1.put("avatar", 2);
+                webSocket.sendJson(json1);
+                
+                json1.put("method", "getchar");
+                json1.put("userid", 3);
+                json1.put("username", "りんごちゃん");
+                json1.put("mapid", 31);
+                pos = new Position(400, 200, 100, 230);
+                json1.put("pos", Tools.convertPosToJSON(pos));
+                json1.put("avatar", 3);
+                
+            break;
             case "online":
                // JSONObject maps = new JSONObject();
                 MapFactory factory = MapFactory.getInstance();

@@ -1,7 +1,7 @@
-<%@ page pageEncoding="Windows-31J" %>
 <div id="profile">
-    <div class="left_form"><!-- プロフィール入力欄 -->
-        <form id="userdata">
+    <form id="userdata">
+        <div class="left_form"><!-- プロフィール入力欄 -->
+
             <div id="hogehoge1"><label for="student_id">学籍番号</label>
                 <input type="text" id="student_id" value="Z9999" disabled="disabled" tabindex="1"></div>
             <div id="hogehoge1"><label for="screenname">ハンドルネーム</label>
@@ -179,26 +179,19 @@
             <div id="hogehoge1"><label for="comment">コメント</label>
                 <textarea id="comment" maxlength="128" rows="4" cols="30" tabindex="9" placeholder="コメントを60文字前後で入力してください。"></textarea>
             </div>
-        </form>
-    </div>
-    <div class="right_form"> <!-- アバター選択・送信 -->
-        <div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
-            <img class="avatar_pic" src="img/avatar/001.png" alt="1">
-            <img class="avatar_pic" src="img/avatar/002.png" alt="2">
-            <img class="avatar_pic" src="img/avatar/003.png" alt="3">
-            <img class="avatar_pic" src="img/avatar/001.png" alt="4">
-            <img class="avatar_pic" src="img/avatar/002.png" alt="5">
-            <img class="avatar_pic" src="img/avatar/003.png" alt="6">
-            <img class="avatar_pic" src="img/avatar/001.png" alt="7">
-            <img class="avatar_pic" src="img/avatar/002.png" alt="8">
-            <img class="avatar_pic" src="img/avatar/003.png" alt="9">
-            <img class="avatar_pic" src="img/avatar/001.png" alt="10">
-            <img class="avatar_pic" src="img/avatar/002.png" alt="11">
-            <img class="avatar_pic" src="img/avatar/003.png" alt="12">
+            <div id="hogehoge1" class="message">
+                <p></p>
+            </div>
+
         </div>
-        <div id="avatar_bg">
-            <img id="full_avatar" alt="1" src="img/avatar/001.png">
-        </div>
-        <button id="sendbutton" name="hoge" type="submit">送信</button>	
-    </div>	
+        <div class="right_form"> <!-- アバター選択・送信 -->
+            <div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
+
+            </div>
+            <div id="avatar_bg">
+                <img id="full_avatar" alt="1" src="img/avatar/00001.png">
+            </div>
+            <button id="sendbutton" name="hoge" type="submit">登録</button>	
+        </div>	
+    </form>
 </div>

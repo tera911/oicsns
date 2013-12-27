@@ -27,7 +27,7 @@ public class TestLoginHandler implements ActionEventImpl{
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
         JSONObject responseJSON = new JSONObject();
-        responseJSON.put("method", "loginstatus");
+        responseJSON.put("method", "login");
         //validation
         if(!validation(json)){
             responseJSON.put("status", "1");

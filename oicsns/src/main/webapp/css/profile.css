@@ -1,12 +1,15 @@
 #profile {
+    position:absolute;
+    top:50px;
+    left:100px;
 	width:800px;
 	height:610px;
 	border:1px solid #cccccc;
 	margin: 0 auto;
 	background-color:#fff;
-	filter:alpha(opacity=0.7);
-	-moz-opacity: 0.7;
-	opacity: 0.7;
+	filter:alpha(opacity=0.9);
+	-moz-opacity: 0.9;
+	opacity: 0.9;
     }
 #profile #confirm{
 	width: 80px;
@@ -80,11 +83,12 @@
 	width:60px;
 	height:90px;
 	float:left;
+        cursor:pointer;
 }
 #profile #avatar_bg{
 	width:280px;
 	height:210px;
-	background-image:url("../img/avatar/avatarbg.jpg");	/*仮画像*/
+	background-image:url("/img/avatarbg.jpg");	/*仮画像*/
 	background-size:cover;
 	margin:50px 0px 0px 40px;
 }
@@ -126,4 +130,11 @@
 	border:solid 1px #D3D3D3;
 	text-align: center;
 	background: linear-gradient(white, #D3D3D3);
+}
+#profile .message{
+    width:300px;
+    margin:85px auto 0;
+}
+#profile .message p{
+    color:#F00;
 }

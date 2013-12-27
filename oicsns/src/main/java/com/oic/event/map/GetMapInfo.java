@@ -25,8 +25,9 @@ public class GetMapInfo implements ActionEventImpl{
         JSONObject responseJSON = new JSONObject();
         responseJSON.put("method", "getmapinfo");
         if(!validation(json)){
-        responseJSON.put("status", "1");
+            responseJSON.put("status", "1");
             webSocket.sendJson(responseJSON);
+            return;
         }
         
         MapFactory factory = MapFactory.getInstance();

@@ -35,7 +35,7 @@ public class OicCharacter {
     private OicMap map;
     
     private static final int CHAR_WIDTH = 100;
-    private static final int CHAR_HEIGHT = 150;
+    private static final int CHAR_HEIGHT = 230;
     
     public static OicCharacter loadCharFromDB(long userId){
         Connection con = null;

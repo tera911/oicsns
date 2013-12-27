@@ -3,22 +3,17 @@ $(function(){
 				showArrows:true,
 				arrowScrollOnHover:true
 			});
-		});
-		$(function(){
 			$(".avatar_pic").click(function(){
 				document.getElementById("full_avatar").src = this.src;
 				document.getElementById("full_avatar").alt = this.alt;
 			});
-		});
-		$(function(){
 			$('#hidegrade').click(function(){		/*学年ON/OFF*/
 				if(this.checked){
 					document.getElementById("hidegradelabel").innerText = "ON";
-				}
-				else {
+				}else {
 					document.getElementById("hidegradelabel").innerText = "OFF";
-				};
-			});
+				}
+                        });
 			$('#hidegender').click(function(){		/*性別ON/OFF*/
 				if(this.checked){
 					document.getElementById("hidegenderlabel").innerText = "ON";
@@ -35,8 +30,6 @@ $(function(){
 					document.getElementById("hidebirthdaylabel").innerText = "OFF";
 				};
 			});
-		});
-		$(function(){
 			$("#sendbutton").click(function(){
 				var studentid = document.getElementById("student_id").value;
 				var username = document.getElementById("username").value;
@@ -52,4 +45,4 @@ $(function(){
 				console.log("method:\"getprofile\", studentid:\""  + studentid + "\", username:\""+ username + "\", avatarid:" + avatarid +", grade:" + grade + ", gender:"+ gender + ", birthday:" + birthday + ", comment:\"" + comment + "\", vgrade:" + vgrade + ", vgender:"  + vgender + ", vbirthday:" + vbirthday + ",");
 
 			});
-		});
+});

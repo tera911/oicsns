@@ -6,10 +6,10 @@
 
 package com.oic.net;
 
+import com.oic.connection.Connections;
 import com.oic.map.MapFactory;
 import com.oic.map.OicMap;
 import com.oic.xml.XmlParser;
-import java.lang.reflect.Array;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import java.util.List;
@@ -24,8 +24,8 @@ public class InitServer extends HttpServlet{
     @Override
     public void init() throws ServletException {
         super.init();
-        System.err.println("Init.");
         mapInitialize();
+        Connections.checkLive();
     }
     
     private static void mapInitialize(){
@@ -34,7 +34,6 @@ public class InitServer extends HttpServlet{
         XmlParser parser = new XmlParser();
         oicmap = parser.loadOicMap();//mapデータのリストを読み込む
         mapFactory.addMap(oicmap);   //mapデータを格納
-        System.out.println("mapinitialize:::::"+oicmap.get(1).getMapName());
         
     }
 }

@@ -12,6 +12,7 @@
     margin:auto;
     padding:10px;
     position:relative;
+    z-index: 2;
 }
 #login label {
     display:inline-block;
@@ -23,3 +24,13 @@
     border-radius:10px;
 }
 #overlay {display:none;}
+#progressbar{
+    position:absolute;
+    top:630px;
+    left:700px;
+    display: none;
+    z-index: 3;
+}
+#progressbar progress{
+    width:250px;
+}
