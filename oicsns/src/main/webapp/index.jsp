@@ -111,7 +111,8 @@
                     game.func.openEula();
                     return false;
                 });
-
+                game.func.register();
+                $('#content').unbind();
             });
             //--></script>
     </head>
