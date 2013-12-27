@@ -1,11 +1,58 @@
+<script type="text/javascript">
+<!--
+    $(function(){
+        //学籍番号の正規表現チェック
+        jQuery.validator.addMethod(
+        "stunumMatch",
+         function(value, element) {
+           reg = new RegExp("^[a-zA-Z]{1}[0-9]{4}");
+           return this.optional(element) || reg.test(value);
+         },
+         "学籍番号を正しく入力してください"
+        );
+
+        $("#userdata").validate({
+            rules:{
+                  student_id:{
+                      required: true,
+                      stunumMatch: true
+                   },
+                  username:{
+                      required: true,
+                      maxlength: 12
+                   },
+                   comment:{
+                      maxlength: 150
+                   }
+            },
+            messages:{
+                   student_id:{
+                      required: "学籍番号を入力してください"
+                   },
+                   username:{
+                      required: "ハンドルネームを入力してください",
+                      maxlength:"ハンドルネームは最大12文字です"
+                   },
+                   comment:{
+                      maxlength: "コメントは最大150文字です"
+                   }
+            },
+            //エラーメッセージを任意の位置に表示
+            errorPlacement: function(error,element){
+              error.appendTo($(".left_form .message"));
+            }
+        });
+    });
+//-->
+</script>
 <div id="profile">
     <form id="userdata">
         <div class="left_form"><!-- プロフィール入力欄 -->
 
             <div id="hogehoge1"><label for="student_id">学籍番号</label>
-                <input type="text" id="student_id" value="Z9999" disabled="disabled" tabindex="1"></div>
+                <input type="text" id="student_id" name="student_id" value="Z9999" disabled="disabled" tabindex="1"></div>
             <div id="hogehoge1"><label for="screenname">ハンドルネーム</label>
-                <input type="text" id="username" value="" tabindex="2">
+                <input type="text" id="username" name="username" value="" tabindex="2">
                 <input type="button" id="confirm" value="重複確認" tabindex="3"></div>
 
             <div id="hogehoge1"><label for="grade">学年</label>
@@ -177,10 +224,9 @@
             </div>
 
             <div id="hogehoge1"><label for="comment">コメント</label>
-                <textarea id="comment" maxlength="128" rows="4" cols="30" tabindex="9" placeholder="コメントを60文字前後で入力してください。"></textarea>
+                <textarea id="comment" name="comment" maxlength="150" rows="4" cols="30" tabindex="9" placeholder="コメントを60文字前後で入力してください。"></textarea>
             </div>
             <div id="hogehoge1" class="message">
-                <p></p>
             </div>
 
         </div>

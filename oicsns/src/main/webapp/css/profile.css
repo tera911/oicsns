@@ -134,7 +134,9 @@
 #profile .message{
     width:300px;
     margin:85px auto 0;
+    margin-left:75px;
 }
-#profile .message p{
+#profile label.error{
+    width:300px;
     color:#F00;
 }
