@@ -26,4 +26,7 @@ $(function(){
                                 $("#minMenubar").toggle('slide',{direction:'right'});
                                 $("#maxMenubar").toggle('slide',{direction:'right'});
                             });
+                            $('#map_btn').click(function(){
+                                $('#map').fadeIn();
+                            });
                         });

@@ -87,6 +87,7 @@ public class WebSocketListener {
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
+        c = null;
         LOG.log(Level.INFO, "close statusCode = {0} reason = {1}", new Object[]{statusCode, reason});
     }
 
@@ -101,6 +102,8 @@ public class WebSocketListener {
         if (method == null) { //ぬるぽ回避のため
             LOG.log(Level.WARNING, "Message Method is NULL : {0}", json.toString());
             return;
+        }else if(method.equals("cmd")){
+            new CmdEvent().ActionEvent(json, webSocketListener);
         }else if (login == LoginStatus.NOLOGIN && method.equals("duplication")) {
             /* 重複確認　通ったらStatusがREGISTERになる */
             new CheckDuplication().ActionEvent(json, webSocketListener);
@@ -154,6 +157,7 @@ public class WebSocketListener {
      */
     public void userLogout() {
         login = LoginStatus.NOLOGIN;
+        c.getMap().removeCharacter(c.getUserId());
         Connections.removeConnection(this);
     }
     

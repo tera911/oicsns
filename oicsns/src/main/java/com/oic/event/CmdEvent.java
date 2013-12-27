@@ -7,9 +7,12 @@
 package com.oic.event;
 
 import com.oic.client.OicCharacter;
+import com.oic.event.map.GetMapInfo;
+import com.oic.event.map.GetMapList;
 import com.oic.map.MapFactory;
 import com.oic.map.OicMap;
 import com.oic.map.Position;
+import com.oic.net.LoginEvent;
 import com.oic.net.WebSocketListener;
 import com.oic.utils.Tools;
 import java.io.IOException;
@@ -66,6 +69,15 @@ public class CmdEvent implements ActionEventImpl{
                 json1.put("pos", Tools.convertPosToJSON(pos));
                 json1.put("avatar", 3);
                 
+            break;
+            case "getmaplist":
+                json1.put("method", "getmaplist");
+                new GetMapList().ActionEvent(json1, webSocket);
+            break;
+            case "getmapinfo":
+                json1.put("method", "getmapinfo");
+                json1.put("mapid", json.get("mapid"));
+                new GetMapInfo().ActionEvent(json1, webSocket);
             break;
             case "online":
                // JSONObject maps = new JSONObject();

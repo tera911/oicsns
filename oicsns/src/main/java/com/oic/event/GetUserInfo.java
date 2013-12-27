@@ -3,7 +3,6 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-
 package com.oic.event;
 
 import com.oic.client.OicCharacter;
@@ -16,42 +15,48 @@ import org.json.simple.JSONObject;
 
 /**
  * ユーザのマップ上の描画に関する情報を処理する
+ *
  * @author morimoto
  */
-public class GetUserInfo implements ActionEventImpl{
+public class GetUserInfo implements ActionEventImpl {
 
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
         JSONObject responseJSON = new JSONObject();
-        responseJSON.put("method","getuserinfo");
-        if(!validation(json)){
-            responseJSON.put("status", 1);
-            webSocket.sendJson(responseJSON);
-            return;
+        responseJSON.put("method", "getuserinfo");
+        OicCharacter c = webSocket.getCharacter();
+        long userid = c.getUserId();
+        int mapid = c.getMapid();
+        if (validation(json)) {
+            userid = Long.parseLong(json.get("userid").toString());
+            mapid = Integer.parseInt(json.get("mapid").toString());
         }
-        long userid = Long.parseLong(json.get("userid").toString());
-        int mapid = Integer.parseInt(json.get("mapid").toString());
+        getUserinfo(responseJSON, userid, mapid);
+        webSocket.sendJson(responseJSON);
+    }
+
+    private boolean validation(JSONObject json) {
+        Validators v = new Validators(json);
+        v.add("mapid", v.required(), v.integerType());
+        v.add("userid", v.required(), v.longType());
+        return v.validate();
+    }
+
+    private JSONObject getUserinfo(JSONObject json, long userid, int mapid) {
         MapFactory factory = MapFactory.getInstance();
         OicMap map = factory.getMap(mapid);
         OicCharacter c = map.getUser(userid);
-        responseJSON.put("userid", c.getUserId());
-        responseJSON.put("username", c.getName());
+        json.put("userid", c.getUserId());
+        json.put("username", c.getName());
         JSONObject posJSON = new JSONObject();
-        Position pos = map.getPos();
+        Position pos = c.getPos();
         posJSON.put("x", pos.getX());
         posJSON.put("y", pos.getX());
         posJSON.put("width", pos.getWidth());
         posJSON.put("height", pos.getHeight());
-        responseJSON.put("pos", posJSON);
-        responseJSON.put("mapid", c.getMapid());
-        responseJSON.put("avatarid", c.getAvatarId());
-        webSocket.sendJson(responseJSON);
-    }
-    
-    private boolean validation(JSONObject json){    
-        Validators v = new Validators(json);
-        v.add("userid", v.required());
-        v.add("mapid", v.integerType());
-        return v.validate();
+        json.put("pos", posJSON);
+        json.put("mapid", c.getMapid());
+        json.put("avatarid", c.getAvatarId());
+        return json;
     }
 }

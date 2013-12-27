@@ -16,6 +16,7 @@ import com.oic.event.map.GetMapInfo;
 import com.oic.event.map.GetMapList;
 import com.oic.event.map.GetMapUserList;
 import com.oic.event.map.TransferMap;
+import com.oic.login.logoutHandler;
 import org.json.simple.JSONObject;
 
 /**
@@ -52,9 +53,13 @@ import org.json.simple.JSONObject;
          */
         GETPROFILE("getprofile", new GetProfile()),
         /**
+         * ログオウト
+         */
+        LOGOUT("logout", new logoutHandler());
+        /**
          * デバッグ用コマンド
          */
-        CMD("cmd", new CmdEvent());
+       // CMD("cmd", new CmdEvent());
         
     private String eventName;
     private ActionEventImpl eventInstance;

@@ -20,22 +20,15 @@ public class ChatEvent implements ActionEventImpl{
     private static final Logger LOG = Logger.getLogger(ChatEvent.class.getName());
     @Override
     public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
-        Session session = webSocket.getSession();
         OicCharacter c = webSocket.getCharacter();
         //validation
-        if(json.get("text") == null || json.get("key") == null){
+        if(json.get("text") == null){
             LOG.warning("invalid Message!");
             return;
         }
-        
-        //認証
-        LOG.log(Level.INFO, "ping key : {0}", json.get("key"));
-        
-        JSONObject sendJson = (JSONObject)json.clone(); //jsonコピー
-        sendJson.put("userId",c.getUserId());           //送信者idを付加
-        sendJson.remove("key");                         //認証用keyを削除
-        Connections.BroadCastMessage(sendJson);         //接続しているユーザーに送信
-        LOG.log(Level.INFO, "chat event : {0}", session.getRemoteAddress());
+
+        json.put("userid",c.getUserId());           //送信者idを付加
+        Connections.BroadCastMessage(json);         //接続しているユーザーに送信
     }
     
 }

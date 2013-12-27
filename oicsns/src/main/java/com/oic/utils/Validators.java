@@ -25,7 +25,7 @@ public class Validators {
 
     public enum validationType {
 
-        REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH, INTEGERTYPE, BIRTHDAY
+        REQUIRED, STUDENTID, MAXLENGTH, MINLENGTH, INTEGERTYPE, BIRTHDAY, LONGTYPE
     };
 
     public Validators(JSONObject json) {
@@ -57,7 +57,7 @@ public class Validators {
                 switch (e.getValue()) {
                     //空白チェック
                     case REQUIRED:
-                        if (data.equals("")) {
+                        if (data.length() < 1) {
                             throw new NullPointerException();
                         }
                         break;
@@ -79,7 +79,12 @@ public class Validators {
                         }
                         break;
                     case INTEGERTYPE:
-                        Integer.parseInt(data);
+                        int i = Integer.parseInt(data);
+                        i++;
+                        break;
+                    case LONGTYPE:
+                        long l = Long.parseLong(data);
+                        l++;
                         break;
                     case BIRTHDAY:
                         pattern = Pattern.compile("^([1-9][0-9]{3})-(([1-9]{1}|1[0-2]{1})|0[1-9])-([1-9]{1}|[1-2]{1}[0-9]{1}|3[0-1]{1}|0[1-9])$");
@@ -148,6 +153,10 @@ public class Validators {
 
     public validationType integerType() {
         return validationType.INTEGERTYPE;
+    }
+
+    public validationType longType() {
+        return validationType.LONGTYPE;
     }
 
     public validationType birthday() {

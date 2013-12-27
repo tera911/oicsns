@@ -62,6 +62,9 @@ public class OicCharacter {
             
             Position pos = new Position(0, 0, CHAR_WIDTH, CHAR_HEIGHT);
             ret.setPos(pos);
+            
+            rs.close();
+            ps.close();
             return ret;
         }catch(Exception e){
             try{    rs.close();    }catch(Exception e1){}
@@ -158,14 +161,12 @@ public class OicCharacter {
         enterMap(mapid);
     }
     public void loginMap(int mapid){
-        MapFactory factory = MapFactory.getInstance();
-        map = factory.getMap(mapid);
-        map.setCharacter(this);
+        enterMap(mapid);
     }
     private void enterMap(int mapid){
         MapFactory factory = MapFactory.getInstance();
         map = factory.getMap(mapid);
-        if(!map.setCharacter(this))
-            System.err.println("changeMap error.");
-    }
+        this.mapid = map.getMapId();
+        map.setCharacter(this);
+   }
 }

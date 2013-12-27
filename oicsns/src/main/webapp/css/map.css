@@ -1,0 +1,136 @@
+@font-face {
+    font-family:'Lerotica';
+    src:url('/font/lerotica-semilight.woff');
+}
+#map {
+    width:390px;
+    height:420px;
+    position: absolute;
+    right:10px;
+    top:10px;
+    /*
+     * Debug
+     */
+    /*background-image:url(img/Map3.png);*/
+    background-repeat:no-repeat;
+}
+#map .close{
+    width: 40px;
+    position: absolute;
+    height: 40px;
+}
+#map .floor {
+    position: absolute;
+    top:150px;
+    width:300px;
+    height:120px;
+    padding:2px 5px;
+    box-sizing:border-box;
+    -moz-box-sizing:padding-box;
+    transform:skew(-25deg);
+    -webkit-transform:skew(-25deg);
+    cursor:default;
+    /*
+     * Debug
+     */
+    margin:0 34px;
+    background-color:rgba(0,255,0,0.2);
+}
+#map .floor p{
+    margin:0;
+    padding:0;
+}
+#map .floor div[class^="room_"]{
+    background-color:red;
+    opacity:0.5;
+    cursor:pointer;
+    font: 18pt 'Lerotica';
+    text-align:center;
+}
+#map .floor div div {
+    display:inline-block; 
+}
+#map .room_a {
+    width:83px;
+    height:55px;
+    margin-bottom: 5px;
+}
+#map .room_a p{
+    line-height:45px;
+}
+#map .room_b {
+    width:84px;
+    height:40px;
+    margin-left:35px;
+    vertical-align:top;
+}
+#map .room_c {
+    width:84px;
+    height:40px;
+    margin-left:3px;
+    vertical-align:top;
+}
+#map .room_d {
+    font:20pt 'Lerotica';
+    text-align:center;
+    width:230px;
+    height:50px;
+}
+#map .room_d p{
+    line-height:50px;
+}
+#map .title {
+    font:italic 60px 'Lerotica';
+    text-align:right;
+}
+#map .label {
+    position:absolute;
+    font:50px 'Lerotica';
+    text-align:right;
+    top:370px;
+    left:290px;
+}
+#map #floors div {
+    width:180px;
+    height:32px;
+    color:white;
+    text-align:center;
+    font:x-large "メイリオ";
+    cursor:pointer;
+    margin:0 auto;
+}
+#map #map_9 {
+    background-color:#1e21ae;
+}
+#map #map_8 {
+    background-color:#10253f;
+}
+#map #map_7 {
+    background-color:#984807;
+}
+#map #map_6 {
+    background-color:#8064a2;
+}
+#map #map_5 {
+    background-color:#f1c41f;
+}
+#map #map_4 {
+    background-color:#9bbb59;
+}
+#map #map_3 {
+    background-color:#558ed5;
+}
+#map #map_2 {
+    background-color:#1f497d;
+}
+#map #map_1 {
+    background-color:#fd5555;
+}
+#map .back{
+    width: 80px;
+    height: 50px;
+    position: absolute;
+    top: 370px;
+    background-image: url(/img/arrow.png);
+    background-repeat: no-repeat;
+}
