@@ -11,10 +11,12 @@
             game.mapinfo = {};
             game.pos = {};
             game.mapUserIdList = {};
-            game.userid;
-            game.username;
-            game.avatarid;
-            game.mapid;
+            game.user = {};
+            game.userlist = {};
+            game.user.userid;
+            game.user.username;
+            game.user.avatarid;
+            game.user.mapid;
 
 
             $(function() {
@@ -101,10 +103,16 @@
                         s = document.createElement('script');
                         s.src = "/js/menubar.js";
                         $('head').append(s);
-                        game.func.setProgressbar(0.75);
                     }, "html");
                     this.getMapList();
-                    this.update();
+                    this.getUserInfo();
+                    wait("game.user.userid > 0", function(){
+                        game.func.createCharacter(game.user);
+                        game.func.setProgressbar(0.75);
+                    },200);
+                    wait("game.mapUserIdList[0] > 0", function(){
+                        game.func.mapOtherCharacterView();
+                    },100);
                     this.hideProgressbar();
                 };
                 game.func.update = function() {
@@ -185,7 +193,11 @@
                 game.func.mapOtherCharacterView = function() {
                     for (var i in game.mapUserIdList) {
                         game.func.getUserInfo(game.mapUserIdList[i], game.mapid);
+                        wait("game.userlist[game.mapUserIdList[i]] > 0", function(){
+                            game.func.createCharacter(game.userlist[i]);
+                        },100);
                     }
+                    
                 };
                 game.func.createCharacter = function(character) {
                     var userid = character.userid.fillZero(5);
@@ -225,7 +237,7 @@
                 game.func.getMapUserList = function() {
                     obj = {};
                     obj.method = "getmapuserlist";
-                    obj.mapid = game.mapid;
+                    obj.mapid = game.user.mapid;
                     game.ws.sendJSON(obj);
                 };
                 game.func.getUserInfo = function(userid, mapid) {
@@ -255,7 +267,7 @@
                     }
                     switch (data.method) {
                         case "login":
-                            if (data.status == 0) {
+                            if (data.status === 0) {
                                 game.login = 1;
                                 game.func.game();
                             } else {
@@ -270,24 +282,19 @@
                             game.func.mapListView();
                             break;
                         case "getuserinfo":
-                            if(game.userid){
-                                game.userid = data.userid;
-                                game.username = data.username;
-                                $.extend(true, game.pos, data.pos);
-                                game.mapid = data.mapid;
-                                game.avatarid = data.avatarid;
-                                game.func.createCharacter(data);
+                            if(!game.user.userid){
+                                $.extend(true, game.user, data);
                             }else{
-                                game.func.createCharacter(data);
+                                //game.userlist[data.userid] = data;
+                                $.extend(true, game.userlist[data.userid], data);
                             }
                             break;
                         case "getmapuserlist":
                             var userlist = data.userlist.filter(function(x,i, self){return self.indexOf(x) === i});
                             $.extend(true, game.mapUserIdList, userlist);
-                            game.func.mapOtherCharacterView();
                             break;
                         case "logout":
-                            if (data.status == 0) {
+                            if (data.status === 0) {
                                 location.href = "/";
                             }
                             break;
