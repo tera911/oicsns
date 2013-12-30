@@ -34,7 +34,6 @@ import org.json.simple.parser.ParseException;
  */
 @WebSocket
 public class WebSocketListener {
-
     private static final Logger LOG = Logger.getLogger(WebSocketListener.class.getName());
     private Session session;
     private OicCharacter c = null;//キャラクターインスタンス,最初は未登録の可能性もあるからNULL

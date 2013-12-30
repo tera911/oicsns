@@ -31,6 +31,8 @@ public class GetUserInfo implements ActionEventImpl {
             userid = Long.parseLong(json.get("userid").toString());
             mapid = Integer.parseInt(json.get("mapid").toString());
         }
+        System.out.println("mapid : "+ mapid);
+        System.out.println("userid : "+ userid);
         getUserinfo(responseJSON, userid, mapid);
         webSocket.sendJson(responseJSON);
     }

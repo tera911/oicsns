@@ -6,6 +6,7 @@
 
 package com.oic.event;
 
+import com.oic.client.OicCharacter;
 import com.oic.connection.Connections;
 import com.oic.net.WebSocketListener;
 import org.json.simple.JSONObject;
@@ -21,7 +22,8 @@ public class PosUpdate implements ActionEventImpl{
         JSONObject responseJSON = new JSONObject();
         responseJSON.put("method", "posupdate");
         responseJSON.put("status", 0);
-        Connections.BroadCastMessage(responseJSON);
+        OicCharacter c = webSocket.getCharacter();
+        c.getMap().BroadCastMap(responseJSON);
     }
     
 }

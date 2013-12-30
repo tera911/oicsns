@@ -6,12 +6,14 @@
 package com.oic.map;
 
 import com.oic.client.OicCharacter;
+import com.oic.connection.Connections;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
 import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
+import org.json.simple.JSONObject;
 
 /**
  *
@@ -165,9 +167,13 @@ public class OicMap {
     }
 
     public OicCharacter getUser(long userId) {
-        for (OicCharacter c : characters) {
-            if (c.getUserId() == userId) {
-                return c;
+        synchronized(characters){
+            Iterator<OicCharacter> it = characters.iterator();
+            while(it.hasNext()){
+                OicCharacter c = it.next();
+                if(c.getUserId() == userId){
+                    return c;
+                }
             }
         }
         return null;
@@ -180,5 +186,9 @@ public class OicMap {
         } else {
             return null;
         }
+    }
+    
+    public void BroadCastMap(JSONObject json){
+        Connections.mapBroadCastMessage(json, mapId);
     }
 }

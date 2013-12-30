@@ -10,9 +10,24 @@
             game.func = {};
             game.maplist = {};
             game.mapinfo = {};
+            /**
+             * マップ変更が行われてるか？
+             * @type Boolean
+             */
+            game.changeMap = false;
+            /**
+             * 次に移動するマップID
+             * @type int
+             */
+            game.nextmap = -1;
             game.pos = {};
             game.mapUserIdList = {};
             game.user = {};
+            /**
+             * マップに存在しているユーザを保存するオブジェクト
+             * キーはuserid
+             * @type type
+             */
             game.userlist = {};
             game.user.userid;
             game.user.username;
@@ -107,28 +122,69 @@
                     }, "html");
                     this.getMapList();
                     this.getUserInfo();
-                    wait(function(){return game.user.userid > 0;}, function(){
+                    wait(function() {
+                        return game.user.userid > 0;
+                    }, function() {
                         game.func.createCharacter(game.user);
                         game.func.setProgressbar(0.75);
                         game.func.getMapUserList();
-                    },50,thread[0]);
-                   
-                    wait(function(){return game.mapUserIdList[0] > 0;}, function(){
-                       game.func.mapOtherCharacterView();
-                    },50,thread[1]);
+                    }, 50, thread[0]);
+
+                    wait(function() {
+                        return game.mapUserIdList[0] > 0;
+                    }, function() {
+                        game.func.mapOtherCharacterView();
+                    }, 50, thread[1]);
                     this.hideProgressbar();
+                };
+                game.func.view = function() {
+                    game.mapUserIdList = [];
+                    game.userlist = {};
+                    game.func.getUserInfo();
+                    game.func.createCharacter(game.user);
+                    game.func.getMapUserList();
+                    
+                    wait(function() {
+                        return game.mapUserIdList[0] > 0;
+                    }, function() {
+                        game.func.mapOtherCharacterView();
+                    }, 50, thread[6]);
                 };
                 game.func.update = function() {
                     game.mapUserIdList = [];
                     clearInterval(thread[2]);
                     clearInterval(thread[3]);
-                    wait(function(){return game.user.userid > 0;}, function(){
+                    wait(function() {
+                        return game.user.userid > 0;
+                    }, function() {
                         game.func.getMapUserList();
-                    },50,thread[2]);
-                    wait(function(){return game.mapUserIdList[0] > 0;}, function(){
-                       game.func.mapOtherCharacterView();
-                    },50,thread[3]);
+                    }, 50, thread[2]);
+                    wait(function() {
+                        return game.mapUserIdList[0] > 0;
+                    }, function() {
+                        game.func.mapOtherCharacterView();
+                    }, 50, thread[3]);
                 };
+                game.func.changeMap = function(mapid) {
+                    if (!game.changeMap) {
+                        $('#map').animate({opacity: 0}, 200);
+                        $('#chatwindowGroup').animate({opacity: 0}, 200);
+                        $('[id$="Menubar"]').animate({opacity: 0}, 200);
+                        $('[id^="character_"]').remove();
+                        game.func.transferMap(mapid);
+                        wait(
+                                function() {
+                                    return game.nextmap > 0;
+                                },
+                                function() {
+                                    $('#map').animate({opacity: 1}, 200);
+                                    $('#chatwindowGroup').animate({opacity: 1}, 200);
+                                    $('[id$="Menubar"]').animate({opacity: 1}, 200);
+                                    game.func.view();
+                                    game.nextmap = -1;
+                                }, 500, thread[5]);
+                    }
+                }
                 game.func.faildLogin = function() {
                     alert("IDとパスワードを確認してください。");
                 };
@@ -153,8 +209,22 @@
                     game.ws.sendJSON(obj);
                     return true;
                 };
-                game.func.recieveChat_all = function(username, text) {
-                    $('#fw_all .jspPane').append('<p>' + username + " : " + text + '</p>');
+                game.func.recieveChat_all = function(userid, text) {
+                    var color;
+                    var username;
+                    if (userid == game.user.userid) {
+                        username = game.user.username;
+                        color = "green";    //自キャラの場合は文字をgreenに
+                    } else {
+                        username = game.userlist[userid].username;
+                        color = "";         //他キャラの場合は文字色変更なし
+                    }
+                    $('<p>[全体]<b>[' + username + "]</b> " + text + '</p>').appendTo('#fw_all .jspPane').addClass(color);
+                    $('#character_' + userid.fillZero(5) + ' .chat').text(text).fadeIn(150, function() {
+                        $(this).delay(3000).fadeOut(150);
+                    });
+
+                    /* 児童スクロール */
                     var jsp = $('#fw_all').data('jsp');
                     jsp.reinitialise();
                     jsp.scrollToBottom();
@@ -175,11 +245,14 @@
                             }
                             $('<div class="room_' + roomcode[i - 1] + '" data-mapid="' + mapid + i + '"></div>').appendTo(floor).append('<p>' + game.maplist[mapid + i] + '</p>');
                         } catch (e) {
+                            console.log(e);
                             floor.remove();
                         }
-                        ;
                     });
-                    $('#floors div').click(function() {
+                    wait(function(){
+                        return $('[id^="mapfloor_"]').length > 0;
+                    },function(){
+                        $('#floors div').click(function() {
                         var mapid = $(this).data('mapid');
                         if (mapid === -1) {
                             return;
@@ -188,33 +261,39 @@
                             $('#mapfloor_' + mapid).fadeIn(100);
                             $('#map .label').text(mapid + ' F');
                         });
-                    });
-                    $('#floors').fadeIn(50);
-                    $('#map .back').click(function() {
-                        $('div[id^=mapfloor_]').fadeOut(50, function() {
-                            $('#map .label').text('floor');
-                            $('#floors').fadeIn(50);
                         });
-                    });
-                    $('#map .close').click(function() {
-                        $('#map').fadeOut();
-                    });
+                        $('#map [class^="room"]').click(function() {
+                            game.func.changeMap($(this).data('mapid'));
+                        });
+                        $('#floors').fadeIn(50);
+                        $('#map .back').click(function() {
+                            $('div[id^=mapfloor_]').fadeOut(50, function() {
+                                $('#map .label').text('floor');
+                                $('#floors').fadeIn(50);
+                            });
+                        });
+                        $('#map .close').click(function() {
+                            $('#map').fadeOut();
+                        });
+                    },100);
                 };
                 game.func.mapOtherCharacterView = function() {
                     for (var i in game.mapUserIdList) {
-                        if(i === 'clone'){
+                        if (i === 'clone') {
                             continue;
                         }
-                        (function(){
+                        (function() {
                             var idx = i;
                             game.func.getUserInfo(game.mapUserIdList[i]);
-                            wait(function(){return typeof game.userlist[game.mapUserIdList[idx]] !== 'undefined';}, 
-                            function(){
-                                game.func.createCharacter(game.userlist[game.mapUserIdList[idx]]);
-                            },50,thread[10+idx]);
+                            wait(function() {
+                                return typeof game.userlist[game.mapUserIdList[idx]] !== 'undefined';
+                            },
+                                    function() {
+                                        game.func.createCharacter(game.userlist[game.mapUserIdList[idx]]);
+                                    }, 50, thread[10 + idx]);
                         })();
                     }
-                    
+
                 };
                 game.func.createCharacter = function(character) {
                     //console.log("create character.");
@@ -222,7 +301,7 @@
                     var avatarid = character.avatarid.fillZero(5);
                     var username = character.username;
                     var pos = character.pos;
-                    
+
                     var char = $('<div id="character_' + userid + '"></div>');
                     char.addClass('character');
                     char.append('<div class="chat" style="display:none;"></div>').
@@ -241,28 +320,27 @@
                     $('.name', char).text(username);
                     char.css('top', pos.y);
                     char.css('left', pos.x);
-                    
+
                     if ($('#character_' + userid).length) {
                         this.removeCharacter(userid);
                     }
                     $('#content').append(char);
-                    
+
                 };
-                game.func.removeCharacter = function(userid){
+                game.func.removeCharacter = function(userid) {
                     $('#character_' + userid).hide(100).remove();
                 }
 
                 game.func.getMapList = function() {
                     obj = {};
                     obj.method = "getmaplist";
-                    game.ws.send(JSON.stringify(obj));
+                    game.ws.sendJSON(obj);
                 };
                 game.func.getMapUserList = function() {
                     obj = {};
                     obj.method = "getmapuserlist";
                     obj.mapid = game.user.mapid;
                     game.ws.sendJSON(obj);
-                    console.log(obj);
                 };
                 game.func.getUserInfo = function(userid) {
                     if (typeof userid === "undefined") {
@@ -275,10 +353,16 @@
                         obj.userid = userid;
                         obj.mapid = game.user.mapid;
                         game.ws.sendJSON(obj);
-                        console.log(obj);
                     }
+                    console.log(obj);
 
                 }
+                game.func.transferMap = function(mapid) {
+                    obj = {};
+                    obj.method = "transfermap";
+                    obj.mapid = mapid;
+                    game.ws.sendJSON(obj);
+                };
                 game.func.userLogout = function() {
                     obj = {};
                     obj.method = "logout";
@@ -307,25 +391,32 @@
                             game.func.mapListView();
                             break;
                         case "getuserinfo":
-                            if(!game.user.userid){
+                            if (!game.user.userid) {
                                 $.extend(true, game.user, data);
-                            }else{
+                            } else if (game.user.userid === data.userid) {
+                                $.extend(true, game.user, data);
+                            } else {
                                 //game.userlist[data.userid] = data;
                                 //$.extend(true, game.userlist[data.userid], data);
-                                if(data.userid == game.user.userid){
+                                if (data.userid === game.user.userid) {
                                     return;
                                 }
                                 game.userlist[data.userid] = data;
                             }
                             break;
                         case "getmapuserlist":
-                            var userlist = data.userlist.filter(function(x,i, self){return self.indexOf(x) === i});
+                            var userlist = data.userlist.filter(function(x, i, self) {
+                                return self.indexOf(x) === i
+                            });
                             $.extend(true, game.mapUserIdList, userlist);
                             break;
                         case "posupdate":
                             console.log("posupdate");
                             game.func.update();
-                        break;
+                            break;
+                        case "transfermap":
+                            game.nextmap = data.mapid;
+                            break;
                         case "logout":
                             if (data.status === 0) {
                                 location.href = "/";

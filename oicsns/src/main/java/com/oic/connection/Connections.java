@@ -5,10 +5,12 @@
  */
 package com.oic.connection;
 
+import com.oic.client.OicCharacter;
 import com.oic.net.WebSocketListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -22,7 +24,7 @@ import org.json.simple.JSONObject;
  */
 public class Connections {
 
-    private static List<WebSocketListener> userConnections = Collections.synchronizedList(new ArrayList<WebSocketListener>());
+    private static final List<WebSocketListener> userConnections = Collections.synchronizedList(new ArrayList<WebSocketListener>());
     private static final Logger LOG = Logger.getLogger(Connections.class.getName());
 
     /**
@@ -58,8 +60,7 @@ public class Connections {
                     JSONObject json = new JSONObject();
                     json.put("method", "live");
                     json.put("status", 0);
-                    BroadCastMessage(json);
-                    System.out.println("check live.");
+                    broadCastMessage(json);
                     try {
                         Thread.sleep(20000);
                     } catch (InterruptedException ex) {
@@ -75,9 +76,9 @@ public class Connections {
      *
      * @param json
      */
-    public static void BroadCastMessage(JSONObject json) {
-        Session session;
+    public static void broadCastMessage(JSONObject json) {
         synchronized (userConnections) {
+            Session session;
             try {
                 for(int i = 0; i < userConnections.size(); i++){
                     WebSocketListener websocket = userConnections.get(i);
@@ -91,6 +92,28 @@ public class Connections {
                 }
             } catch (IOException e) {
                 LOG.log(Level.WARNING, "error {0}", e.toString());
+            }
+        }
+    }
+    
+    public static void mapBroadCastMessage(JSONObject json, int mapid){
+        synchronized(userConnections){
+            try{
+                for(int i = 0; i < userConnections.size(); i++){
+                    WebSocketListener webSocket = userConnections.get(i);
+                    OicCharacter c = webSocket.getCharacter();
+                    Session session = webSocket.getSession();
+                    if(c.getMap().getMapId() == mapid){
+                        if (session.isOpen()) {
+                        session.getRemote().sendString(json.toJSONString());
+                        } else {
+                            session.close();
+                            userConnections.remove(i);
+                        }
+                    }
+                }
+            }catch(IOException e){
+                e.printStackTrace();
             }
         }
     }
