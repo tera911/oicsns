@@ -6,10 +6,22 @@
 
 package com.oic.event;
 
+import com.oic.connection.Connections;
+import com.oic.net.WebSocketListener;
+import org.json.simple.JSONObject;
+
 /**
  * ユーザの座標を更新する
  * @author morimoto
  */
-public class PosUpdate {
+public class PosUpdate implements ActionEventImpl{
+
+    @Override
+    public void ActionEvent(JSONObject json, WebSocketListener webSocket) {
+        JSONObject responseJSON = new JSONObject();
+        responseJSON.put("method", "posupdate");
+        responseJSON.put("status", 0);
+        Connections.BroadCastMessage(responseJSON);
+    }
     
 }

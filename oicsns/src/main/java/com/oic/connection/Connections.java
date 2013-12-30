@@ -31,16 +31,20 @@ public class Connections {
      * @param websocketListener
      */
     public static void addConnection(WebSocketListener websocketListener) {
-        userConnections.add(websocketListener);
+        synchronized (userConnections) {
+            userConnections.add(websocketListener);
+        }
     }
 
-    public static void removeConnection(WebSocketListener webSocketListener) {
-        try {
-            webSocketListener.getSession().close();
-        } catch (IOException ex) {
-            Logger.getLogger(Connections.class.getName()).log(Level.WARNING, null, ex);
+    public synchronized static void removeConnection(WebSocketListener webSocketListener) {
+        synchronized (userConnections) {
+            try {
+                webSocketListener.getSession().close();
+            } catch (IOException ex) {
+                Logger.getLogger(Connections.class.getName()).log(Level.WARNING, null, ex);
+            }
+            userConnections.remove(webSocketListener);
         }
-        userConnections.remove(webSocketListener);
     }
 
     /**
@@ -73,17 +77,21 @@ public class Connections {
      */
     public static void BroadCastMessage(JSONObject json) {
         Session session;
-        try {
-            for (WebSocketListener websocket : userConnections) {
-                session = websocket.getSession();
-                if (session.isOpen()) {
-                    session.getRemote().sendString(json.toJSONString());
-                } else {
-                    userConnections.remove(websocket);
+        synchronized (userConnections) {
+            try {
+                for(int i = 0; i < userConnections.size(); i++){
+                    WebSocketListener websocket = userConnections.get(i);
+                    session = websocket.getSession();
+                    if (session.isOpen()) {
+                        session.getRemote().sendString(json.toJSONString());
+                    } else {
+                        session.close();
+                        userConnections.remove(i);
+                    }
                 }
+            } catch (IOException e) {
+                LOG.log(Level.WARNING, "error {0}", e.toString());
             }
-        } catch (IOException e) {
-            LOG.log(Level.WARNING, "error {0}", e.toString());
         }
     }
 }

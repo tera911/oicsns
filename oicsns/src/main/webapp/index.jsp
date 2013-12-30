@@ -5,6 +5,7 @@
         <title>OIC SNS - RT2</title>
         <%@include file="part/script.html" %>
         <script type="text/javascript"><!--
+            var thread = [];
             var game = {};
             game.func = {};
             game.maplist = {};
@@ -106,18 +107,27 @@
                     }, "html");
                     this.getMapList();
                     this.getUserInfo();
-                    wait("game.user.userid > 0", function(){
+                    wait(function(){return game.user.userid > 0;}, function(){
                         game.func.createCharacter(game.user);
                         game.func.setProgressbar(0.75);
-                    },200);
-                    wait("game.mapUserIdList[0] > 0", function(){
-                        game.func.mapOtherCharacterView();
-                    },100);
+                        game.func.getMapUserList();
+                    },50,thread[0]);
+                   
+                    wait(function(){return game.mapUserIdList[0] > 0;}, function(){
+                       game.func.mapOtherCharacterView();
+                    },50,thread[1]);
                     this.hideProgressbar();
                 };
                 game.func.update = function() {
-                    game.func.getUserInfo();
-                    game.func.getMapUserList();
+                    game.mapUserIdList = [];
+                    clearInterval(thread[2]);
+                    clearInterval(thread[3]);
+                    wait(function(){return game.user.userid > 0;}, function(){
+                        game.func.getMapUserList();
+                    },50,thread[2]);
+                    wait(function(){return game.mapUserIdList[0] > 0;}, function(){
+                       game.func.mapOtherCharacterView();
+                    },50,thread[3]);
                 };
                 game.func.faildLogin = function() {
                     alert("IDとパスワードを確認してください。");
@@ -192,21 +202,27 @@
                 };
                 game.func.mapOtherCharacterView = function() {
                     for (var i in game.mapUserIdList) {
-                        game.func.getUserInfo(game.mapUserIdList[i], game.mapid);
-                        wait("game.userlist[game.mapUserIdList[i]] > 0", function(){
-                            game.func.createCharacter(game.userlist[i]);
-                        },100);
+                        if(i === 'clone'){
+                            continue;
+                        }
+                        (function(){
+                            var idx = i;
+                            game.func.getUserInfo(game.mapUserIdList[i]);
+                            wait(function(){return typeof game.userlist[game.mapUserIdList[idx]] !== 'undefined';}, 
+                            function(){
+                                game.func.createCharacter(game.userlist[game.mapUserIdList[idx]]);
+                            },50,thread[10+idx]);
+                        })();
                     }
                     
                 };
                 game.func.createCharacter = function(character) {
+                    //console.log("create character.");
                     var userid = character.userid.fillZero(5);
                     var avatarid = character.avatarid.fillZero(5);
                     var username = character.username;
                     var pos = character.pos;
-                    if ($('#character_' + userid).length) {
-                        return;
-                    }
+                    
                     var char = $('<div id="character_' + userid + '"></div>');
                     char.addClass('character');
                     char.append('<div class="chat" style="display:none;"></div>').
@@ -225,9 +241,16 @@
                     $('.name', char).text(username);
                     char.css('top', pos.y);
                     char.css('left', pos.x);
-
+                    
+                    if ($('#character_' + userid).length) {
+                        this.removeCharacter(userid);
+                    }
                     $('#content').append(char);
+                    
                 };
+                game.func.removeCharacter = function(userid){
+                    $('#character_' + userid).hide(100).remove();
+                }
 
                 game.func.getMapList = function() {
                     obj = {};
@@ -239,9 +262,10 @@
                     obj.method = "getmapuserlist";
                     obj.mapid = game.user.mapid;
                     game.ws.sendJSON(obj);
+                    console.log(obj);
                 };
-                game.func.getUserInfo = function(userid, mapid) {
-                    if (typeof userid === "undefined" || typeof mapid === "undefined") {
+                game.func.getUserInfo = function(userid) {
+                    if (typeof userid === "undefined") {
                         obj = {};
                         obj.method = "getuserinfo";
                         game.ws.sendJSON(obj);
@@ -249,8 +273,9 @@
                         obj = {};
                         obj.method = "getuserinfo";
                         obj.userid = userid;
-                        obj.mapid = mapid;
+                        obj.mapid = game.user.mapid;
                         game.ws.sendJSON(obj);
+                        console.log(obj);
                     }
 
                 }
@@ -267,7 +292,7 @@
                     }
                     switch (data.method) {
                         case "login":
-                            if (data.status === 0) {
+                            if (data.status == 0) {
                                 game.login = 1;
                                 game.func.game();
                             } else {
@@ -286,13 +311,21 @@
                                 $.extend(true, game.user, data);
                             }else{
                                 //game.userlist[data.userid] = data;
-                                $.extend(true, game.userlist[data.userid], data);
+                                //$.extend(true, game.userlist[data.userid], data);
+                                if(data.userid == game.user.userid){
+                                    return;
+                                }
+                                game.userlist[data.userid] = data;
                             }
                             break;
                         case "getmapuserlist":
                             var userlist = data.userlist.filter(function(x,i, self){return self.indexOf(x) === i});
                             $.extend(true, game.mapUserIdList, userlist);
                             break;
+                        case "posupdate":
+                            console.log("posupdate");
+                            game.func.update();
+                        break;
                         case "logout":
                             if (data.status === 0) {
                                 location.href = "/";

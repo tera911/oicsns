@@ -80,7 +80,7 @@ import org.json.simple.JSONObject;
     public static void execEvent(String eventName, JSONObject json, WebSocketListener webSocket){
         for(LoginEvent e : LoginEvent.values()){
             if(e.getEventName().equals(eventName)){
-                System.out.println("Exec : "+eventName);
+                //System.out.println("Exec : "+eventName);
                 e.getEventInstance().ActionEvent(json, webSocket);
             }
         }

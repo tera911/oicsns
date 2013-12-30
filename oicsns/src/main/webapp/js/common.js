@@ -14,17 +14,19 @@ function is(type, obj) {
     var clas = Object.prototype.toString.call(obj).slice(8, -1);
     return obj !== undefined && obj !== null && clas === type;
 }
-function wait(flag, callback, timer) {
+function wait(flag, callback, timer, timerID) {
     var _flag = flag;
     var _callback = callback;
     var _timer = timer;
     timerID = setInterval(function() {
-        if (eval(_flag)) {
+        if (_flag()) {
+            //console.log(timerID);
             clearInterval(timerID);
             timerID = null;
             _callback();
         }
     }, _timer);
+    return timerID;
 }
 ;
    

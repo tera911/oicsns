@@ -6,8 +6,10 @@
 package com.oic.map;
 
 import com.oic.client.OicCharacter;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Iterator;
 import java.util.LinkedHashSet;
 import java.util.List;
 
@@ -16,8 +18,8 @@ import java.util.List;
  * @author B2020
  */
 public class OicMap {
-
-    private Collection<OicCharacter> characters = Collections.synchronizedCollection(new LinkedHashSet<OicCharacter>());
+    
+    private final Collection<OicCharacter> characters = Collections.synchronizedCollection(new LinkedHashSet<OicCharacter>());
     private int mapId;
     private String mapName;
     private String path;
@@ -127,14 +129,14 @@ public class OicMap {
         return false;
     }
 
-    public Collection<OicCharacter> getCharacters() {
-        return characters;
-    }
 
     public void removeCharacter(long userId) {
-        for (OicCharacter charcter : this.characters) {
-            if (charcter.getUserId() == userId) {
-                synchronized (characters) {
+        synchronized(characters){
+            Iterator<OicCharacter> it = characters.iterator();
+            while(it.hasNext()){
+            //for (OicCharacter charcter : characters) {
+                OicCharacter character = it.next();
+                if (character.getUserId() == userId) {
                     for (long[] i : charspace) {
                         for (long j : i) {
                             if (j == userId) {
@@ -142,10 +144,20 @@ public class OicMap {
                             }
                         }
                     }
-                    this.characters.remove(charcter);
+                    it.remove();
                 }
             }
         }
+    }
+    
+    public List<Long> getUserIdList(){
+        List<Long> useridList = new ArrayList<>();
+        synchronized(characters){
+            for(OicCharacter c : characters){
+                useridList.add(c.getUserId());
+            }
+        }
+        return useridList;
     }
 
     public int getUserCont() {

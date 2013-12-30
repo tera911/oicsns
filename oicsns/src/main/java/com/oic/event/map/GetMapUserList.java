@@ -12,6 +12,7 @@ import com.oic.map.MapFactory;
 import com.oic.map.OicMap;
 import com.oic.net.WebSocketListener;
 import com.oic.utils.Validators;
+import java.util.Collection;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 
@@ -35,9 +36,10 @@ public class GetMapUserList implements ActionEventImpl{
         MapFactory factory = MapFactory.getInstance();
         OicMap map = factory.getMap(mapid);
         JSONArray charactersJSON = new JSONArray();
-        for(OicCharacter c : map.getCharacters()){
-            charactersJSON.add(c.getUserId());
+        for(Long userid : map.getUserIdList()){
+            charactersJSON.add(userid);
         }
+        
         responseJSON.put("userlist", charactersJSON);
         webSocket.sendJson(responseJSON);
     }

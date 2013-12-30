@@ -12,6 +12,7 @@ import com.oic.event.ChatlogEvent;
 import com.oic.event.CheckDuplication;
 import com.oic.event.CmdEvent;
 import com.oic.event.GetProfile;
+import com.oic.event.PosUpdate;
 import com.oic.event.RegisterProfile;
 import com.oic.event.SetProfile;
 import com.oic.login.TestLoginHandler;
@@ -75,7 +76,7 @@ public class WebSocketListener {
         try {
             json = (JSONObject) (new JSONParser().parse(message));
             LOG.log(Level.INFO, "method : {0}", json.get("method"));
-            LOG.log(Level.INFO, "status : {0}", login);
+            //LOG.log(Level.INFO, "status : {0}", login);
             method = json.get("method").toString();
         } catch (ParseException e) {
             LOG.log(Level.WARNING, "{0}", e);
@@ -87,7 +88,7 @@ public class WebSocketListener {
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
-        c = null;
+        userLogout();
         LOG.log(Level.INFO, "close statusCode = {0} reason = {1}", new Object[]{statusCode, reason});
     }
 
@@ -150,6 +151,9 @@ public class WebSocketListener {
             login = LoginStatus.REGISTER;
         }
         c.loginMap(31); //ログイン時のマップは3A教室固定
+        
+        //全体にログインを通知
+        new PosUpdate().ActionEvent(null, this);
     }
 
     /**
