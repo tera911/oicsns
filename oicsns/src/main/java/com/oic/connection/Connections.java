@@ -100,16 +100,22 @@ public class Connections {
         synchronized(userConnections){
             try{
                 for(int i = 0; i < userConnections.size(); i++){
+                    
                     WebSocketListener webSocket = userConnections.get(i);
                     OicCharacter c = webSocket.getCharacter();
                     Session session = webSocket.getSession();
-                    if(c.getMap().getMapId() == mapid){
-                        if (session.isOpen()) {
-                        session.getRemote().sendString(json.toJSONString());
-                        } else {
-                            session.close();
-                            userConnections.remove(i);
+                    try{
+                        if(c.getMap().getMapId() == mapid){
+                            if (session.isOpen()) {
+                            session.getRemote().sendString(json.toJSONString());
+                            } else {
+                                session.close();
+                                userConnections.remove(i);
+                            }
                         }
+                    }catch(NullPointerException e){
+                        session.close();
+                        userConnections.remove(i);
                     }
                 }
             }catch(IOException e){

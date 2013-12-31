@@ -34,7 +34,6 @@
             game.user.avatarid;
             game.user.mapid;
 
-
             $(function() {
                 game.ws = new WebSocket('ws://127.0.0.1:8080/ws');
                 game.login = 0;
@@ -131,36 +130,19 @@
                     }, 50, thread[0]);
 
                     wait(function() {
-                        return game.mapUserIdList[0] > 0;
+                        return game.mapUserIdList.length > 0;
                     }, function() {
                         game.func.mapOtherCharacterView();
                     }, 50, thread[1]);
                     this.hideProgressbar();
                 };
-                game.func.view = function() {
-                    game.mapUserIdList = [];
-                    game.userlist = {};
-                    game.func.getUserInfo();
-                    game.func.createCharacter(game.user);
-                    game.func.getMapUserList();
-                    
-                    wait(function() {
-                        return game.mapUserIdList[0] > 0;
-                    }, function() {
-                        game.func.mapOtherCharacterView();
-                    }, 50, thread[6]);
-                };
                 game.func.update = function() {
+                    console.log("update");
                     game.mapUserIdList = [];
-                    clearInterval(thread[2]);
                     clearInterval(thread[3]);
+                    game.func.getMapUserList();
                     wait(function() {
-                        return game.user.userid > 0;
-                    }, function() {
-                        game.func.getMapUserList();
-                    }, 50, thread[2]);
-                    wait(function() {
-                        return game.mapUserIdList[0] > 0;
+                        return game.mapUserIdList.length > 0;
                     }, function() {
                         game.func.mapOtherCharacterView();
                     }, 50, thread[3]);
@@ -180,7 +162,20 @@
                                     $('#map').animate({opacity: 1}, 200);
                                     $('#chatwindowGroup').animate({opacity: 1}, 200);
                                     $('[id$="Menubar"]').animate({opacity: 1}, 200);
-                                    game.func.view();
+                                    game.mapUserIdList = [];
+                                    game.userlist = {};
+                                    game.func.getUserInfo();
+                                    wait(function(){
+                                        return game.user.mapid === game.nextmap;
+                                    },function(){
+                                        game.func.createCharacter(game.user);
+                                        game.func.getMapUserList();
+                                    });
+                                    wait(function() {
+                                        return game.mapUserIdList.length > 0;
+                                    }, function() {
+                                        game.func.mapOtherCharacterView();
+                                    }, 50, thread[6]);
                                     game.nextmap = -1;
                                 }, 500, thread[5]);
                     }
@@ -249,18 +244,18 @@
                             floor.remove();
                         }
                     });
-                    wait(function(){
+                    wait(function() {
                         return $('[id^="mapfloor_"]').length > 0;
-                    },function(){
+                    }, function() {
                         $('#floors div').click(function() {
-                        var mapid = $(this).data('mapid');
-                        if (mapid === -1) {
-                            return;
-                        }
-                        $(this).parent().fadeOut(function() {
-                            $('#mapfloor_' + mapid).fadeIn(100);
-                            $('#map .label').text(mapid + ' F');
-                        });
+                            var mapid = $(this).data('mapid');
+                            if (mapid === -1) {
+                                return;
+                            }
+                            $(this).parent().fadeOut(function() {
+                                $('#mapfloor_' + mapid).fadeIn(100);
+                                $('#map .label').text(mapid + ' F');
+                            });
                         });
                         $('#map [class^="room"]').click(function() {
                             game.func.changeMap($(this).data('mapid'));
@@ -275,7 +270,7 @@
                         $('#map .close').click(function() {
                             $('#map').fadeOut();
                         });
-                    },100);
+                    }, 100);
                 };
                 game.func.mapOtherCharacterView = function() {
                     for (var i in game.mapUserIdList) {
@@ -411,7 +406,6 @@
                             $.extend(true, game.mapUserIdList, userlist);
                             break;
                         case "posupdate":
-                            console.log("posupdate");
                             game.func.update();
                             break;
                         case "transfermap":
@@ -455,7 +449,7 @@
                 });
 
             });
-            //--></script>
+//--></script>
     </head>
     <body>
         <div id="header">
