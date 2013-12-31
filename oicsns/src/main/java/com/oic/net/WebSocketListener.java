@@ -7,14 +7,10 @@ package com.oic.net;
 
 import com.oic.client.OicCharacter;
 import com.oic.connection.Connections;
-import com.oic.event.ChatEvent;
-import com.oic.event.ChatlogEvent;
 import com.oic.event.CheckDuplication;
 import com.oic.event.CmdEvent;
-import com.oic.event.GetProfile;
 import com.oic.event.PosUpdate;
 import com.oic.event.RegisterProfile;
-import com.oic.event.SetProfile;
 import com.oic.login.TestLoginHandler;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -87,7 +83,9 @@ public class WebSocketListener {
 
     @OnWebSocketClose
     public void onClose(int statusCode, String reason) {
-        userLogout();
+        if(c != null){
+            userLogout();
+        }
         LOG.log(Level.INFO, "close statusCode = {0} reason = {1}", new Object[]{statusCode, reason});
     }
 
@@ -102,9 +100,7 @@ public class WebSocketListener {
         if (method == null) { //ぬるぽ回避のため
             LOG.log(Level.WARNING, "Message Method is NULL : {0}", json.toString());
             return;
-        }else if(method.equals("cmd")){
-            new CmdEvent().ActionEvent(json, webSocketListener);
-        }else if (login == LoginStatus.NOLOGIN && method.equals("duplication")) {
+        }else if ((login == LoginStatus.NOLOGIN || login == LoginStatus.REGISTER) && method.equals("duplication")) {
             /* 重複確認　通ったらStatusがREGISTERになる */
             new CheckDuplication().ActionEvent(json, webSocketListener);
         }else if (login == LoginStatus.NOLOGIN && method.equals("login")) {

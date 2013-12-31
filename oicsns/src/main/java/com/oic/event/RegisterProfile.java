@@ -77,6 +77,7 @@ public class RegisterProfile implements ActionEventImpl{
             con.commit();
             
             responseJSON.put("status",0);
+            webSocket.userLogin(userid);
         }catch(Exception e){
             try{
                 con.rollback();

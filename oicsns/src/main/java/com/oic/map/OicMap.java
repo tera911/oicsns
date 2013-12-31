@@ -114,14 +114,14 @@ public class OicMap {
         synchronized(characters){
             this.characters.add(character);
         }
-        for (int i = 0; i < charspace.length; i++) {
-            for (int j = charspace[i].length / 2; j > 0; j--) {
+        for (int y = 0; y < charspace.length; y++) {
+            for (int x = charspace[y].length / 2; x > 0; x--) {
                 for (int k = 0; k < 2; k++) {
-                    if (charspace[i][j + k] == 0) {
-                        charspace[i][j + k] = character.getUserId();
+                    if (charspace[y][x + k] == 0) {
+                        charspace[y][x + k] = character.getUserId();
                         Position pos = character.getPos();
-                        pos.setX((j + k) * pos.getWidth());
-                        pos.setY(350 - (i * pos.getHeight()));
+                        pos.setX((x + k) * pos.getWidth());
+                        pos.setY(350 - (y * pos.getHeight()));
                         character.setPos(pos);
                         return true;
                     }
@@ -139,10 +139,10 @@ public class OicMap {
             //for (OicCharacter charcter : characters) {
                 OicCharacter character = it.next();
                 if (character.getUserId() == userId) {
-                    for (long[] i : charspace) {
-                        for (long j : i) {
-                            if (j == userId) {
-                                j = 0;
+                    for(int y = 0; y < charspace.length; y++){
+                        for(int x = 0; x < charspace[y].length; x++){
+                            if(charspace[y][x] == userId){
+                                charspace[y][x] = 0;
                             }
                         }
                     }

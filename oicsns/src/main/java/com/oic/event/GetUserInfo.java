@@ -33,7 +33,11 @@ public class GetUserInfo implements ActionEventImpl {
         }
         System.out.println("mapid : "+ mapid);
         System.out.println("userid : "+ userid);
-        getUserinfo(responseJSON, userid, mapid);
+        try{
+            getUserinfo(responseJSON, userid, mapid);
+        }catch(NullPointerException e){
+            return ;
+        }
         webSocket.sendJson(responseJSON);
     }
 
@@ -44,7 +48,7 @@ public class GetUserInfo implements ActionEventImpl {
         return v.validate();
     }
 
-    private JSONObject getUserinfo(JSONObject json, long userid, int mapid) {
+    private JSONObject getUserinfo(JSONObject json, long userid, int mapid) throws NullPointerException {
         MapFactory factory = MapFactory.getInstance();
         OicMap map = factory.getMap(mapid);
         OicCharacter c = map.getUser(userid);

@@ -28,7 +28,8 @@ public class ChatEvent implements ActionEventImpl{
         }
 
         json.put("userid",c.getUserId());           //送信者idを付加
-        Connections.broadCastMessage(json);         //接続しているユーザーに送信
+        //Connections.broadCastMessage(json);         //接続しているユーザーに送信
+        Connections.mapBroadCastMessage(json, c.getMapid());//マップにいる人全員に送信
     }
     
 }

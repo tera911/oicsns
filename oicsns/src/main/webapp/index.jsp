@@ -34,21 +34,20 @@
             game.user.avatarid;
             game.user.mapid;
 
+            game.checkduplication = -1;
+            game.regist = -1;
+
             $(function() {
                 game.ws = new WebSocket('ws://127.0.0.1:8080/ws');
                 game.login = 0;
                 game.progressbar = $('#progressbar');
                 game.progress = $('#progressbar progress');
                 game.func.openEula = function() {
-                    game.func.showProgressbar()
                     $('#content').children().remove();
                     $("#content").unbind();
                     $("#overlay").fadeOut();
-                    game.func.setProgressbar(0.25);
                     $("#content").css("display", "block");
-                    game.func.setProgressbar(0.5);
                     $('#content').delay(1000).load("eula.htm", function() {
-                        game.func.setProgressbar(1);
                         $('.jscrollpane').jScrollPane({
                             showArrows: true,
                             arrowScrollOnHover: true
@@ -56,28 +55,34 @@
                         $('#sendbutton').click(function() {
                             if ($('input[name="agree"]')[0].checked) {
                                 $('#content').children().remove();
-                                game.func.showProgressbar();
                                 game.func.register();
                             } else {
                                 location.href = "/";
                             }
                         });
                     });
-                    game.func.hideProgressbar();
                 };
                 game.func.register = function() {
-                    $('#content').delay(1000).load("part/profile.html", function() {
-
+                    $('#content').delay(1000).load("part/register.html", function() {
                         for (var i = 1; i < 47; i++) {
                             var img = new Image();
-                            img.src = "/img/avatar/" + i.fillZero(5) + ".png";
+                            var avatarid = i.fillZero(5);
+                            img.src = "/img/avatar/" + avatarid + ".png";
+                            img.alt = avatarid;
                             img.className = "avatar_pic";
+                            $(img).data("avatarid",avatarid);
                             $('#avatar_window').append(img);
                         }
                         s = document.createElement('script');
                         s.src = "/js/profile.js";
                         $('head').append(s);
-
+                        $('#confirm').click(function(){
+                            game.func.checkDuplication($('#username').val());
+                        });
+                        $('#userdata').submit(function(){
+                           
+                            return false;
+                        });
                     });
                 };
                 /**
@@ -89,10 +94,8 @@
                     $('#content').children().remove();
                     $('#content').css('background', '#EEE');
                     $("#overlay").fadeOut();
-                    this.showProgressbar();
                     $.get("part/map.htm", function(data) {
                         $('#content').append(data);
-                        game.func.setProgressbar(0.25);
                     }, "html");
                     $.get("part/chatwindow.html", function(data) {
                         $('#content').append(data);
@@ -111,7 +114,6 @@
                                 $('#chatwindowGroup #inputWindow').val('');
                             }
                         });
-                        game.func.setProgressbar(0.5);
                     }, "html");
                     $.get("part/menubar.html", function(data) {
                         $('#content').append(data);
@@ -125,7 +127,6 @@
                         return game.user.userid > 0;
                     }, function() {
                         game.func.createCharacter(game.user);
-                        game.func.setProgressbar(0.75);
                         game.func.getMapUserList();
                     }, 50, thread[0]);
 
@@ -134,25 +135,36 @@
                     }, function() {
                         game.func.mapOtherCharacterView();
                     }, 50, thread[1]);
-                    this.hideProgressbar();
                 };
                 game.func.update = function() {
                     console.log("update");
-                    game.mapUserIdList = [];
-                    clearInterval(thread[3]);
-                    game.func.getMapUserList();
                     wait(function() {
-                        return game.mapUserIdList.length > 0;
+                        return game.nextmap === -1;
                     }, function() {
-                        game.func.mapOtherCharacterView();
-                    }, 50, thread[3]);
+                        game.mapUserIdList = [];
+                        wait(function() {
+                            return thread[2] == null && thread[3] == null;
+                        }, function() {
+                            wait(function() {
+                                return game.user.mapid > 0;
+                            }, function() {
+                                game.func.getMapUserList();
+                            }, thread[2]);
+                            wait(function() {
+                                return game.mapUserIdList.length > 0;
+                            }, function() {
+                                game.func.mapOtherCharacterView();
+                            }, 50, thread[3]);
+                        }, thread[7]);
+                    }, thread[8]);
                 };
                 game.func.changeMap = function(mapid) {
                     if (!game.changeMap) {
                         $('#map').animate({opacity: 0}, 200);
                         $('#chatwindowGroup').animate({opacity: 0}, 200);
                         $('[id$="Menubar"]').animate({opacity: 0}, 200);
-                        $('[id^="character_"]').remove();
+                        //$('[id^="character_"]').remove();
+                        $('[id^="character_"]').animate({opacity: 0}, 200);
                         game.func.transferMap(mapid);
                         wait(
                                 function() {
@@ -165,18 +177,18 @@
                                     game.mapUserIdList = [];
                                     game.userlist = {};
                                     game.func.getUserInfo();
-                                    wait(function(){
+                                    wait(function() {
                                         return game.user.mapid === game.nextmap;
-                                    },function(){
+                                    }, function() {
                                         game.func.createCharacter(game.user);
                                         game.func.getMapUserList();
-                                    });
+                                        game.nextmap = -1;
+                                    }, thread[4]);
                                     wait(function() {
                                         return game.mapUserIdList.length > 0;
                                     }, function() {
                                         game.func.mapOtherCharacterView();
                                     }, 50, thread[6]);
-                                    game.nextmap = -1;
                                 }, 500, thread[5]);
                     }
                 }
@@ -207,7 +219,7 @@
                 game.func.recieveChat_all = function(userid, text) {
                     var color;
                     var username;
-                    if (userid == game.user.userid) {
+                    if (userid === game.user.userid) {
                         username = game.user.username;
                         color = "green";    //自キャラの場合は文字をgreenに
                     } else {
@@ -258,7 +270,9 @@
                             });
                         });
                         $('#map [class^="room"]').click(function() {
-                            game.func.changeMap($(this).data('mapid'));
+                            if (game.nextmap === -1) {
+                                game.func.changeMap($(this).data('mapid'));
+                            }
                         });
                         $('#floors').fadeIn(50);
                         $('#map .back').click(function() {
@@ -273,6 +287,7 @@
                     }, 100);
                 };
                 game.func.mapOtherCharacterView = function() {
+                    $('[id^="character_"]:not(#character_' + game.user.userid.fillZero(5) + ')').remove();
                     for (var i in game.mapUserIdList) {
                         if (i === 'clone') {
                             continue;
@@ -325,7 +340,61 @@
                 game.func.removeCharacter = function(userid) {
                     $('#character_' + userid).hide(100).remove();
                 }
+                game.func.checkDuplication = function(username) {
+                    var message = $('#profile .message');
+                    $('[for="username"]', message).remove();
+                    game.checkduplication = -1;
+                    if(username == ""){
+                        message.append('<label for="username" class="error">ハンドルネームを入力してください。</label>');
+                        return;
+                    }
+                    game.func.duplication(username);
+                    wait(function(){
+                        return game.checkduplication > -1;
+                    },function(){
+                        if(game.checkduplication == 0){
+                            message.append('<label for="username" class="success">このハンドルネームは使えます</label>');
+                        }else if(game.checkduplication == 1){
+                            message.append('<label for="username" class="error">このハンドルネームは使用されています。</label>');
+                        }else{
+                            message.append('<label for="username" class="error">このハンドルネームは使用できません。</label>');
+                      }
+                    },thread[9]);
+                };
+                game.func.setProfile = function(){
+                     obj = {};
+                    obj.method = "setprofile";
+                    obj.accesstoken = "tera090";
+                    obj.accesstokensecret = "tera090";
+                    obj.studentid = $('#student_id').val();
+                    obj.username = $('#username').val();
+                    obj.avatarid = parseInt($('#full_avatar').data('avatarid'));
+                    obj.grade = $('#grade').val();
+                    obj.gender = $('[name="sex"]').val();
+                    obj.birthday = $('#birthday_year').val() + "-" + $('#birthday_month').val() + "-" + $('#birthday_day').val();
+                    obj.comment = $('#comment').val();
+                    obj.vgrade = $('#hidegrade').val();;
+                    obj.vgender = $('#hidegender').val();;
+                    obj.vbirthday = $('#hidebirthday').val();
 
+                    game.ws.sendJSON(obj);
+                    wait(function(){
+                        return game.regist > -1;
+                    },function(){
+                        if(game.regist == 0){
+                            game.func.game();
+                        }else{
+                            alert("何かがおかしいようです。もう一度登録してください。");
+                        }
+                        game.regist = -1;
+                    },thread[5]);
+                };
+                game.func.duplication = function(username) {
+                    obj = {};
+                    obj.method = "duplication";
+                    obj.username = username;
+                    game.ws.sendJSON(obj);
+                };
                 game.func.getMapList = function() {
                     obj = {};
                     obj.method = "getmaplist";
@@ -336,6 +405,7 @@
                     obj.method = "getmapuserlist";
                     obj.mapid = game.user.mapid;
                     game.ws.sendJSON(obj);
+                    console.log(obj);
                 };
                 game.func.getUserInfo = function(userid) {
                     if (typeof userid === "undefined") {
@@ -378,6 +448,9 @@
                                 game.func.faildLogin();
                             }
                             break;
+                        case "duplication":
+                            game.checkduplication = data.result;
+                            break;
                         case "allchat":
                             game.func.recieveChat_all(data.userid, data.text);
                             break;
@@ -400,17 +473,23 @@
                             }
                             break;
                         case "getmapuserlist":
+                            console.log(data);
                             var userlist = data.userlist.filter(function(x, i, self) {
                                 return self.indexOf(x) === i
                             });
                             $.extend(true, game.mapUserIdList, userlist);
                             break;
                         case "posupdate":
-                            game.func.update();
+                            if (game.nextmap === -1) {//Map移動中はアップデートしない
+                                game.func.update();
+                            }
                             break;
                         case "transfermap":
                             game.nextmap = data.mapid;
                             break;
+                        case "setprofile":
+                            game.regist = data.status;
+                        break;
                         case "logout":
                             if (data.status === 0) {
                                 location.href = "/";

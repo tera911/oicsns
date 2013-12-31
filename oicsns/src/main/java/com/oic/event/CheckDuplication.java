@@ -45,6 +45,8 @@ public class CheckDuplication implements ActionEventImpl{
                     webSocket.userRegister();//登録開始
                     responseJSON.put("result", 0);
                 }
+                rs.close();
+                ps.close();
             }catch(Exception e){
                 responseJSON.put("result", 2);
                 e.printStackTrace();

@@ -140,3 +140,7 @@
     width:300px;
     color:#F00;
 }
+
+#profile label.success{
+    width:300px;
+}
