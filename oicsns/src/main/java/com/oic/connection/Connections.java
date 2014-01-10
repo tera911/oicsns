@@ -10,7 +10,6 @@ import com.oic.net.WebSocketListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -107,15 +106,15 @@ public class Connections {
                     try{
                         if(c.getMap().getMapId() == mapid){
                             if (session.isOpen()) {
-                            session.getRemote().sendString(json.toJSONString());
+                                session.getRemote().sendString(json.toJSONString());
                             } else {
                                 session.close();
-                                userConnections.remove(i);
+                                userConnections.remove(webSocket);
                             }
                         }
                     }catch(NullPointerException e){
                         session.close();
-                        userConnections.remove(i);
+                        userConnections.remove(webSocket);
                     }
                 }
             }catch(IOException e){

@@ -160,7 +160,10 @@ public class WebSocketListener {
      */
     public void userLogout() {
         login = LoginStatus.NOLOGIN;
-        c.getMap().removeCharacter(c.getUserId());
+        try{
+            c.getMap().removeCharacter(c.getUserId());
+        }catch(NullPointerException e){
+        }
         Connections.removeConnection(this);
     }
     
