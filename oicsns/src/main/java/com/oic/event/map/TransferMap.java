@@ -35,7 +35,7 @@ public class TransferMap implements ActionEventImpl{
         responseJSON.put("mapid", mapid);
         responseJSON.put("status", 0);
         webSocket.sendJson(responseJSON);
-        new PosUpdate().ActionEvent(null, webSocket);
+        new PosUpdate().ActionEvent(responseJSON, webSocket);
     }
     
     private boolean validation(JSONObject json){

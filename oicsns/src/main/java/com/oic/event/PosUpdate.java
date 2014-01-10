@@ -7,8 +7,10 @@
 package com.oic.event;
 
 import com.oic.client.OicCharacter;
-import com.oic.connection.Connections;
+import com.oic.map.MapFactory;
+import com.oic.map.OicMap;
 import com.oic.net.WebSocketListener;
+import com.oic.utils.Validators;
 import org.json.simple.JSONObject;
 
 /**
@@ -22,8 +24,19 @@ public class PosUpdate implements ActionEventImpl{
         JSONObject responseJSON = new JSONObject();
         responseJSON.put("method", "posupdate");
         responseJSON.put("status", 0);
-        OicCharacter c = webSocket.getCharacter();
-        c.getMap().BroadCastMap(responseJSON);
+        if(validate(json)){
+            MapFactory mapFactory = MapFactory.getInstance();
+            OicMap map = mapFactory.getMap(Integer.parseInt(json.get("mapid").toString()));
+            map.BroadCastMap(responseJSON);
+        }else{
+            OicCharacter c = webSocket.getCharacter();
+            c.getMap().BroadCastMap(responseJSON);
+        }
     }
     
+    private boolean validate(JSONObject json){
+        Validators v = new Validators(json);
+        v.add("mapid", v.required());
+        return v.validate();
+    }
 }
