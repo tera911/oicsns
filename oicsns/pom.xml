@@ -121,8 +121,9 @@
                 <configuration>
                     <contextPath>/</contextPath>
                     <scanIntervalSeconds>10</scanIntervalSeconds>
-                    <connectors>
-                    </connectors>
+                    <httpConnector>
+											<port>80</port>
+                    </httpConnector>
                 </configuration>
                 <dependencies>
                     <dependency>
