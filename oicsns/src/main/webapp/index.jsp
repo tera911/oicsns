@@ -170,13 +170,13 @@
                                     },function(){
                                         game.func.createCharacter(game.user);
                                         game.func.getMapUserList();
-                                    });
+                                        game.nextmap = -1;
+                                    },50, thread[4]);
                                     wait(function() {
                                         return game.mapUserIdList.length > 0;
                                     }, function() {
                                         game.func.mapOtherCharacterView();
                                     }, 50, thread[6]);
-                                    game.nextmap = -1;
                                 }, 500, thread[5]);
                     }
                 }
@@ -279,6 +279,7 @@
                         }
                         (function() {
                             var idx = i;
+                            game.userlist = [];
                             game.func.getUserInfo(game.mapUserIdList[i]);
                             wait(function() {
                                 return typeof game.userlist[game.mapUserIdList[idx]] !== 'undefined';
