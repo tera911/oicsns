@@ -299,6 +299,7 @@
                     var pos = character.pos;
 
                     var char = $('<div id="character_' + userid + '"></div>');
+                    char.data("userid", userid);
                     char.addClass('character');
                     char.append('<div class="chat" style="display:none;"></div>').
                             append('<div class="avatar"></div>').
