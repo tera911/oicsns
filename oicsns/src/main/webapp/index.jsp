@@ -475,9 +475,10 @@
                     <input type="button" name="register" value="登録">
                 </p>
             </form>
+            <div id="overlay" class="ui-widget-overlay"></div>
         </div>
         <div id="info">
-            <div id="overlay" class="ui-widget-overlay"></div>
+            
             <div id="progressbar">
                 <p>loading now...</p>
                 <progress></progress>
