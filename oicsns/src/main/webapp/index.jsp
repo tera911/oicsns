@@ -29,13 +29,13 @@
              * @type type
              */
             game.userlist = {};
-            game.user.userid;
+            game.user.userid = -1;
             game.user.username;
-            game.user.avatarid;
-            game.user.mapid;
+            game.user.avatarid = -1;
+            game.user.mapid = -1;
 
             $(function() {
-                game.ws = new WebSocket('ws://127.0.0.1:8080/ws');
+                game.ws = new WebSocket('ws://127.0.0.1/ws');
                 game.login = 0;
                 game.progressbar = $('#progressbar');
                 game.progress = $('#progressbar progress');
@@ -89,10 +89,8 @@
                     $('#content').children().remove();
                     $('#content').css('background', '#EEE');
                     $("#overlay").fadeOut();
-                    this.showProgressbar();
                     $.get("part/map.htm", function(data) {
                         $('#content').append(data);
-                        game.func.setProgressbar(0.25);
                     }, "html");
                     $.get("part/chatwindow.html", function(data) {
                         $('#content').append(data);
@@ -111,7 +109,6 @@
                                 $('#chatwindowGroup #inputWindow').val('');
                             }
                         });
-                        game.func.setProgressbar(0.5);
                     }, "html");
                     $.get("part/menubar.html", function(data) {
                         $('#content').append(data);
@@ -125,7 +122,6 @@
                         return game.user.userid > 0;
                     }, function() {
                         game.func.createCharacter(game.user);
-                        game.func.setProgressbar(0.75);
                         game.func.getMapUserList();
                     }, 50, thread[0]);
 
@@ -134,16 +130,38 @@
                     }, function() {
                         game.func.mapOtherCharacterView();
                     }, 50, thread[1]);
-                    this.hideProgressbar();
                 };
                 game.func.update = function() {
                     console.log("update");
-                    game.mapUserIdList = [];
+                    game.mapUserIdList = [];        //ユーザリスト初期化(マップ自体のリストしか初期化されない)
                     clearInterval(thread[3]);
-                    game.func.getMapUserList();
+                    game.func.getMapUserList();     //ユーザリストを更新(マップ自体のリストしか初期化されない)
+                    
+                    /*$('[id^="character"]').each(function(){
+                        //処理書く
+                        for(var i=0;i<game.mapUserIdList.length;i++){
+                            //if($.inArray(parseInt($(this).data("userid")), game.mapUserIdList[i]) >= 0)
+                            if(parseInt($(this).data("userid")) == game.mapUserIdList[i])
+                                break;
+                            else
+                                $(this).remove();
+                        }
+                    });*/
+                    
                     wait(function() {
                         return game.mapUserIdList.length > 0;
                     }, function() {
+                        $('[id^="character"]').each(function(){
+                            //繰り返す処理
+                            for(var i=0;i<game.mapUserIdList.length;i++){
+                                //if($.inArray(parseInt($(this).data("userid")), game.mapUserIdList[i]) >= 0)
+                                //もしmapUserListにuseridがあったら次のuseridに
+                                if(parseInt($(this).data("userid")) == game.mapUserIdList[i])
+                                    break;
+                                else
+                                    $(this).remove();
+                            }
+                        });
                         game.func.mapOtherCharacterView();
                     }, 50, thread[3]);
                 };
@@ -284,9 +302,9 @@
                             wait(function() {
                                 return typeof game.userlist[game.mapUserIdList[idx]] !== 'undefined';
                             },
-                                    function() {
-                                        game.func.createCharacter(game.userlist[game.mapUserIdList[idx]]);
-                                    }, 50, thread[10 + idx]);
+                            function() {
+                                game.func.createCharacter(game.userlist[game.mapUserIdList[idx]]);
+                            }, 50, thread[10 + idx]);
                         })();
                     }
 
