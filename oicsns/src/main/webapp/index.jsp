@@ -5,6 +5,9 @@
         <title>OIC SNS - RT2</title>
         <%@include file="part/script.html" %>
         <script type="text/javascript"><!--
+            
+            var Otani;
+            
             var thread = [];
             var game = {};
             game.func = {};
@@ -35,7 +38,7 @@
             game.user.mapid;
 
             $(function() {
-                game.ws = new WebSocket('ws://127.0.0.1:8080/ws');
+                game.ws = new WebSocket('ws://127.0.0.1/ws');
                 game.login = 0;
                 game.progressbar = $('#progressbar');
                 game.progress = $('#progressbar progress');
@@ -144,7 +147,20 @@
                     wait(function() {
                         return game.mapUserIdList.length > 0;
                     }, function() {
+                        
                         game.func.mapOtherCharacterView();
+                        $('[id^="character"]').each(function(){
+                            //移動した人を元いたマップから消す
+                            for(var i=0;i<game.mapUserIdList.length;i++){
+                                    if(parseInt($(this).data("userid")) == game.mapUserIdList[i]){
+                                            break;
+                                    }else{
+                                        if($.inArray(parseInt($(this).data("userid")), game.mapUserIdList) < 0){
+                                            $(this).remove();
+                                        }
+                                   }
+                            }
+                        });
                     }, 50, thread[3]);
                 };
                 game.func.changeMap = function(mapid) {
@@ -178,6 +194,7 @@
                                         game.func.mapOtherCharacterView();
                                     }, 50, thread[6]);
                                 }, 500, thread[5]);
+                                
                     }
                 }
                 game.func.faildLogin = function() {
@@ -367,6 +384,7 @@
                 };
                 game.ws.onmessage = function(e) {
                     var data = JSON.parse(e.data);
+                    Otani = data;
                     console.log(data);
                     if (typeof data.method === "undefined") {
                         return;
