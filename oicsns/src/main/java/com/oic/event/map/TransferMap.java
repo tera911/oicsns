@@ -28,14 +28,19 @@ public class TransferMap implements ActionEventImpl{
             webSocket.sendJson(responseJSON);
             return;
         }
-        
+        int oldMapid = webSocket.getCharacter().getMapid();
         int mapid = Integer.parseInt(json.get("mapid").toString());
         OicCharacter c = webSocket.getCharacter();
         c.changeMap(mapid);
         responseJSON.put("mapid", mapid);
         responseJSON.put("status", 0);
         webSocket.sendJson(responseJSON);
-        new PosUpdate().ActionEvent(responseJSON, webSocket);
+        
+        //ユーザ更新
+        new PosUpdate().ActionEvent(responseJSON, webSocket);   //新しいマップ
+        
+        responseJSON.put("mapid", oldMapid);
+        new PosUpdate().ActionEvent(responseJSON, webSocket);   //古いマップ        
     }
     
     private boolean validation(JSONObject json){
