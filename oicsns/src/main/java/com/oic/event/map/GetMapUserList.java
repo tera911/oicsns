@@ -36,9 +36,11 @@ public class GetMapUserList implements ActionEventImpl{
         MapFactory factory = MapFactory.getInstance();
         OicMap map = factory.getMap(mapid);
         JSONArray charactersJSON = new JSONArray();
-        for(Long userid : map.getUserIdList()){
-            charactersJSON.add(userid);
-        }
+        try{
+            for(Long userid : map.getUserIdList()){
+                charactersJSON.add(userid);
+            }
+        }catch(NullPointerException ex){}
         
         responseJSON.put("userlist", charactersJSON);
         webSocket.sendJson(responseJSON);

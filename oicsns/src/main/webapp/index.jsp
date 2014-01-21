@@ -140,44 +140,15 @@
                     clearInterval(thread[3]);
                     game.func.getMapUserList();     //ユーザリストを更新(マップ自体のリストしか初期化されない)
                     
-                    /*$('[id^="character"]').each(function(){
-                        //処理書く
-                        for(var i=0;i<game.mapUserIdList.length;i++){
-                            //if($.inArray(parseInt($(this).data("userid")), game.mapUserIdList[i]) >= 0)
-                            if(parseInt($(this).data("userid")) == game.mapUserIdList[i])
-                                break;
-                            else
-                                $(this).remove();
-                        }
-                    });*/
-                    
                     wait(function() {
                         return game.mapUserIdList.length > 0;
                     }, function() {
-                        $('[id^="character"]').each(function(){
-                            //繰り返す処理
-                            for(var i=0;i<game.mapUserIdList.length;i++){
-                                //if($.inArray(parseInt($(this).data("userid")), game.mapUserIdList[i]) >= 0)
-                                //もしmapUserListにuseridがあったら次のuseridに
-                                if(parseInt($(this).data("userid")) == game.mapUserIdList[i])
-                                    break;
-                                else
-                                    $(this).remove();
+                        $('[id^="character_"]').each(function(){
+                            if(game.mapUserIdList.indexOf(parseInt($(this).data("userid"))) < 0){
+                                $(this).remove();
                             }
                         });
-                        game.func.mapOtherCharacterView();
-                        $('[id^="character"]').each(function(){
-                            //移動した人を元いたマップから消す
-                            for(var i=0;i<game.mapUserIdList.length;i++){
-                                    if(parseInt($(this).data("userid")) == game.mapUserIdList[i]){
-                                            break;
-                                    }else{
-                                        if($.inArray(parseInt($(this).data("userid")), game.mapUserIdList) < 0){
-                                            $(this).remove();
-                                        }
-                                   }
-                            }
-                        });
+                         game.func.mapOtherCharacterView();
                     }, 50, thread[3]);
                 };
                 game.func.changeMap = function(mapid) {
@@ -423,7 +394,7 @@
                             game.func.mapListView();
                             break;
                         case "getuserinfo":
-                            if (!game.user.userid) {
+                            if (game.user.userid < 0) {
                                 $.extend(true, game.user, data);
                             } else if (game.user.userid === data.userid) {
                                 $.extend(true, game.user, data);
