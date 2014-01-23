@@ -5,9 +5,9 @@
         <title>OIC SNS - RT2</title>
         <%@include file="part/script.html" %>
         <script type="text/javascript"><!--
-            
+
             var Otani;
-            
+
             var thread = [];
             var game = {};
             game.func = {};
@@ -136,27 +136,31 @@
                 };
                 game.func.update = function() {
                     console.log("update");
-                    game.mapUserIdList = [];        //ユーザリスト初期化(マップ自体のリストしか初期化されない)
+                    if(game.changeMap){
+                        return;
+                    }
+                    game.mapUserIdList = [];
                     clearInterval(thread[3]);
-                    game.func.getMapUserList();     //ユーザリストを更新(マップ自体のリストしか初期化されない)
-                    
+                    game.func.getMapUserList();
+
                     wait(function() {
                         return game.mapUserIdList.length > 0;
                     }, function() {
-                        $('[id^="character_"]').each(function(){
-                            if(game.mapUserIdList.indexOf(parseInt($(this).data("userid"))) < 0){
+                        $('[id^="character_"]').each(function() {
+                            if (game.mapUserIdList.indexOf(parseInt($(this).data("userid"))) < 0) {
                                 $(this).remove();
                             }
                         });
-                         game.func.mapOtherCharacterView();
+                        game.func.mapOtherCharacterView();
                     }, 50, thread[3]);
                 };
                 game.func.changeMap = function(mapid) {
                     if (!game.changeMap) {
+                        game.changeMap = true;
                         $('#map').animate({opacity: 0}, 200);
                         $('#chatwindowGroup').animate({opacity: 0}, 200);
                         $('[id$="Menubar"]').animate({opacity: 0}, 200);
-                        $('[id^="character_"]').remove();
+                        $('[id^="character_"]').animate({opacity: 0}, 200);
                         game.func.transferMap(mapid);
                         wait(
                                 function() {
@@ -166,23 +170,20 @@
                                     $('#map').animate({opacity: 1}, 200);
                                     $('#chatwindowGroup').animate({opacity: 1}, 200);
                                     $('[id$="Menubar"]').animate({opacity: 1}, 200);
+                                    $('[id^="character_"]').animate({opacity: 1}, 200);
                                     game.mapUserIdList = [];
                                     game.userlist = {};
                                     game.func.getUserInfo();
-                                    wait(function(){
-                                        return game.user.mapid === game.nextmap;
-                                    },function(){
-                                        game.func.createCharacter(game.user);
-                                        game.func.getMapUserList();
-                                        game.nextmap = -1;
-                                    },50, thread[4]);
                                     wait(function() {
-                                        return game.mapUserIdList.length > 0;
+                                        return game.user.mapid === game.nextmap;
                                     }, function() {
-                                        game.func.mapOtherCharacterView();
-                                    }, 50, thread[6]);
-                                }, 500, thread[5]);
-                                
+                                        game.func.createCharacter(game.user);
+                                        game.nextmap = -1;
+                                        game.changeMap = false;
+                                        game.func.update();
+                                    }, 50, thread[4]);
+                                }, 500, thread[6]);
+
                     }
                 }
                 game.func.faildLogin = function() {
@@ -289,9 +290,9 @@
                             wait(function() {
                                 return typeof game.userlist[game.mapUserIdList[idx]] !== 'undefined';
                             },
-                            function() {
-                                game.func.createCharacter(game.userlist[game.mapUserIdList[idx]]);
-                            }, 50, thread[10 + idx]);
+                                    function() {
+                                        game.func.createCharacter(game.userlist[game.mapUserIdList[idx]]);
+                                    }, 50, thread[10 + idx]);
                         })();
                     }
 
@@ -486,7 +487,7 @@
             <div id="overlay" class="ui-widget-overlay"></div>
         </div>
         <div id="info">
-            
+
             <div id="progressbar">
                 <p>loading now...</p>
                 <progress></progress>
