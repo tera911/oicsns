@@ -12,6 +12,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import org.apache.http.Header;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
@@ -31,8 +32,8 @@ import org.apache.http.util.EntityUtils;
  */
 public class Callback extends HttpServlet {
 
-    private String client_id = "502764282977-5u1h9dfqnatk0o3qfebonsop8dip4af5.apps.googleusercontent.com";
-    private String client_secret = "PAN_fv5lj19UwyO9XU9nGP6j";
+    private String client_id = "502764282977-1nto9ad95ng83k9hiplnfn0nn731tkuc.apps.googleusercontent.com";
+    private String client_secret = "AIrHJ18P5wTiwG6w22tH1Aa3";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -47,8 +48,8 @@ public class Callback extends HttpServlet {
     }
 
     private void getToken(String code) throws Exception {
-        String uri = "https://accounts.google.com/o/oauth2/token?";
-        String callback = "http://sakura.st-sweet.com:8080";
+        String uri = "https://accounts.google.com/o/oauth2/token";
+        String callback = "http://sakura.st-sweet.com:8080/callback";
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(uri);
@@ -60,6 +61,11 @@ public class Callback extends HttpServlet {
         nvps.add(new BasicNameValuePair("grant_type", "authorization_code"));
         nvps.add(new BasicNameValuePair("code", code));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
+        
+        
+        for(Header header : httpPost.getAllHeaders()){
+            System.out.println(header.getName() + ":" + header.getValue());
+        }
         
         HttpResponse response = client.execute(httpPost);
         
