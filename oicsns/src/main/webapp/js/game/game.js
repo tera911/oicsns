@@ -43,12 +43,12 @@ $(function() {
     };
 
 
-    $("#content").click(function() {
-        $("#content").unbind();
-        $("#overlay").fadeIn();
-        $("#login").show();
-        $('#uid').focus();
-    });
+//    $("#content").click(function() {
+//        $("#content").unbind();
+//        $("#overlay").fadeIn();
+//        $("#login").show();
+//        $('#uid').focus();
+//    });
     $('#login input[name="login"]').bind('click submit', function() {
         var uid = $("#uid").val();
         var pw = $("#pw").val();

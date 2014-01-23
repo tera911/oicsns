@@ -28,9 +28,11 @@
             <% 
                 String number = (String)session.getAttribute("studentNumber"); 
                 String key = (String)session.getAttribute("key");
+                Boolean already = (Boolean)session.getAttribute("alreadyId");
                 if(number != null){
                     out.println(number);
                     out.println(key);
+                    out.println(already);
                 }
             %>
             <form id="login">

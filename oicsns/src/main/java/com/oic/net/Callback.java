@@ -67,10 +67,19 @@ public class Callback extends HttpServlet {
         Pattern pattern = Pattern.compile("@oic.jp$");
         Matcher matcher = pattern.matcher(email);
         if(matcher.find()){
+            Pattern numberPattern = Pattern.compile("^[a-zA-Z][0-9]{4}");
+            Matcher numberMatcher = numberPattern.matcher(email.toLowerCase());
+            if(!numberMatcher.find()){
+                response.getWriter().println("このアドレスは使用できません。");
+                session.invalidate();
+                return;
+            }
+            
+            String studentNumber = numberMatcher.group();
             String key = DigestUtils.md5Hex(String.valueOf(new Date().getTime()));
-            session.setAttribute("studentNumber", email);
+            session.setAttribute("studentNumber", studentNumber);
             session.setAttribute("key", key);  //タイムスタンプをmd5でハッシュ化
-            registerData(email, key);
+            registerData(studentNumber, key, session);
             response.sendRedirect("/");
         }else{
             response.getWriter().println("このアドレスは使用できません。");
@@ -119,13 +128,7 @@ public class Callback extends HttpServlet {
         return email;
     }
 
-    private void registerData(String email, String key) {
-        Pattern pattern = Pattern.compile("^[a-zA-Z][0-9]{4}");
-        Matcher matcher = pattern.matcher(email.toLowerCase());
-        if(!matcher.find()){
-            return;
-        }
-        String studentNumber = matcher.group();
+    private void registerData(String studentNumber, String key, HttpSession session) {
         Connection con = null;
         PreparedStatement ps = null;
         try{
@@ -138,6 +141,7 @@ public class Callback extends HttpServlet {
                 rs.close();
                 ps.close();
                 con.close();
+                session.setAttribute("alreadyId", false);
                 return;
             }
             rs.close();
@@ -148,7 +152,7 @@ public class Callback extends HttpServlet {
             ps.setString(2, studentNumber);
             ps.executeUpdate();
             ps.close();
-
+            session.setAttribute("alreadyId", true);
         }catch(SQLException e){
              try{    ps.close();    }catch(Exception e1){}
         }

@@ -15,12 +15,15 @@ $(function() {
                 showArrows: true,
                 arrowScrollOnHover: true
             });
-            $('#sendbutton').click(function() {
+            $('#sendbutton').click(function(e) {
+                e.preventDefault();
                 if ($('input[name="agree"]')[0].checked) {
                     $('#content').children().remove();
                     game.func.register();
-                } else {
+                }else if($('input[name="agree"]')[1].checked) {
                     location.href = "/";
+                }else{
+                    return false;
                 }
             });
         });

@@ -15,6 +15,7 @@ import com.oic.event.GetProfile;
 import com.oic.event.PosUpdate;
 import com.oic.event.RegisterProfile;
 import com.oic.event.SetProfile;
+import com.oic.login.LoginHandler;
 import com.oic.login.TestLoginHandler;
 import java.io.IOException;
 import java.util.logging.Level;
@@ -103,13 +104,13 @@ public class WebSocketListener {
             LOG.log(Level.WARNING, "Message Method is NULL : {0}", json.toString());
             return;
         }else if(method.equals("cmd")){
-            new CmdEvent().ActionEvent(json, webSocketListener);
+         //   new CmdEvent().ActionEvent(json, webSocketListener);
         }else if (login == LoginStatus.NOLOGIN && method.equals("duplication")) {
             /* 重複確認　通ったらStatusがREGISTERになる */
             new CheckDuplication().ActionEvent(json, webSocketListener);
         }else if (login == LoginStatus.NOLOGIN && method.equals("login")) {
             /* ログイン */
-            new TestLoginHandler().ActionEvent(json, webSocketListener);
+            new LoginHandler().ActionEvent(json, webSocketListener);
             //new LoginHandler().ActionEvent(json, this);//ログイン処理
         }else if (login == LoginStatus.REGISTER && method.equals("setprofile")) {
             /* 重複確認したら新規登録 */
