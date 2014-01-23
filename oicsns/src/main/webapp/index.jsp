@@ -9,6 +9,7 @@
         <script type="text/javascript" src="./js/game/MessageListener.js" />
         <script type="text/javascript" src="./js/game/ServerMessage.js" />
         <script type="text/javascript" src="./js/game/WebSocket.js" />
+        <script type="text/javascript" src="./js/game/Register.js" />
         
         <script type="text/javascript"><!--
 
