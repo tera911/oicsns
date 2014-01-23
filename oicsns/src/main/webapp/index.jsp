@@ -1,9 +1,15 @@
-Ôªø<!DOCTYPE html>
+<%@ page language="java" contentType="text/html; charset=windows-31j"
+         pageEncoding="windows-31j" session="true"%>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
         <title>OIC SNS - RT2</title>
         <%@include file="part/script.html" %>
+        <script type="text/javascript" src="./js/game/MessageListener.js" />
+        <script type="text/javascript" src="./js/game/ServerMessage.js" />
+        <script type="text/javascript" src="./js/game/WebSocket.js" />
+        
         <script type="text/javascript"><!--
 
             var Otani;
@@ -14,12 +20,12 @@
             game.maplist = {};
             game.mapinfo = {};
             /**
-             * „Éû„ÉÉ„ÉóÂ§âÊõ¥„ÅåË°å„Çè„Çå„Å¶„Çã„ÅãÔºü
+             * É}ÉbÉvïœçXÇ™çsÇÌÇÍÇƒÇÈÇ©ÅH
              * @type Boolean
              */
             game.changeMap = false;
             /**
-             * Ê¨°„Å´ÁßªÂãï„Åô„Çã„Éû„ÉÉ„ÉóID
+             * éüÇ…à⁄ìÆÇ∑ÇÈÉ}ÉbÉvID
              * @type int
              */
             game.nextmap = -1;
@@ -27,8 +33,8 @@
             game.mapUserIdList = {};
             game.user = {};
             /**
-             * „Éû„ÉÉ„Éó„Å´Â≠òÂú®„Åó„Å¶„ÅÑ„Çã„É¶„Éº„Ç∂„Çí‰øùÂ≠ò„Åô„Çã„Ç™„Éñ„Ç∏„Çß„ÇØ„Éà
-             * „Ç≠„Éº„ÅØuserid
+             * É}ÉbÉvÇ…ë∂ç›ÇµÇƒÇ¢ÇÈÉÜÅ[ÉUÇï€ë∂Ç∑ÇÈÉIÉuÉWÉFÉNÉg
+             * ÉLÅ[ÇÕuserid
              * @type type
              */
             game.userlist = {};
@@ -40,18 +46,12 @@
             $(function() {
                 game.ws = new WebSocket('ws://127.0.0.1/ws');
                 game.login = 0;
-                game.progressbar = $('#progressbar');
-                game.progress = $('#progressbar progress');
                 game.func.openEula = function() {
-                    game.func.showProgressbar()
                     $('#content').children().remove();
                     $("#content").unbind();
                     $("#overlay").fadeOut();
-                    game.func.setProgressbar(0.25);
                     $("#content").css("display", "block");
-                    game.func.setProgressbar(0.5);
                     $('#content').delay(1000).load("eula.htm", function() {
-                        game.func.setProgressbar(1);
                         $('.jscrollpane').jScrollPane({
                             showArrows: true,
                             arrowScrollOnHover: true
@@ -59,32 +59,16 @@
                         $('#sendbutton').click(function() {
                             if ($('input[name="agree"]')[0].checked) {
                                 $('#content').children().remove();
-                                game.func.showProgressbar();
                                 game.func.register();
                             } else {
                                 location.href = "/";
                             }
                         });
                     });
-                    game.func.hideProgressbar();
                 };
-                game.func.register = function() {
-                    $('#content').delay(1000).load("part/profile.html", function() {
-
-                        for (var i = 1; i < 47; i++) {
-                            var img = new Image();
-                            img.src = "/img/avatar/" + i.fillZero(5) + ".png";
-                            img.className = "avatar_pic";
-                            $('#avatar_window').append(img);
-                        }
-                        s = document.createElement('script');
-                        s.src = "/js/profile.js";
-                        $('head').append(s);
-
-                    });
-                };
+                
                 /**
-                 * „Ç≤„Éº„É†ÁîªÈù¢
+                 * ÉQÅ[ÉÄâÊñ 
                  * @returns {undefined}
                  */
                 game.func.game = function() {
@@ -187,18 +171,7 @@
                     }
                 }
                 game.func.faildLogin = function() {
-                    alert("ID„Å®„Éë„Çπ„ÉØ„Éº„Éâ„ÇíÁ¢∫Ë™ç„Åó„Å¶„Åè„Å†„Åï„ÅÑ„ÄÇ");
-                };
-                game.func.showProgressbar = function() {
-                    game.progress.val(0);
-                    game.progressbar.show();
-                };
-                game.func.setProgressbar = function(n) {
-                    game.progress.val(n);
-                };
-                game.func.hideProgressbar = function() {
-                    game.progress.val(0);
-                    game.progressbar.hide();
+                    alert("IDÇ∆ÉpÉXÉèÅ[ÉhÇämîFÇµÇƒÇ≠ÇæÇ≥Ç¢ÅB");
                 };
                 game.func.sendChat_all = function(text) {
                     if (text.length < 1) {
@@ -215,17 +188,17 @@
                     var username;
                     if (userid == game.user.userid) {
                         username = game.user.username;
-                        color = "green";    //Ëá™„Ç≠„É£„É©„ÅÆÂ†¥Âêà„ÅØÊñáÂ≠ó„Çígreen„Å´
+                        color = "green";    //é©ÉLÉÉÉâÇÃèÍçáÇÕï∂éöÇgreenÇ…
                     } else {
                         username = game.userlist[userid].username;
-                        color = "";         //‰ªñ„Ç≠„É£„É©„ÅÆÂ†¥Âêà„ÅØÊñáÂ≠óËâ≤Â§âÊõ¥„Å™„Åó
+                        color = "";         //ëºÉLÉÉÉâÇÃèÍçáÇÕï∂éöêFïœçXÇ»Çµ
                     }
-                    $('<p>[ÂÖ®‰Ωì]<b>[' + username + "]</b> " + text + '</p>').appendTo('#fw_all .jspPane').addClass(color);
+                    $('<p>[ëSëÃ]<b>[' + username + "]</b> " + text + '</p>').appendTo('#fw_all .jspPane').addClass(color);
                     $('#character_' + userid.fillZero(5) + ' .chat').text(text).fadeIn(150, function() {
                         $(this).delay(3000).fadeOut(150);
                     });
 
-                    /* ÂÖêÁ´•„Çπ„ÇØ„É≠„Éº„É´ */
+                    /* éôì∂ÉXÉNÉçÅ[Éã */
                     var jsp = $('#fw_all').data('jsp');
                     jsp.reinitialise();
                     jsp.scrollToBottom();
@@ -333,105 +306,7 @@
                 game.func.removeCharacter = function(userid) {
                     $('#character_' + userid).hide(100).remove();
                 }
-
-                game.func.getMapList = function() {
-                    obj = {};
-                    obj.method = "getmaplist";
-                    game.ws.sendJSON(obj);
-                };
-                game.func.getMapUserList = function() {
-                    obj = {};
-                    obj.method = "getmapuserlist";
-                    obj.mapid = game.user.mapid;
-                    game.ws.sendJSON(obj);
-                };
-                game.func.getUserInfo = function(userid) {
-                    if (typeof userid === "undefined") {
-                        obj = {};
-                        obj.method = "getuserinfo";
-                        game.ws.sendJSON(obj);
-                    } else {
-                        obj = {};
-                        obj.method = "getuserinfo";
-                        obj.userid = userid;
-                        obj.mapid = game.user.mapid;
-                        game.ws.sendJSON(obj);
-                    }
-                    console.log(obj);
-
-                }
-                game.func.transferMap = function(mapid) {
-                    obj = {};
-                    obj.method = "transfermap";
-                    obj.mapid = mapid;
-                    game.ws.sendJSON(obj);
-                };
-                game.func.userLogout = function() {
-                    obj = {};
-                    obj.method = "logout";
-                    game.ws.sendJSON(obj);
-                };
-                game.ws.onmessage = function(e) {
-                    var data = JSON.parse(e.data);
-                    Otani = data;
-                    console.log(data);
-                    if (typeof data.method === "undefined") {
-                        return;
-                    }
-                    switch (data.method) {
-                        case "login":
-                            if (data.status == 0) {
-                                game.login = 1;
-                                game.func.game();
-                            } else {
-                                game.func.faildLogin();
-                            }
-                            break;
-                        case "allchat":
-                            game.func.recieveChat_all(data.userid, data.text);
-                            break;
-                        case "getmaplist":
-                            $.extend(true, game.maplist, data.maplist);
-                            game.func.mapListView();
-                            break;
-                        case "getuserinfo":
-                            if (game.user.userid < 0) {
-                                $.extend(true, game.user, data);
-                            } else if (game.user.userid === data.userid) {
-                                $.extend(true, game.user, data);
-                            } else {
-                                //game.userlist[data.userid] = data;
-                                //$.extend(true, game.userlist[data.userid], data);
-                                if (data.userid === game.user.userid) {
-                                    return;
-                                }
-                                game.userlist[data.userid] = data;
-                            }
-                            break;
-                        case "getmapuserlist":
-                            var userlist = data.userlist.filter(function(x, i, self) {
-                                return self.indexOf(x) === i
-                            });
-                            $.extend(true, game.mapUserIdList, userlist);
-                            break;
-                        case "posupdate":
-                            game.func.update();
-                            break;
-                        case "transfermap":
-                            game.nextmap = data.mapid;
-                            break;
-                        case "logout":
-                            if (data.status === 0) {
-                                location.href = "/";
-                            }
-                            break;
-                    }
-                };
-                game.ws.sendJSON = function(obj) {
-                    var json = JSON.stringify(obj);
-                    this.send(json);
-                };
-
+                
                 $("#content").click(function() {
                     $("#content").unbind();
                     $("#overlay").fadeIn();
@@ -463,25 +338,32 @@
     <body>
         <div id="header">
             <ul>
-                <li class="about"><a href="about.htm">ÂΩì„Çµ„Ç§„Éà„Å´„Å§„ÅÑ„Å¶</a>
-                <li class="contact"><a href="contact.htm">ÈÄöÂ†±&Âïè„ÅÑÂêà„Çè„Åõ</a>
-                <li id="logout">„É≠„Ç∞„Ç¢„Ç¶„Éà
+                <li class="about"><a href="about.htm">ìñÉTÉCÉgÇ…Ç¬Ç¢Çƒ</a>
+                <li class="contact"><a href="contact.htm">í ïÒ&ñ‚Ç¢çáÇÌÇπ</a>
+                <li id="logout">ÉçÉOÉAÉEÉg
             </ul>
         </div>
         <div id="content">
-
+            <% 
+                String number = (String)session.getAttribute("studentNumber"); 
+                String key = (String)session.getAttribute("key");
+                if(number != null){
+                    out.println(number);
+                    out.println(key);
+                }
+            %>
             <form id="login">
                 <p>
                     <label for="uid">ID:</label>
                     <input type="text" class="txt" id="uid">
                 </p>
                 <p>
-                    <label for="pw">„Éë„Çπ„ÉØ„Éº„Éâ:</label>
+                    <label for="pw">ÉpÉXÉèÅ[Éh:</label>
                     <input type="password" class="txt" id="pw">
                 </p>
                 <p align=right>
-                    <input type="submit" name="login" value="„É≠„Ç∞„Ç§„É≥">
-                    <input type="button" name="register" value="ÁôªÈå≤">
+                    <input type="submit" name="login" value="ÉçÉOÉCÉì">
+                    <input type="button" name="register" value="ìoò^">
                 </p>
             </form>
             <div id="overlay" class="ui-widget-overlay"></div>

@@ -64,7 +64,7 @@ public class WebSocketListener {
         login = LoginStatus.NOLOGIN;
         this.session = session;
         Connections.addConnection(this);//コネクションリストに追加
-
+        
         LOG.log(Level.INFO, "connection :{0}", session.getRemoteAddress());//Logging 
     }
 
