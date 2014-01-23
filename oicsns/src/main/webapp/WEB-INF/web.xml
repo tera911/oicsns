@@ -24,6 +24,15 @@
         <url-pattern>/ws</url-pattern>
     </servlet-mapping>
     <servlet>
+        <display-name>callback</display-name>
+        <servlet-name>callback</servlet-name>
+        <servlet-class>com.oic.net.Callback</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>callback</servlet-name>
+        <url-pattern>/callback</url-pattern>
+    </servlet-mapping>
+    <servlet>
         <display-name>wqr</display-name>
         <servlet-name>wqr</servlet-name>
         <servlet-class>com.oic.net.WebQueryResult</servlet-class>
