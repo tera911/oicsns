@@ -42,7 +42,7 @@ public class Callback extends HttpServlet{
             response.setStatus(HttpServletResponse.SC_OK);
             response.getWriter().println(request.getParameter("code"));
             try{
-                getToken("4/eyThrSDhQtVmn5vyNwRG3DeHRrmm.4tNeCSftsVMcgrKXntQAax2Iz6B8hwI");
+                getToken(request.getParameter("code"));
             }catch(Exception e){e.printStackTrace();}
         }
         
