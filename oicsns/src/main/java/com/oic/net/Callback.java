@@ -5,22 +5,34 @@
  */
 package com.oic.net;
 
+import com.oic.utils.DatabaseConnection;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import org.apache.http.Header;
+import javax.servlet.http.HttpSession;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
+import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 
 /**
  *
@@ -34,17 +46,37 @@ public class Callback extends HttpServlet {
 
     private String client_id = "502764282977-1nto9ad95ng83k9hiplnfn0nn731tkuc.apps.googleusercontent.com";
     private String client_secret = "AIrHJ18P5wTiwG6w22tH1Aa3";
+    private String access_token;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        response.setContentType("text/html");
-        response.setStatus(HttpServletResponse.SC_OK);
-        response.getWriter().println(request.getParameter("code"));
+        HttpSession session = request.getSession();
+        if(request.getParameter("code") == null){
+            response.sendRedirect("/");
+        }
+        if(session.isNew()){
+            session.setMaxInactiveInterval(300);
+        }
+        String email = "";
         try {
             getToken(request.getParameter("code"));
+            email = getEmailAddress();
         } catch (Exception e) {
             e.printStackTrace();
         }
+        Pattern pattern = Pattern.compile("@oic.jp$");
+        Matcher matcher = pattern.matcher(email);
+        if(matcher.find()){
+            String key = DigestUtils.md5Hex(String.valueOf(new Date().getTime()));
+            session.setAttribute("studentNumber", email);
+            session.setAttribute("key", key);  //タイムスタンプをmd5でハッシュ化
+            registerData(email, key);
+            response.sendRedirect("/");
+        }else{
+            response.getWriter().println("このアドレスは使用できません。");
+            session.invalidate();
+        }
+        
     }
 
     private void getToken(String code) throws Exception {
@@ -52,8 +84,8 @@ public class Callback extends HttpServlet {
         String callback = "http://sakura.st-sweet.com:8080/callback";
 
         HttpClient client = HttpClientBuilder.create().build();
-        HttpPost httpPost = new HttpPost(uri);
-        httpPost.setHeader("Content-type", "application/x-www-form-urlencoded");
+        HttpPost httpPost = new HttpPost(uri);          //POST用
+        httpPost.setHeader("Content-type", "application/x-www-form-urlencoded");    //Header指定
         List<NameValuePair> nvps = new ArrayList<>();
         nvps.add(new BasicNameValuePair("client_id", client_id));
         nvps.add(new BasicNameValuePair("client_secret", client_secret));
@@ -62,13 +94,63 @@ public class Callback extends HttpServlet {
         nvps.add(new BasicNameValuePair("code", code));
         httpPost.setEntity(new UrlEncodedFormEntity(nvps));
         
-        
-        for(Header header : httpPost.getAllHeaders()){
-            System.out.println(header.getName() + ":" + header.getValue());
-        }
-        
         HttpResponse response = client.execute(httpPost);
+        int statusCode = response.getStatusLine().getStatusCode();
+        if(statusCode != 200){
+            return;
+        }
+        String jsonText = EntityUtils.toString(response.getEntity());
+        System.out.println(jsonText);
+        JSONObject json = (JSONObject)new JSONParser().parse(jsonText);
+        access_token = json.get("access_token").toString();
         
-        System.out.println(EntityUtils.toString(response.getEntity()));
+    }
+    
+    private String getEmailAddress() throws Exception{
+        String requestURI = "https://www.googleapis.com/oauth2/v2/userinfo";
+        HttpClient client = HttpClientBuilder.create().build();
+        HttpGet httpGet = new HttpGet(requestURI);
+        httpGet.setHeader("Authorization","OAuth " + access_token);
+        HttpResponse response = client.execute(httpGet);
+        
+        JSONObject json = (JSONObject)new JSONParser().parse(EntityUtils.toString(response.getEntity()));
+        
+        String email = json.get("email").toString();
+        return email;
+    }
+
+    private void registerData(String email, String key) {
+        Pattern pattern = Pattern.compile("^[a-zA-Z][0-9]{4}");
+        Matcher matcher = pattern.matcher(email.toLowerCase());
+        if(!matcher.find()){
+            return;
+        }
+        String studentNumber = matcher.group();
+        Connection con = null;
+        PreparedStatement ps = null;
+        try{
+            String sql = "SELECT * FROM user WHERE studentnumber = ?";
+            con = DatabaseConnection.getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, studentNumber);
+            ResultSet rs = ps.executeQuery();
+            if(!rs.next()){
+                rs.close();
+                ps.close();
+                con.close();
+                return;
+            }
+            rs.close();
+            ps.close();
+            sql = "UPDATE user SET secretkey = ? WHERE studentnumber = ? ";
+            ps = con.prepareStatement(sql);
+            ps.setString(1, key);
+            ps.setString(2, studentNumber);
+            ps.executeUpdate();
+            ps.close();
+
+        }catch(SQLException e){
+             try{    ps.close();    }catch(Exception e1){}
+        }
     }
 }
