@@ -31,8 +31,8 @@ import org.apache.http.util.EntityUtils;
  */
 public class Callback extends HttpServlet {
 
-    private String client_id = "502764282977-p30gid0pcl8b928ehqr5uno428prbuic.apps.googleusercontent.com";
-    private String client_secret = "_iQ1zpHD_deeA1aRs95yydyc";
+    private String client_id = "502764282977-5u1h9dfqnatk0o3qfebonsop8dip4af5.apps.googleusercontent.com";
+    private String client_secret = "PAN_fv5lj19UwyO9XU9nGP6j";
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
