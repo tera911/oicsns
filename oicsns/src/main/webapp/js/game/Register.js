@@ -17,7 +17,9 @@ $(function() {
             s = document.createElement('script');
             s.src = "/js/profile.js";
             $('head').append(s);
-
+            $('#confirm').click(function() {
+                game.func.checkDuplication($('#username').val());
+            });
         });
     };
 });

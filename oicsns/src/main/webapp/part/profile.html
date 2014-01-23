@@ -1,50 +1,3 @@
-<script type="text/javascript">
-<!--
-    $(function(){
-        //学籍番号の正規表現チェック
-        jQuery.validator.addMethod(
-        "stunumMatch",
-         function(value, element) {
-           reg = new RegExp("^[a-zA-Z]{1}[0-9]{4}");
-           return this.optional(element) || reg.test(value);
-         },
-         "学籍番号を正しく入力してください"
-        );
-
-        $("#userdata").validate({
-            rules:{
-                  student_id:{
-                      required: true,
-                      stunumMatch: true
-                   },
-                  username:{
-                      required: true,
-                      maxlength: 12
-                   },
-                   comment:{
-                      maxlength: 150
-                   }
-            },
-            messages:{
-                   student_id:{
-                      required: "学籍番号を入力してください"
-                   },
-                   username:{
-                      required: "ハンドルネームを入力してください",
-                      maxlength:"ハンドルネームは最大12文字です"
-                   },
-                   comment:{
-                      maxlength: "コメントは最大150文字です"
-                   }
-            },
-            //エラーメッセージを任意の位置に表示
-            errorPlacement: function(error,element){
-              error.appendTo($(".left_form .message"));
-            }
-        });
-    });
-//-->
-</script>
 <div id="profile">
     <form id="userdata">
         <div class="left_form"><!-- プロフィール入力欄 -->
@@ -56,8 +9,8 @@
                 <input type="button" id="confirm" value="重複確認" tabindex="3"></div>
 
             <div id="hogehoge1"><label for="grade">学年</label>
-                <select tabindex="4" id="grade">
-                    <option value="0" selected>--</option>
+                <select tabindex="4" id="grade" name="grade">
+                    <option value="" selected>--</option>
                     <option value="1">1年</option>
                     <option value="2">2年</option>
                     <option value="3">3年</option>
@@ -70,7 +23,7 @@
                 <label>性別</label>
                 <div id="radiolist">
                     <label class="radiolabel">
-                        <input type="radio" name="sex" value="1" tabindex="5" checked>男</label>
+                        <input type="radio" name="sex" value="1" tabindex="5">男</label>
                     <label class="radiolabel">
                         <input type="radio" name="sex" value="2">女</label><br>
                     <label class="radiolabel">
@@ -83,8 +36,8 @@
             </div>
             <div id="hogehoge1">
                 <label for="year">生年月日</label>
-                <select id="birthday_year" tabindex="6">
-                    <option value="0000" selected>----年</option>
+                <select id="birthday_year" name="birthday_year" tabindex="6">
+                    <option value="" selected>----</option>
                     <option value="1930">1930年</option>
                     <option value="1931">1931年</option>
                     <option value="1932">1932年</option>
@@ -170,8 +123,8 @@
                     <option value="2012">2012年</option>
                     <option value="2013">2013年</option>
                 </select>
-                <select id="birthday_month" tabindex="7">
-                    <option value="00" selected>--</option>
+                <select id="birthday_month" name="birthday_month" tabindex="7">
+                    <option value="" selected>--</option>
                     <option value="01">1月</option>
                     <option value="02">2月</option>
                     <option value="03">3月</option>
@@ -185,8 +138,8 @@
                     <option value="11">11月</option>
                     <option value="12">12月</option>
                 </select>
-                <select id="birthday_day" tabindex="8">
-                    <option value="00">--</option>
+                <select id="birthday_day" name="birthday_day" tabindex="8">
+                    <option value="" selected>--</option>
                     <option value="01">1日</option>
                     <option value="02">2日</option>
                     <option value="03">3日</option>
@@ -232,12 +185,12 @@
         </div>
         <div class="right_form"> <!-- アバター選択・送信 -->
             <div id="avatar_window" class="jscrollpane">	<!-- 仮画像 -->
-
+                
             </div>
             <div id="avatar_bg">
-                <img id="full_avatar" alt="1" src="img/avatar/00001.png">
+                <img id="full_avatar" alt="拡大アバター" src="img/avatar/sample3.png">
             </div>
-            <button id="sendbutton" name="hoge" type="submit">登録</button>	
+            <button id="sendbutton" name="register" type="submit">登録</button>	
         </div>	
     </form>
 </div>

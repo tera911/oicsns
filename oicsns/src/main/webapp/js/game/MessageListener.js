@@ -18,6 +18,9 @@ $(function() {
             case "allchat":
                 game.func.recieveChat_all(data.userid, data.text);
                 break;
+            case "duplication":
+                game.checkduplication = data.result;
+                break;
             case "getmaplist":
                 $.extend(true, game.maplist, data.maplist);
                 game.func.mapListView();

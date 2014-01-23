@@ -31,6 +31,12 @@ $(function() {
         console.log(obj);
 
     }
+    game.func.duplication = function(username) {
+        obj = {};
+        obj.method = "duplication";
+        obj.username = username;
+        game.ws.sendJSON(obj);
+    };
     game.func.transferMap = function(mapid) {
         obj = {};
         obj.method = "transfermap";
@@ -42,13 +48,13 @@ $(function() {
         obj.method = "logout";
         game.ws.sendJSON(obj);
     };
-    game.func.userLogin = function(uid, pw){
-         obj = {};
+    game.func.userLogin = function(uid, pw) {
+        obj = {};
         obj.method = "login";
         obj.userid = uid;
         obj.password = pw;
         //console.log(JSON.stringify(obj));
         game.ws.send(JSON.stringify(obj));
-    
+
     }
 });
