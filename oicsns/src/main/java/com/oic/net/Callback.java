@@ -48,7 +48,7 @@ public class Callback extends HttpServlet {
 
     private void getToken(String code) throws Exception {
         String uri = "https://accounts.google.com/o/oauth2/token?";
-        String callback = "http://sakura.st-sweet.com:8080/";
+        String callback = "http://sakura.st-sweet.com:8080";
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(uri);
