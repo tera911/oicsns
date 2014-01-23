@@ -42,4 +42,13 @@ $(function() {
         obj.method = "logout";
         game.ws.sendJSON(obj);
     };
+    game.func.userLogin = function(uid, pw){
+         obj = {};
+        obj.method = "login";
+        obj.userid = uid;
+        obj.password = pw;
+        //console.log(JSON.stringify(obj));
+        game.ws.send(JSON.stringify(obj));
+    
+    }
 });
