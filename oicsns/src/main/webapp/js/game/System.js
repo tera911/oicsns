@@ -32,6 +32,17 @@ $(function() {
                             game.nextmap = -1;
                             game.changeMap = false;
                             game.func.update();
+                            //マップ画像更新
+                            game.func.getMapInfo(game.user.mapid);
+                            wait(function(){
+                                return game.mapinfo.mapid > 0;
+                            },
+                            function(){
+                                //マップの画像変える
+                                $('#content').css('background-image','url('+ game.mapinfo.imgpath +')')
+                                .css('background-repeat','no-repeat')
+                                .css('background-size','180%');
+                            },50, thread[7]);
                         }, 50, thread[4]);
                     }, 500, thread[6]);
 

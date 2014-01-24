@@ -11,6 +11,7 @@ $(function() {
     game.func = {};
     game.maplist = {};
     game.mapinfo = {};
+    game.mapinfo.mapid = -1;
     /**
      * マップ変更が行われてるか？
      * @type Boolean

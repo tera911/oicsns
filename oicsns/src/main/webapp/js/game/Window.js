@@ -20,9 +20,9 @@ $(function() {
                 if ($('input[name="agree"]')[0].checked) {
                     $('#content').children().remove();
                     game.func.register();
-                }else if($('input[name="agree"]')[1].checked) {
+                } else if ($('input[name="agree"]')[1].checked) {
                     location.href = "/";
-                }else{
+                } else {
                     return false;
                 }
             });
@@ -71,6 +71,16 @@ $(function() {
         }, function() {
             game.func.createCharacter(game.user);
             game.func.getMapUserList();
+            game.func.getMapInfo(game.user.mapid);
+            wait(function() {
+                return game.mapinfo.mapid > 0;
+            },
+                    function() {
+                        //マップの画像変える
+                        $('#content').css('background-image', 'url(' + game.mapinfo.imgpath + ')')
+                                .css('background-repeat', 'no-repeat')
+                                .css('background-size', '180%');
+                    }, 50, thread[7]);
         }, 50, thread[0]);
 
         wait(function() {

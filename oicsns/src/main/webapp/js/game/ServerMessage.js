@@ -47,6 +47,7 @@ $(function() {
         obj = {};
         obj.method = "getmapinfo";
         obj.mapid = mapid;
+        game.mapinfo.mapid = -1;
         game.ws.sendJSON(obj);
     };
     game.func.userLogout = function() {

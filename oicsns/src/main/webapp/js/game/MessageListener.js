@@ -57,8 +57,13 @@ $(function() {
                 }
                 break;
             case "setprofile":
-                if(data.status === 0){
+                if (data.status === 0) {
                     game.func.refresh();
+                }
+                break;
+            case "getmapinfo":
+                if (game.user.mapid === data.mapid) {
+                    $.extend(true, game.mapinfo, data);
                 }
                 break;
         }
