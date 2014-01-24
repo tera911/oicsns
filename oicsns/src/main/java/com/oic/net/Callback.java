@@ -46,13 +46,14 @@ import org.json.simple.parser.JSONParser;
  */
 public class Callback extends HttpServlet {
 
-    private String client_id = "502764282977-1nto9ad95ng83k9hiplnfn0nn731tkuc.apps.googleusercontent.com";
-    private String client_secret = "AIrHJ18P5wTiwG6w22tH1Aa3";
+    private String client_id = "1033974121566-g6abtigoinr1m6mlppe3fmog4fuvil5h.apps.googleusercontent.com";
+    private String client_secret = "GDgW7-lTNAVbvop4GhG-Hrss";
     private String access_token;
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
+        String code = request.getParameter("code");
         if(request.getParameter("code") == null){           //OAuthでのcodeがない場合
             response.sendRedirect("/");
         }else if(request.getParameter("register") != null){ //ID登録後のリフレッシュ作業
@@ -64,7 +65,7 @@ public class Callback extends HttpServlet {
         }
         String email = "";
         try {
-            getToken(request.getParameter("code"));
+            getToken(code); System.out.println(code);
             email = getEmailAddress();
         } catch (Exception e) {
             e.printStackTrace();
