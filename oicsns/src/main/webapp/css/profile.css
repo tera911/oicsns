@@ -96,6 +96,7 @@
 	width:130px;
 	height:205px;
 	margin-left:80px;
+        position:absolute;
 }	
 #profile #sendbutton {
 	width: 150px;
@@ -139,4 +140,8 @@
 #profile label.error{
     width:300px;
     color:#F00;
+}
+
+#profile label.success{
+    width:300px;
 }

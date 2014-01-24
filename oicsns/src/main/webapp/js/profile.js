@@ -12,28 +12,28 @@ $(function() {
     $('#hidegrade').click(function() {		/*学年ON/OFF*/
         if (this.checked) {
             $('#hidegradelabel').text("表示");
-            $('#hidegrade').val(1);
+            $('#hidegrade').val(0);
         } else {
             $('#hidegradelabel').text("非表示");
-            $('#hidegrade').val(0);
+            $('#hidegrade').val(1);
         }
     });
     $('#hidegender').click(function() {		/*性別ON/OFF*/
         if (this.checked) {
             $('#hidegenderlabel').text("表示");
-            $('#hidegender').val(1);
+            $('#hidegender').val(0);
         }else {
             $('#hidegenderlabel').text("非表示");
-            $('#hidegender').val(0);
+            $('#hidegender').val(1);
         }
     });
     $('#hidebirthday').click(function() {	/*生年月日ON/OFF*/
         if (this.checked) {
             $('#hidebirthdaylabel').text("表示");
-            $('#hidebirthday').val(1);
+            $('#hidebirthday').val(0);
         }else {
             $('#hidebirthdaylabel').text("非表示");
-            $('#hidebirthday').val(0);
+            $('#hidebirthday').val(1);
         }
     });
     var avatarid = (Math.floor(Math.random() * 20)+1).fillZero(5);
