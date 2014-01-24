@@ -1,5 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=windows-31j"
-         pageEncoding="windows-31j" session="true"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+         pageEncoding="UTF-8" session="true"%>
 <!DOCTYPE html>
 <html>
     <head>
@@ -19,9 +19,9 @@
     <body>
         <div id="header">
             <ul>
-                <li class="about"><a href="about.htm">���T�C�g�ɂ���</a>
-                <li class="contact"><a href="contact.htm">�ʕ�&�₢���킹</a>
-                <li id="logout">���O�A�E�g
+                <li class="about"><a href="about.htm">当サイトについて</a>
+                <li class="contact"><a href="contact.htm">通報&問い合わせ</a>
+                <li id="logout">ログアウト
             </ul>
         </div>
         <div id="content">
@@ -41,12 +41,12 @@
                     <input type="text" class="txt" id="uid">
                 </p>
                 <p>
-                    <label for="pw">�p�X���[�h:</label>
+                    <label for="pw">パスワード:</label>
                     <input type="password" class="txt" id="pw">
                 </p>
                 <p align=right>
-                    <input type="submit" name="login" value="���O�C��">
-                    <input type="button" name="register" value="�o�^">
+                    <input type="submit" name="login" value="ログイン">
+                    <input type="button" name="register" value="登録">
                 </p>
             </form>
             <div id="overlay" class="ui-widget-overlay"></div>
