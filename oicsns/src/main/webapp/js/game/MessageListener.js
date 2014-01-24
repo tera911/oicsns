@@ -56,6 +56,11 @@ $(function() {
                     location.href = "/";
                 }
                 break;
+            case "setprofile":
+                if(data.status === 0){
+                    game.func.refresh();
+                }
+                break;
         }
     };
 });

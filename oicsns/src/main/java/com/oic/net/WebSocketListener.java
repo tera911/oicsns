@@ -151,6 +151,12 @@ public class WebSocketListener {
     }
 
     /**
+     * ユーザの状態をログインしてない状態にする
+     */
+    public void userNoLogin(){
+        login = LoginStatus.NOLOGIN;
+    }
+    /**
      * ユーザをログアウトする
      */
     public void userLogout() {

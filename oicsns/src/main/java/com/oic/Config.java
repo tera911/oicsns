@@ -11,7 +11,7 @@ package com.oic;
  * @author b2020
  */
 public class Config {
-    public static final String DB_HOST = "jdbc:mysql://127.0.0.1:3307/oicsns";
+    public static final String DB_HOST = "jdbc:mysql://127.0.0.1:3307/oicsns?autoReconnect=true";
     public static final String DB_USER = "morimoto";
     public static final String DB_PASSWORD = "sqluser";
     

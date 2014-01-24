@@ -63,7 +63,7 @@ public class RegisterProfile implements ActionEventImpl{
             rs.close();
             ps.close();
             
-            sql = "INSERT INTO setting SET userid = ?, privategrade = ?, privatesex = ?, privatebirth =?";
+            sql = "INSERT INTO setting SET userid = ?, privategrade = ?, privatesex = ?, privatebirth = ?";
             ps = con.prepareStatement(sql);
             ps.setLong(1, userid);
             ps.setInt(2, Integer.parseInt(json.get("vgrade").toString()));
@@ -74,6 +74,7 @@ public class RegisterProfile implements ActionEventImpl{
             con.commit();
             
             responseJSON.put("status",0);
+            webSocket.userNoLogin();
         }catch(Exception e){
             try{
                 con.rollback();
@@ -89,7 +90,6 @@ public class RegisterProfile implements ActionEventImpl{
                 Logger.getLogger(SetProfile.class.getName()).log(Level.WARNING,"Error going back to AutoCommit mode", ex);
             }
         }
-        
         webSocket.sendJson(responseJSON);
     }
     

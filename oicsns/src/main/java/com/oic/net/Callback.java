@@ -30,7 +30,6 @@ import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
-import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -39,11 +38,11 @@ import org.json.simple.parser.JSONParser;
 
 /**
  *
- * @author kxhtj529
+ * @author Morimoto
  */
 /**
  *
- * @author kxhtj529
+ * @author Morimoto
  */
 public class Callback extends HttpServlet {
 
@@ -54,8 +53,11 @@ public class Callback extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         HttpSession session = request.getSession();
-        if(request.getParameter("code") == null){
+        if(request.getParameter("code") == null){           //OAuthでのcodeがない場合
             response.sendRedirect("/");
+        }else if(request.getParameter("register") != null){ //ID登録後のリフレッシュ作業
+            session.setAttribute("alreadyId", true);
+            return;
         }
         if(session.isNew()){
             session.setMaxInactiveInterval(300);

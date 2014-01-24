@@ -12,9 +12,9 @@ $(function(){
     String studentNumber    =   (String) session.getAttribute("studentNumber");
     String key              =   (String) session.getAttribute("key");
     Boolean alreadyId       =   (Boolean)session.getAttribute("alreadyId");
-    studentNumber = "b2020";
+    /*studentNumber = "b2020";
     key = "db7298a149d51e3c528a31a4bfa145e9";
-    alreadyId = false;
+    alreadyId = false;*/
     if (studentNumber != null && key != null && alreadyId != null) {
         //IDとkeyが取得できている
         
@@ -70,4 +70,9 @@ game.func.setProfile = function() {
             game.regist = -1;
         },50, thread[5]);
     };
+    game.func.refresh = function(){
+        $.get("/callback?code=1&register=1",function(){
+        game.func.userLogin("<%= studentNumber%>","<%= key%>");
+        });
+    }
 });

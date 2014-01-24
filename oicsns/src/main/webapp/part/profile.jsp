@@ -5,7 +5,7 @@
         <div class="left_form"><!-- プロフィール入力欄 -->
 
             <div id="hogehoge1"><label for="student_id">学籍番号</label>
-                <input type="text" id="student_id" name="student_id" value="Z9999" disabled="disabled" tabindex="1"></div>
+                <input type="text" id="student_id" name="student_id" value="<%= session.getAttribute("studentNumber") %>" disabled="disabled" tabindex="1"></div>
             <div id="hogehoge1"><label for="screenname">ハンドルネーム</label>
                 <input type="text" id="username" name="username" value="" tabindex="2">
                 <input type="button" id="confirm" value="重複確認" tabindex="3"></div>
