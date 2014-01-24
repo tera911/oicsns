@@ -43,6 +43,12 @@ $(function() {
         obj.mapid = mapid;
         game.ws.sendJSON(obj);
     };
+    game.func.getMapInfo = function(mapid) {
+        obj = {};
+        obj.method = "getmapinfo";
+        obj.mapid = mapid;
+        game.ws.sendJSON(obj);
+    };
     game.func.userLogout = function() {
         obj = {};
         obj.method = "logout";
