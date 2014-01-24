@@ -113,7 +113,7 @@ $(function() {
             $('#map .close').click(function() {
                 $('#map').fadeOut();
             });
-        }, 100);
+        }, 100,thread[5]);
     };
     game.func.mapOtherCharacterView = function() {
         for (var i in game.mapUserIdList) {
@@ -191,34 +191,5 @@ $(function() {
             }
         },50, thread[9]);
     };
-    game.func.setProfile = function() {
-        obj = {};
-        obj.method = "setprofile";
-        obj.accesstoken = "tera090";
-        obj.accesstokensecret = "tera090";
-        obj.studentid = $('#student_id').val();
-        obj.username = $('#username').val();
-        obj.avatarid = parseInt($('#full_avatar').data('avatarid'));
-        obj.grade = $('#grade').val();
-        obj.gender = $('[name="sex"]').val();
-        obj.birthday = $('#birthday_year').val() + "-" + $('#birthday_month').val() + "-" + $('#birthday_day').val();
-        obj.comment = $('#comment').val();
-        obj.vgrade = $('#hidegrade').val();
-        ;
-        obj.vgender = $('#hidegender').val();
-        ;
-        obj.vbirthday = $('#hidebirthday').val();
-
-        game.ws.sendJSON(obj);
-        wait(function() {
-            return game.regist > -1;
-        }, function() {
-            if (game.regist == 0) {
-                game.func.game();
-            } else {
-                alert("何かがおかしいようです。もう一度登録してください。");
-            }
-            game.regist = -1;
-        },50, thread[5]);
-    };
+    // game.func.setProfile; login.jspに
 });
