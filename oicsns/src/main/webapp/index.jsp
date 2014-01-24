@@ -1,4 +1,6 @@
-﻿<!DOCTYPE html>
+<%@page contentType="text/html; charset=UTF-8"%>
+<%@include file="oauth2callback/config.jsp"%>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="UTF-8">
@@ -35,7 +37,7 @@
             game.user.mapid;
 
             $(function() {
-                game.ws = new WebSocket('ws://127.0.0.1:8080/ws');
+                game.ws = new WebSocket('ws://127.0.0.1/ws');
                 game.login = 0;
                 game.progressbar = $('#progressbar');
                 game.progress = $('#progressbar progress');
@@ -430,7 +432,7 @@
                     $("#login").show();
                     $('#uid').focus();
                 });
-                $('#login input[name="login"]').bind('click submit', function() {
+				$('#login input[name="login"]').click(function(){
                     var uid = $("#uid").val();
                     var pw = $("#pw").val();
                     obj = {};
@@ -439,8 +441,7 @@
                     obj.password = pw;
                     console.log(JSON.stringify(obj));
                     game.ws.send(JSON.stringify(obj));
-                    return false;
-                });
+				});
                 $('#login input[name="register"]').click(function() {
                     game.func.openEula();
                     return false;
@@ -451,42 +452,45 @@
 
             });
 //--></script>
-    </head>
-    <body>
-        <div id="header">
-            <ul>
-                <li class="about"><a href="about.htm">当サイトについて</a>
-                <li class="contact"><a href="contact.htm">通報&問い合わせ</a>
-                <li id="logout">ログアウト
-            </ul>
-        </div>
-        <div id="content">
-
-            <form id="login">
-                <p>
-                    <label for="uid">ID:</label>
-                    <input type="text" class="txt" id="uid">
-                </p>
-                <p>
-                    <label for="pw">パスワード:</label>
-                    <input type="password" class="txt" id="pw">
-                </p>
-                <p align=right>
-                    <input type="submit" name="login" value="ログイン">
-                    <input type="button" name="register" value="登録">
-                </p>
-            </form>
-            <div id="overlay" class="ui-widget-overlay"></div>
-        </div>
-        <div id="info">
-            
-            <div id="progressbar">
-                <p>loading now...</p>
-                <progress></progress>
-            </div>
-        </div>
-        <div id="footer">
-            Copyright &copy; 2013 OIC-SNS All Rights Reserved.
-        </div>
-    </body>
+	</head>
+	<body>
+		<div id="header">
+			<ul>
+				<li class="about"><a href="about.htm">当サイトについて</a>
+				<li class="contact"><a href="contact.htm">通報&問い合わせ</a>
+				<li id="logout">ログアウト
+			</ul>
+		</div>
+		<div id="content">
+			<form id="login" action="https://accounts.google.com/o/oauth2/auth" target="_blank">
+				<input type="hidden" name="scope" value="https://www.googleapis.com/auth/userinfo.email">
+				<input type="hidden" name="redirect_uri" value="<%=REDIRECT_URI%>">
+				<input type="hidden" name="response_type" value="code">
+				<input type="hidden" name="client_id" value="<%=CLIENT_ID%>">
+				<!--<p>
+					<label for="uid">ID:</label>
+					<input type="text" class="txt" id="uid">
+				</p>
+				<p>
+					<label for="pw">パスワード:</label>
+					<input type="password" class="txt" id="pw">
+				</p>-->
+				<p align=right>
+					<!--<input type="button" value="btn" onclick="window.open('https://accounts.google.com/o/oauth2/auth','_blank');">-->
+					<input type="submit" value="ログイン">
+					<input type="button" name="register" value="登録">
+				</p>
+			</form>
+			<div id="overlay" class="ui-widget-overlay"></div>
+		</div>
+		<div id="info">
+			<div id="progressbar">
+				<p>loading now...</p>
+				<progress></progress>
+			</div>
+		</div>
+		<div id="footer">
+			Copyright &copy; 2013 OIC-SNS All Rights Reserved.
+		</div>
+	</body>
 </html>
