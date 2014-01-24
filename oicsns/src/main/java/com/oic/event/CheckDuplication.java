@@ -28,6 +28,7 @@ public class CheckDuplication implements ActionEventImpl{
         v.add("username", v.required(), v.maxLength(24));
         if(!v.validate()){
             responseJSON.put("result", 2);
+            return;
         }else{
             //重複確認
             Connection con = null;

@@ -32,8 +32,6 @@ public class SetProfile implements ActionEventImpl{
         JSONObject responseJSON = new JSONObject();
         responseJSON.put("method", "setprofile");
         if(!validation(json,webSocket)){
-            responseJSON.put("status", "1");
-            webSocket.sendJson(responseJSON);
             return;
         }
         Connection con = DatabaseConnection.getConnection();
@@ -103,7 +101,9 @@ public class SetProfile implements ActionEventImpl{
        if(v.validate()){
            return true;
        }else{
-           webSocket.sendJson(v.getError());
+           JSONObject responseJSON = v.getError();
+           responseJSON.put("status", "1");
+           webSocket.sendJson(responseJSON);
            return false;
        }
     }

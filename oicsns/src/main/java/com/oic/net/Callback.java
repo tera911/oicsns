@@ -22,12 +22,15 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import org.apache.commons.codec.digest.DigestUtils;
+import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.NameValuePair;
 import org.apache.http.client.HttpClient;
+import org.apache.http.client.config.RequestConfig;
 import org.apache.http.client.entity.UrlEncodedFormEntity;
 import org.apache.http.client.methods.HttpGet;
 import org.apache.http.client.methods.HttpPost;
+import org.apache.http.conn.params.ConnRoutePNames;
 import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.message.BasicNameValuePair;
 import org.apache.http.util.EntityUtils;
@@ -94,6 +97,8 @@ public class Callback extends HttpServlet {
 
         HttpClient client = HttpClientBuilder.create().build();
         HttpPost httpPost = new HttpPost(uri);          //POST用
+        RequestConfig config = RequestConfig.custom().setProxy(new HttpHost("prxsrv.oic.jp", 8080, "http")).build();
+        httpPost.setConfig(config);
         httpPost.setHeader("Content-type", "application/x-www-form-urlencoded");    //Header指定
         List<NameValuePair> nvps = new ArrayList<>();
         nvps.add(new BasicNameValuePair("client_id", client_id));
@@ -119,6 +124,8 @@ public class Callback extends HttpServlet {
         String requestURI = "https://www.googleapis.com/oauth2/v2/userinfo";
         HttpClient client = HttpClientBuilder.create().build();
         HttpGet httpGet = new HttpGet(requestURI);
+        RequestConfig config = RequestConfig.custom().setProxy(new HttpHost("prxsrv.oic.jp", 8080, "http")).build();
+        httpGet.setConfig(config);
         httpGet.setHeader("Authorization","OAuth " + access_token);
         HttpResponse response = client.execute(httpGet);
         

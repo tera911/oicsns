@@ -33,8 +33,6 @@ public class RegisterProfile implements ActionEventImpl{
         JSONObject responseJSON = new JSONObject();
         responseJSON.put("method", "setprofile");
         if(!validation(json,webSocket)){
-            responseJSON.put("status", "1");
-            webSocket.sendJson(responseJSON);
             return;
         }
         Connection con = DatabaseConnection.getConnection();
@@ -42,17 +40,16 @@ public class RegisterProfile implements ActionEventImpl{
         try{
             con = DatabaseConnection.getConnection();
             con.setAutoCommit(false);
-            String sql = "INSERT INTO user SET accesstoken = ?, accesstokensecret = ?, studentnumber = ?, name = ?, avatarid = ?, grade = ?, sex = ?, birth = ?, comment = ?";
+            String sql = "INSERT INTO user SET studentnumber = ?, name = ?, avatarid = ?, grade = ?, sex = ?, birth = ?, comment = ?, secretkey = ?";
             ps = con.prepareStatement(sql);
-            ps.setString(1, json.get("accesstoken").toString());
-            ps.setString(2, json.get("accesstokensecret").toString());
-            ps.setString(3, json.get("studentid").toString());
-            ps.setString(4, json.get("username").toString());
-            ps.setInt(5, Integer.parseInt(json.get("avatarid").toString()));
-            ps.setInt(6, Integer.parseInt(json.get("grade").toString()));
-            ps.setInt(7, Integer.parseInt(json.get("gender").toString()));
-            ps.setDate(8, toDate(json.get("birthday").toString()));
-            ps.setString(9, json.get("comment").toString());
+            ps.setString(1, json.get("studentid").toString());
+            ps.setString(2, json.get("username").toString());
+            ps.setInt(3, Integer.parseInt(json.get("avatarid").toString()));
+            ps.setInt(4, Integer.parseInt(json.get("grade").toString()));
+            ps.setInt(5, Integer.parseInt(json.get("gender").toString()));
+            ps.setDate(6, toDate(json.get("birthday").toString()));
+            ps.setString(7, json.get("comment").toString());
+            ps.setString(8, json.get("secretkey").toString());
             ps.executeUpdate();
             ps.close();
             
@@ -98,8 +95,6 @@ public class RegisterProfile implements ActionEventImpl{
     
     private boolean validation(JSONObject json, WebSocketListener webSocket){
         Validators v = new Validators(json);
-        v.add("accesstoken", v.required());
-        v.add("accesstokensecret", v.required());
         v.add("studentid", v.studentId());
         v.add("username", v.required());
         v.add("avatarid", v.integerType());
@@ -107,13 +102,16 @@ public class RegisterProfile implements ActionEventImpl{
         v.add("gender", v.integerType());
         v.add("birthday", v.birthday());
         v.add("comment", v.required());
+        v.add("secretkey", v.required());
         v.add("vgrade", v.required());
         v.add("vgender", v.required());
         v.add("vbirthday", v.required());
        if(v.validate()){
            return true;
        }else{
-           webSocket.sendJson(v.getError());
+           JSONObject responseJSON = v.getError();
+           responseJSON.put("status", "1");
+           webSocket.sendJson(responseJSON);
            return false;
        }
     }
